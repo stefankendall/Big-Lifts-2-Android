@@ -1,30 +1,65 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.stefankendall.BigLifts.data.models.JModel;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
-abstract public class BLJStore {
+abstract public class BLJStore<T> {
     public List<Object> data;
     public Map<String, Object> uuidCache;
+    private static Map<String, BLJStore> stores;
+
+    public static BLJStore instance(Class<? extends BLJStore> klass) {
+        if (stores == null) {
+            stores = Maps.newHashMap();
+        }
+
+        if (!stores.containsKey(klass.getName())) {
+            try {
+                stores.put(klass.getName(), klass.newInstance());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return stores.get(klass.getName());
+    }
 
     public Object create() {
-        return null;
+        JModel object = null;
+        try {
+            object = (JModel) this.modelClass().newInstance();
+        } catch (InstantiationException e) {
+        } catch (IllegalAccessException e) {
+        }
+
+        this.addUuid(object);
+        this.data.add(object);
+        this.setDefaultsForObject(object);
+
+        return object;
     }
+
+    abstract public Class modelClass();
 
     public void empty() {
 
+    }
+
+    public void addUuid(JModel model) {
+        model.uuid = UUID.randomUUID().toString();
     }
 
     public void setupDefaults() {
 
     }
 
-    public void setDefaultsForObject(Object object) {
+    public void setDefaultsForObject(JModel object) {
     }
 
     public void removeAll() {
@@ -77,9 +112,5 @@ abstract public class BLJStore {
 
     public TreeSet<? extends Comparable> unique(String property) {
         return Sets.newTreeSet();
-    }
-
-    public BLJStore instance() {
-        return null;
     }
 }
