@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.stefankendall.BigLifts.data.models.JModel;
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 abstract public class BLJStore<T> {
-    public List<Object> data;
+    public List<JModel> data;
     public Map<String, Object> uuidCache;
     private static Map<String, BLJStore> stores;
 
@@ -28,6 +29,27 @@ abstract public class BLJStore<T> {
         }
 
         return stores.get(klass.getName());
+    }
+
+    public void load() {
+        this.data = Lists.newArrayList();
+
+        if (this.data.isEmpty()) {
+            this.setupDefaults();
+        }
+
+        this.buildUuidCache();
+        this.onLoad();
+    }
+
+    protected void onLoad() {
+    }
+
+    private void buildUuidCache() {
+        this.uuidCache = Maps.newHashMap();
+        for (JModel model : this.data) {
+            this.uuidCache.put(model.uuid, model);
+        }
     }
 
     public Object create() {
