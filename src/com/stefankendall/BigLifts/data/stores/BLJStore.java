@@ -1,9 +1,8 @@
 package com.stefankendall.BigLifts.data.stores;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import com.stefankendall.BigLifts.data.models.JModel;
+import com.stefankendall.BigLifts.data.models.Orderable;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -70,7 +69,8 @@ abstract public class BLJStore<T> {
     abstract public Class modelClass();
 
     public void empty() {
-
+        this.data = Lists.newArrayList();
+        this.uuidCache = Maps.newHashMap();
     }
 
     public void addUuid(JModel model) {
@@ -101,22 +101,35 @@ abstract public class BLJStore<T> {
     }
 
     public Object first() {
-        return null;
+        return this.count() == 0 ? null : this.findAll().get(0);
     }
 
     public Object last() {
-        return null;
+        List<JModel> all = this.findAll();
+        return this.count() == 0 ? null : all.get(all.size() - 1);
     }
 
     public Object find(String name, Object value) {
         return null;
     }
 
-    public List<Object> findAll() {
-        return Collections.emptyList();
+    public List<JModel> findAll() {
+        if (Orderable.class.isAssignableFrom(this.modelClass())) {
+            Ordering<Orderable> byOrderOrdering = new Ordering<Orderable>() {
+                @Override
+                public int compare(Orderable orderable, Orderable orderable2) {
+                    return orderable.getOrder() - orderable2.getOrder();
+                }
+            };
+
+            ImmutableList<Orderable> ordered = byOrderOrdering.immutableSortedCopy(Iterables.filter(this.data, Orderable.class));
+            return ImmutableList.copyOf(Iterables.filter(ordered, JModel.class));
+        } else {
+            return ImmutableList.copyOf(this.data);
+        }
     }
 
-    public List<Object> findAllWhere(String name, Object value) {
+    public List<JModel> findAllWhere(String name, Object value) {
         return Collections.emptyList();
     }
 
@@ -129,7 +142,7 @@ abstract public class BLJStore<T> {
     }
 
     public int count() {
-        return 0;
+        return this.data.size();
     }
 
     public TreeSet<? extends Comparable> unique(String property) {
