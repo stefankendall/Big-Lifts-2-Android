@@ -197,4 +197,8 @@ abstract public class BLJStore<T> {
             }
         });
     }
+
+    public void sync() {
+        //todo
+    }
 }

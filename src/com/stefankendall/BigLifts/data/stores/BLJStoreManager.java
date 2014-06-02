@@ -27,4 +27,15 @@ public class BLJStoreManager {
 
         return instance;
     }
+
+    public void resetAllStores() {
+        for (BLJStore store : this.allStores) {
+            store.empty();
+            store.sync();
+        }
+
+        for (BLJStore store : this.allStores) {
+            store.setupDefaults();
+        }
+    }
 }

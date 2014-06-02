@@ -1,9 +1,8 @@
 package com.stefankendall.BigLifts.data.stores;
 
-import android.test.AndroidTestCase;
-import android.util.Log;
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
+import com.stefankendall.BigLifts.BLTestCase;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
@@ -12,13 +11,7 @@ import junit.framework.Assert;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BLJStoreTest extends AndroidTestCase {
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        JFTOLiftStore.instance().empty();
-    }
-
+public class BLJStoreTest extends BLTestCase {
     public void testCreate() {
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         Assert.assertNotNull(lift);
@@ -133,7 +126,7 @@ public class BLJStoreTest extends AndroidTestCase {
         Assert.assertEquals(found, lift2);
     }
 
-    public void testFindAllWhere(){
+    public void testFindAllWhere() {
         JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
         lift1.name = "A";
         JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
@@ -147,7 +140,7 @@ public class BLJStoreTest extends AndroidTestCase {
         Assert.assertEquals(found.get(1), lift3);
     }
 
-    public void testMax(){
+    public void testMax() {
         JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
         lift1.weight = new BigDecimal("100");
         JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
