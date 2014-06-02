@@ -90,19 +90,28 @@ abstract public class BLJStore<T> {
     }
 
     public void removeAll() {
-
+        while (!this.data.isEmpty()) {
+            this.remove(this.data.get(0));
+        }
     }
 
-    public void remove(Object object) {
+    public void remove(JModel model) {
+        this.data.remove(model);
+        this.uuidCache.remove(model.uuid);
+        this.removeCascadeAssocations(model);
+    }
 
+    private void removeCascadeAssocations(JModel model) {
+        //TODO: fix
     }
 
     public void removeAtIndex(int index) {
-
+        this.remove(this.data.get(index));
     }
 
     public void reset() {
-
+        this.empty();
+        this.setupDefaults();
     }
 
     public Object first() {
@@ -138,6 +147,10 @@ abstract public class BLJStore<T> {
         } else {
             return ImmutableList.copyOf(this.data);
         }
+    }
+
+    public JModel findBy(Predicate<? super JModel> function){
+        return Iterables.find(this.data, function);
     }
 
     public List<JModel> findAllWhere(String name, Object value) {

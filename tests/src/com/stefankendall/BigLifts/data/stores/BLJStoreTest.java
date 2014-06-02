@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.data.stores;
 
 import android.test.AndroidTestCase;
 import android.util.Log;
+import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
@@ -92,5 +93,41 @@ public class BLJStoreTest extends AndroidTestCase {
         Assert.assertEquals(lift1.usesBar, deserialized.usesBar);
         Assert.assertEquals(lift1.weight, deserialized.weight);
         Assert.assertEquals(lift1.order, deserialized.order);
+    }
+
+    public void testRemoveAll() {
+        JFTOLiftStore.instance().create();
+        JFTOLiftStore.instance().create();
+        JFTOLiftStore.instance().removeAll();
+
+        Assert.assertEquals(JFTOLiftStore.instance().count(), 0);
+    }
+
+    public void testRemoveAtIndex() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
+        JFTOLiftStore.instance().removeAtIndex(1);
+
+        Assert.assertEquals(JFTOLiftStore.instance().count(), 2);
+        Assert.assertFalse(JFTOLiftStore.instance().findAll().contains(lift2));
+    }
+
+    public void testFindBy() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.name = "B";
+        JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift3.name = "C";
+
+        JFTOLift found = (JFTOLift) JFTOLiftStore.instance().findBy(new Predicate<JFTOLift>() {
+            @Override
+            public boolean apply(JFTOLift model) {
+                return model.name.equals("B");
+            }
+        });
+
+        Assert.assertEquals(found, lift2);
     }
 }
