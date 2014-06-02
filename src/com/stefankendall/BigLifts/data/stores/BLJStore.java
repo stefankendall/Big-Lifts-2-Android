@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.gson.Gson;
+import com.stefankendall.BigLifts.data.ObjectHelper;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.Orderable;
 
@@ -124,13 +125,7 @@ abstract public class BLJStore<T> {
     }
 
     public Object find(final String name, final Object value) {
-        return Iterables.find(this.data, new Predicate<JModel>() {
-            @Override
-            public boolean apply(JModel model) {
-                Map<String, Object> values = (Map<String, Object>) gson.fromJson(gson.toJsonTree(model), Map.class);
-                return values.get(name) == value;
-            }
-        });
+        return Iterables.find(this.data, nameValuePredicate(name, value));
     }
 
     public List<JModel> findAll() {
@@ -149,20 +144,41 @@ abstract public class BLJStore<T> {
         }
     }
 
-    public JModel findBy(Predicate<? super JModel> function){
+    public JModel findBy(Predicate<? super JModel> function) {
         return Iterables.find(this.data, function);
     }
 
-    public List<JModel> findAllWhere(String name, Object value) {
-        return Collections.emptyList();
+    public List<JModel> findAllWhere(final String name, final Object value) {
+        return ImmutableList.copyOf(Iterables.filter(this.data, nameValuePredicate(name, value)));
+    }
+
+    private Predicate<JModel> nameValuePredicate(final String name, final Object value) {
+        return new Predicate<JModel>() {
+            @Override
+            public boolean apply(JModel model) {
+                return ObjectHelper.getProperty(model, name) == value;
+            }
+        };
     }
 
     public Object atIndex(int index) {
-        return null;
+        return this.data.get(index);
     }
 
-    public BigDecimal max(String property) {
-        return null;
+    public BigDecimal max(final String property) {
+        if (this.count() == 0) {
+            return null;
+        }
+
+        List<BigDecimal> values = Lists.newArrayList(Lists.transform(this.data, new Function<JModel, BigDecimal>() {
+            @Override
+            public BigDecimal apply(JModel model) {
+                return (BigDecimal) ObjectHelper.getProperty(model, property);
+            }
+        }));
+
+        Collections.sort(values);
+        return values.get(values.size() - 1);
     }
 
     public int count() {

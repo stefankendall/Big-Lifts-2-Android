@@ -25,7 +25,9 @@ public class BLJStoreTest extends AndroidTestCase {
     }
 
     public void testCount() {
+        Assert.assertEquals(JFTOLiftStore.instance().count(), 0);
         JFTOLiftStore.instance().create();
+        Assert.assertEquals(JFTOLiftStore.instance().count(), 1);
         JFTOLiftStore.instance().create();
         Assert.assertEquals(JFTOLiftStore.instance().count(), 2);
     }
@@ -129,5 +131,30 @@ public class BLJStoreTest extends AndroidTestCase {
         });
 
         Assert.assertEquals(found, lift2);
+    }
+
+    public void testFindAllWhere(){
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.name = "B";
+        JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift3.name = "A";
+
+        List<JModel> found = JFTOLiftStore.instance().findAllWhere("name", "A");
+        Assert.assertEquals(found.size(), 2);
+        Assert.assertEquals(found.get(0), lift1);
+        Assert.assertEquals(found.get(1), lift3);
+    }
+
+    public void testMax(){
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.weight = new BigDecimal("100");
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.weight = new BigDecimal("200");
+        JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift3.weight = new BigDecimal("150");
+
+        Assert.assertEquals(JFTOLiftStore.instance().max("weight"), new BigDecimal("200"));
     }
 }
