@@ -1,6 +1,9 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.*;
+import com.google.gson.Gson;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.Orderable;
 
@@ -11,9 +14,11 @@ abstract public class BLJStore<T> {
     public List<JModel> data;
     public Map<String, Object> uuidCache;
     private static Map<String, BLJStore> stores;
+    private static Gson gson;
 
     public static BLJStore instance(Class<? extends BLJStore> klass) {
         if (stores == null) {
+            gson = new Gson();
             stores = Maps.newHashMap();
         }
 
@@ -109,8 +114,14 @@ abstract public class BLJStore<T> {
         return this.count() == 0 ? null : all.get(all.size() - 1);
     }
 
-    public Object find(String name, Object value) {
-        return null;
+    public Object find(final String name, final Object value) {
+        return Iterables.find(this.data, new Predicate<JModel>() {
+            @Override
+            public boolean apply(JModel model) {
+                Map<String, Object> values = (Map<String, Object>) gson.fromJson(gson.toJsonTree(model), Map.class);
+                return values.get(name) == value;
+            }
+        });
     }
 
     public List<JModel> findAll() {
@@ -147,5 +158,14 @@ abstract public class BLJStore<T> {
 
     public TreeSet<? extends Comparable> unique(String property) {
         return Sets.newTreeSet();
+    }
+
+    public List<String> serialize() {
+        return Lists.transform(this.data, new Function<JModel, String>() {
+            @Override
+            public String apply(JModel model) {
+                return gson.toJson(model);
+            }
+        });
     }
 }

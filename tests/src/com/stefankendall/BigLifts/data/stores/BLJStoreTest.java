@@ -1,9 +1,15 @@
 package com.stefankendall.BigLifts.data.stores;
 
 import android.test.AndroidTestCase;
+import android.util.Log;
+import com.google.gson.Gson;
+import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import junit.framework.Assert;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class BLJStoreTest extends AndroidTestCase {
     @Override
@@ -42,6 +48,49 @@ public class BLJStoreTest extends AndroidTestCase {
     }
 
     public void testFindByNameValue() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
 
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.name = "B";
+
+        JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift3.name = "C";
+
+        Assert.assertEquals(JFTOLiftStore.instance().find("name", "B"), lift2);
+    }
+
+    public void testFindAll() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
+
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.name = "B";
+
+        List<JModel> all = JFTOLiftStore.instance().findAll();
+        Assert.assertEquals(all.size(), 2);
+        Assert.assertEquals(all.get(0), lift1);
+        Assert.assertEquals(all.get(1), lift2);
+    }
+
+    public void testSerialize() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
+        lift1.increment = new BigDecimal("5.5");
+        lift1.usesBar = true;
+        lift1.weight = new BigDecimal("100");
+        lift1.order = 1;
+
+        List<String> serialized = JFTOLiftStore.instance().serialize();
+        Assert.assertEquals(serialized.size(), 1);
+        Gson gson = new Gson();
+
+        JFTOLift deserialized = gson.fromJson(serialized.get(0), JFTOLift.class);
+
+        Assert.assertEquals(lift1.name, deserialized.name);
+        Assert.assertEquals(lift1.increment, deserialized.increment);
+        Assert.assertEquals(lift1.usesBar, deserialized.usesBar);
+        Assert.assertEquals(lift1.weight, deserialized.weight);
+        Assert.assertEquals(lift1.order, deserialized.order);
     }
 }
