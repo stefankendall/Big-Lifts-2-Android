@@ -1,13 +1,12 @@
 package com.stefankendall.BigLifts.data.stores;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 
 import java.util.List;
 
 public class BLJStoreManager {
-    private List<BLJStore> allStores;
+    private List<? extends BLJStore> allStores;
 
     public void loadStores() {
         for (BLJStore store : this.allStores) {

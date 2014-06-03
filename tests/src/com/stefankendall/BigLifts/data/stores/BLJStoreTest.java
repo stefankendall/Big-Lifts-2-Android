@@ -12,6 +12,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BLJStoreTest extends BLTestCase {
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        JFTOLiftStore.instance().empty();
+    }
+
     public void testCreate() {
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         Assert.assertNotNull(lift);
@@ -116,10 +122,11 @@ public class BLJStoreTest extends BLTestCase {
         JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
         lift3.name = "C";
 
-        JFTOLift found = (JFTOLift) JFTOLiftStore.instance().findBy(new Predicate<JFTOLift>() {
+        JFTOLift found = (JFTOLift) JFTOLiftStore.instance().findBy(new Predicate<JModel>() {
             @Override
-            public boolean apply(JFTOLift model) {
-                return model.name.equals("B");
+            public boolean apply(JModel model) {
+                JFTOLift lift = (JFTOLift) model;
+                return lift.name.equals("B");
             }
         });
 

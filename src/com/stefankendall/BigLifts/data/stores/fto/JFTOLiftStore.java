@@ -22,6 +22,7 @@ public class JFTOLiftStore extends JLiftStore {
 
     @Override
     public void setDefaultsForObject(JModel object) {
+        super.setDefaultsForObject(object);
         JFTOLift lift = (JFTOLift) object;
         Integer maxOrder = (Integer) this.max("order");
         lift.order = maxOrder == null ? 0 : maxOrder.intValue() + 1;

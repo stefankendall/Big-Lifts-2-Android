@@ -8,10 +8,9 @@ import com.stefankendall.BigLifts.data.ObjectHelper;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.Orderable;
 
-import java.math.BigDecimal;
 import java.util.*;
 
-abstract public class BLJStore<T> {
+abstract public class BLJStore {
     public List<JModel> data;
     public Map<String, Object> uuidCache;
     private static Map<String, BLJStore> stores;
@@ -165,15 +164,15 @@ abstract public class BLJStore<T> {
         return this.data.get(index);
     }
 
-    public BigDecimal max(final String property) {
+    public Comparable max(final String property) {
         if (this.count() == 0) {
             return null;
         }
 
-        List<BigDecimal> values = Lists.newArrayList(Lists.transform(this.data, new Function<JModel, BigDecimal>() {
+        List<Comparable> values = Lists.newArrayList(Lists.transform(this.data, new Function<JModel, Comparable>() {
             @Override
-            public BigDecimal apply(JModel model) {
-                return (BigDecimal) ObjectHelper.getProperty(model, property);
+            public Comparable apply(JModel model) {
+                return (Comparable) ObjectHelper.getProperty(model, property);
             }
         }));
 
