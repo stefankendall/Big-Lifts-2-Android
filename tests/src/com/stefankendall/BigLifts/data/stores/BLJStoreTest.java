@@ -69,7 +69,7 @@ public class BLJStoreTest extends BLTestCase {
         JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
         lift2.name = "B";
 
-        List<JModel> all = JFTOLiftStore.instance().findAll();
+        List<JFTOLift> all = (List<JFTOLift>) JFTOLiftStore.instance().findAll();
         Assert.assertEquals(all.size(), 2);
         Assert.assertEquals(all.get(0), lift1);
         Assert.assertEquals(all.get(1), lift2);

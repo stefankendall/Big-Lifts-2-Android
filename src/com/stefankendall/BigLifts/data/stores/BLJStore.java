@@ -116,20 +116,20 @@ abstract public class BLJStore {
         this.setupDefaults();
     }
 
-    public Object first() {
+    public JModel first() {
         return this.count() == 0 ? null : this.findAll().get(0);
     }
 
-    public Object last() {
-        List<JModel> all = this.findAll();
-        return this.count() == 0 ? null : all.get(all.size() - 1);
+    public JModel last() {
+        List all = this.findAll();
+        return this.count() == 0 ? null : (JModel) all.get(all.size() - 1);
     }
 
     public Object find(final String name, final Object value) {
         return Iterables.find(this.data, nameValuePredicate(name, value));
     }
 
-    public List<JModel> findAll() {
+    public List<? extends JModel> findAll() {
         if (Orderable.class.isAssignableFrom(this.modelClass())) {
             Ordering<Orderable> byOrderOrdering = new Ordering<Orderable>() {
                 @Override

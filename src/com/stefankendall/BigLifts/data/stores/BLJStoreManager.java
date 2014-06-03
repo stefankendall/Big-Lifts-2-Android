@@ -29,6 +29,7 @@ public class BLJStoreManager {
                     JFTOSettingsStore.instance(),
 
                     JBarStore.instance(),
+                    JPlateStore.instance(),
 
                     JFTOLiftStore.instance()
             );

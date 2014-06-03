@@ -1,8 +1,5 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-import com.stefankendall.BigLifts.data.models.JLift;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
@@ -11,7 +8,6 @@ import com.stefankendall.BigLifts.data.stores.JLiftStore;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class JFTOLiftStore extends JLiftStore {
     public boolean isSettingDefaults;
@@ -58,11 +54,14 @@ public class JFTOLiftStore extends JLiftStore {
         JSettings settings = (JSettings) settingsStore.first();
         for (JModel model : this.findAll()) {
             JFTOLift lift = (JFTOLift) model;
-            if( settings.units.equals("kg")){
+            if (lift.increment == null) {
+                continue;
+            }
+
+            if (settings.units.equals("kg")) {
                 lift.increment = lift.increment.equals(settingsStore.defaultLbsIncrementForLift(lift.name))
                         ? settingsStore.defaultIncrementForLift(lift.name) : lift.increment;
-            }
-            else {
+            } else {
                 lift.increment = lift.increment.equals(settingsStore.defaultKgIncrementForLift(lift.name))
                         ? settingsStore.defaultIncrementForLift(lift.name) : lift.increment;
             }
