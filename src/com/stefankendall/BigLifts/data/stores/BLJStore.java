@@ -16,6 +16,10 @@ abstract public class BLJStore {
     private static Map<String, BLJStore> stores;
     private static Gson gson;
 
+    public BLJStore() {
+        this.data = Lists.newArrayList();
+    }
+
     public synchronized static BLJStore instance(Class<? extends BLJStore> klass) {
         if (stores == null) {
             gson = new Gson();
@@ -36,8 +40,6 @@ abstract public class BLJStore {
     }
 
     public void load() {
-        this.data = Lists.newArrayList();
-
         if (this.data.isEmpty()) {
             this.setupDefaults();
         }
@@ -59,7 +61,7 @@ abstract public class BLJStore {
     public Object create() {
         JModel object = null;
         try {
-            object = (JModel) this.modelClass().newInstance();
+            object = this.modelClass().newInstance();
         } catch (InstantiationException e) {
         } catch (IllegalAccessException e) {
         }

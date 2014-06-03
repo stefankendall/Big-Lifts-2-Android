@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.models;
 
+import com.stefankendall.BigLifts.data.stores.JBarStore;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 
@@ -25,6 +26,7 @@ public class JSettings extends JModel {
         this.units = units;
         JSettingsStore.instance().adjustForKg();
         JFTOLiftStore.instance().adjustForKg();
+        JBarStore.instance().adjustForKg();
     }
 
     public void setRoundTo(BigDecimal roundTo) {
