@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.data.stores;
 
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class BLJStoreManager {
             instance = new BLJStoreManager();
             instance.allStores = Lists.newArrayList(
                     JSettingsStore.instance(),
+                    JFTOSettingsStore.instance(),
                     JFTOLiftStore.instance()
             );
         }
