@@ -11,7 +11,9 @@ public class BLJStoreManager {
 
     public void loadStores() {
         for (BLJStore store : this.allStores) {
-            store.load();
+            if (store != JVersionStore.instance()) {
+                store.load();
+            }
         }
     }
 
@@ -21,8 +23,11 @@ public class BLJStoreManager {
         if (instance == null) {
             instance = new BLJStoreManager();
             instance.allStores = Lists.newArrayList(
+                    JVersionStore.instance(),
+
                     JSettingsStore.instance(),
                     JFTOSettingsStore.instance(),
+
                     JFTOLiftStore.instance()
             );
         }
