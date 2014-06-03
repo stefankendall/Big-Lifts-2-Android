@@ -1,12 +1,17 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.data.models.JLift;
 import com.stefankendall.BigLifts.data.models.JModel;
+import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.BLJStore;
 import com.stefankendall.BigLifts.data.stores.JLiftStore;
-import junit.framework.Assert;
+import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class JFTOLiftStore extends JLiftStore {
     public boolean isSettingDefaults;
@@ -16,7 +21,7 @@ public class JFTOLiftStore extends JLiftStore {
     }
 
     @Override
-    public Class modelClass() {
+    public Class<? extends JModel> modelClass() {
         return JFTOLift.class;
     }
 
@@ -49,6 +54,18 @@ public class JFTOLiftStore extends JLiftStore {
     }
 
     public void adjustForKg() {
-
+        JSettingsStore settingsStore = JSettingsStore.instance();
+        JSettings settings = (JSettings) settingsStore.first();
+        for (JModel model : this.findAll()) {
+            JFTOLift lift = (JFTOLift) model;
+            if( settings.units.equals("kg")){
+                lift.increment = lift.increment.equals(settingsStore.defaultLbsIncrementForLift(lift.name))
+                        ? settingsStore.defaultIncrementForLift(lift.name) : lift.increment;
+            }
+            else {
+                lift.increment = lift.increment.equals(settingsStore.defaultKgIncrementForLift(lift.name))
+                        ? settingsStore.defaultIncrementForLift(lift.name) : lift.increment;
+            }
+        }
     }
 }

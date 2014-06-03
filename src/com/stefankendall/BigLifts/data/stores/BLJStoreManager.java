@@ -16,10 +16,11 @@ public class BLJStoreManager {
 
     private static BLJStoreManager instance;
 
-    public static BLJStoreManager instance() {
+    public synchronized static BLJStoreManager instance() {
         if (instance == null) {
             instance = new BLJStoreManager();
             instance.allStores = Lists.newArrayList(
+                    JSettingsStore.instance(),
                     JFTOLiftStore.instance()
             );
         }

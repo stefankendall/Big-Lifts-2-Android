@@ -16,7 +16,7 @@ abstract public class BLJStore {
     private static Map<String, BLJStore> stores;
     private static Gson gson;
 
-    public static BLJStore instance(Class<? extends BLJStore> klass) {
+    public synchronized static BLJStore instance(Class<? extends BLJStore> klass) {
         if (stores == null) {
             gson = new Gson();
             stores = Maps.newHashMap();
@@ -71,7 +71,7 @@ abstract public class BLJStore {
         return object;
     }
 
-    abstract public Class modelClass();
+    abstract public Class<? extends JModel> modelClass();
 
     public void empty() {
         this.data = Lists.newArrayList();

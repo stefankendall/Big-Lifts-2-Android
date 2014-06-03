@@ -1,7 +1,9 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
 import com.stefankendall.BigLifts.BLTestCase;
+import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
+import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import junit.framework.Assert;
 
 import java.math.BigDecimal;
@@ -18,7 +20,12 @@ public class JFTOLiftStoreTest extends BLTestCase {
     }
 
     public void testIncrementsHonorsUnits(){
-        Assert.fail();
+        JSettings settings = (JSettings) JSettingsStore.instance().first();
+        settings.setUnits("kg");
+        JFTOLift press = (JFTOLift) JFTOLiftStore.instance().find("name", "Press");
+        Assert.assertEquals(press.increment, new BigDecimal("2"));
+        settings.setUnits("lbs");
+        Assert.assertEquals(press.increment, new BigDecimal("5"));
     }
 
     public void testIncrementsLifts(){
