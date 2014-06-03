@@ -21,6 +21,9 @@ abstract public class JLiftStore extends BLJStore {
     }
 
     public void incrementLifts() {
-
+        for (JModel object : this.findAll()) {
+            JLift lift = (JLift) object;
+            lift.weight = lift.weight.add(lift.increment);
+        }
     }
 }

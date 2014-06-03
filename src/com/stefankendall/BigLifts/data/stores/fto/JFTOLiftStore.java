@@ -1,19 +1,50 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
+import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.BLJStore;
 import com.stefankendall.BigLifts.data.stores.JLiftStore;
+import junit.framework.Assert;
+
+import java.math.BigDecimal;
 
 public class JFTOLiftStore extends JLiftStore {
     public boolean isSettingDefaults;
 
-    public static BLJStore instance() {
-        return BLJStore.instance(JFTOLiftStore.class);
+    public static JFTOLiftStore instance() {
+        return (JFTOLiftStore) BLJStore.instance(JFTOLiftStore.class);
     }
 
     @Override
     public Class modelClass() {
         return JFTOLift.class;
+    }
+
+    @Override
+    public void setDefaultsForObject(JModel object) {
+        JFTOLift lift = (JFTOLift) object;
+        Integer maxOrder = (Integer) this.max("order");
+        lift.order = maxOrder == null ? 0 : maxOrder.intValue() + 1;
+    }
+
+    @Override
+    public void setupDefaults() {
+        this.isSettingDefaults = true;
+
+        this.create("Bench", new BigDecimal("5"), 0);
+        this.create("Squat", new BigDecimal("10"), 1);
+        this.create("Press", new BigDecimal("5"), 2);
+        this.create("Deadlift", new BigDecimal("10"), 3);
+
+        this.isSettingDefaults = false;
+    }
+
+    private void create(String name, BigDecimal increment, int order) {
+        JFTOLift lift = (JFTOLift) this.create();
+        lift.name = name;
+        lift.increment = increment;
+        lift.order = order;
+        lift.usesBar = true;
     }
 
     public void adjustForKg() {
