@@ -60,7 +60,49 @@ public class WeightRounder {
     }
 
     protected static BigDecimal roundTo2p5(BigDecimal number, String roundingType) {
-        return null;
+        BigDecimal lastDigitAndDecimals = WeightRounder.getLastPartsOf(number);
+
+        if (lastDigitAndDecimals.equals(new BigDecimal("2.5"))
+                || lastDigitAndDecimals.equals(new BigDecimal("5"))
+                || lastDigitAndDecimals.equals(new BigDecimal("7.5"))
+                || lastDigitAndDecimals.equals(new BigDecimal("0"))) {
+            return number;
+        }
+
+        BigDecimal numberWithoutLastDigits = number.subtract(lastDigitAndDecimals);
+        BigDecimal roundedNumber = null;
+
+        if (lastDigitAndDecimals.compareTo(new BigDecimal("1.25")) < 0) {
+            roundedNumber = numberWithoutLastDigits;
+        } else if (lastDigitAndDecimals.compareTo(new BigDecimal("3.75")) < 0) {
+            roundedNumber = numberWithoutLastDigits.add(new BigDecimal("2.5"));
+        } else if (lastDigitAndDecimals.compareTo(new BigDecimal("6.25")) < 0) {
+            roundedNumber = numberWithoutLastDigits.add(new BigDecimal("5"));
+        } else if (lastDigitAndDecimals.compareTo(new BigDecimal("8.75")) < 0) {
+            roundedNumber = numberWithoutLastDigits.add(new BigDecimal("7.5"));
+        } else {
+            roundedNumber = numberWithoutLastDigits.add(BigDecimal.TEN);
+        }
+
+        if (roundingType.equals(JSettings.ROUNDING_TYPE_UP)) {
+            if (roundedNumber.compareTo(number) < 0) {
+                return roundedNumber.add(new BigDecimal("2.5"));
+            }
+        } else if (roundingType.equals(JSettings.ROUNDING_TYPE_DOWN)) {
+            if (roundedNumber.compareTo(number) > 0) {
+                return roundedNumber.subtract(new BigDecimal("2.5"));
+            }
+        }
+
+        return roundedNumber;
+    }
+
+    private static BigDecimal getLastPartsOf(BigDecimal number) {
+        BigDecimal wholeNumbers = number.setScale(0, RoundingMode.DOWN);
+        BigDecimal decimals = number.subtract(wholeNumbers);
+        int lastDigit = wholeNumbers.intValue() % 10;
+        BigDecimal lastDigitDecimal = new BigDecimal(lastDigit);
+        return lastDigitDecimal.add(decimals);
     }
 
     protected static BigDecimal roundTo2(BigDecimal number, String roundingType) {
