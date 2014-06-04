@@ -29,7 +29,40 @@ public class WeightRounder {
     }
 
     protected static BigDecimal roundToNearest5(BigDecimal number, String roundingType) {
-        return null;
+        BigDecimal lastPart = WeightRounder.getLastPartsOf(number);
+        if (lastPart.equals(new BigDecimal("5"))) {
+            return number;
+        }
+
+        if (roundingType.equals(JSettings.ROUNDING_TYPE_UP)) {
+            if (lastPart.compareTo(new BigDecimal("5")) < 0) {
+                return number.subtract(lastPart).add(new BigDecimal("5"));
+            } else {
+                return number.subtract(lastPart).add(new BigDecimal("15"));
+            }
+        } else if (roundingType.equals(JSettings.ROUNDING_TYPE_DOWN)) {
+            if (lastPart.compareTo(new BigDecimal("5")) < 0) {
+                return number.subtract(lastPart).subtract(new BigDecimal("5"));
+            } else {
+                return number.subtract(lastPart).add(new BigDecimal("5"));
+            }
+        }
+
+        BigDecimal roundedTo5 = WeightRounder.roundTo5(number, JSettings.ROUNDING_TYPE_NORMAL);
+        if (roundedTo5.intValue() % 10 == 0) {
+            BigDecimal up = roundedTo5.add(new BigDecimal("3"));
+            BigDecimal down = roundedTo5.subtract(new BigDecimal("3"));
+            BigDecimal up5 = WeightRounder.roundTo5(up, JSettings.ROUNDING_TYPE_NORMAL);
+            BigDecimal down5 = WeightRounder.roundTo5(down, JSettings.ROUNDING_TYPE_NORMAL);
+
+            BigDecimal upDistance = up5.subtract(number);
+            BigDecimal downDistance = number.subtract(down5);
+
+            int upToDown = upDistance.compareTo(downDistance);
+            return upToDown <= 0 ? up5 : down5;
+        } else {
+            return roundedTo5;
+        }
     }
 
     protected static BigDecimal roundTo5(BigDecimal number, String roundingType) {
