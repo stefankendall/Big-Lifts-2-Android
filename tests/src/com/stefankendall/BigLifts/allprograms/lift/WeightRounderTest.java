@@ -97,4 +97,12 @@ public class WeightRounderTest extends BLTestCase {
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("165")).compareTo(new BigDecimal("165")));
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("164.9")).compareTo(new BigDecimal("155")));
     }
+
+    public void testRoundsTo2(){
+        ((JSettings)JSettingsStore.instance().first()).setRoundTo(new BigDecimal("2"));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("166")).compareTo(new BigDecimal("166")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("160")).compareTo(new BigDecimal("160")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("159")).compareTo(new BigDecimal("160")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("158.9")).compareTo(new BigDecimal("158")));
+    }
 }
