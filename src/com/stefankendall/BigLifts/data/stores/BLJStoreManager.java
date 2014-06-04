@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOSetStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOVariantStore;
 
@@ -37,6 +38,7 @@ public class BLJStoreManager {
                     JLiftStore.instance(),
 
                     JSetStore.instance(),
+                    JFTOSetStore.instance(),
                     JWorkoutStore.instance(),
 
                     JBarStore.instance(),
