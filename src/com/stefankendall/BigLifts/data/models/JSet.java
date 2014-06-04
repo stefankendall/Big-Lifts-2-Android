@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.models;
 
+import com.stefankendall.BigLifts.allprograms.lift.WeightRounder;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
 
 import java.math.BigDecimal;
@@ -32,6 +33,6 @@ public class JSet extends JModel {
     }
 
     public BigDecimal roundedEffectiveWeight(){
-        return null;
+        return WeightRounder.round(this.effectiveWeight());
     }
 }
