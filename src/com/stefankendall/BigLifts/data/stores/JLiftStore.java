@@ -5,7 +5,16 @@ import com.stefankendall.BigLifts.data.models.JModel;
 
 import java.math.BigDecimal;
 
-abstract public class JLiftStore extends BLJStore {
+public class JLiftStore extends BLJStore {
+    public static JLiftStore instance() {
+        return (JLiftStore) BLJStore.instance(JLiftStore.class);
+    }
+
+    @Override
+    public Class<? extends JModel> modelClass() {
+        return JLift.class;
+    }
+
     @Override
     public void setDefaultsForObject(JModel object) {
         JLift lift = (JLift) object;

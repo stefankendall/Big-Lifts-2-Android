@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import android.util.Log;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
@@ -28,6 +29,10 @@ public class BLJStoreManager {
 
                     JSettingsStore.instance(),
                     JFTOSettingsStore.instance(),
+
+                    JLiftStore.instance(),
+
+                    JSetStore.instance(),
 
                     JBarStore.instance(),
                     JPlateStore.instance(),
