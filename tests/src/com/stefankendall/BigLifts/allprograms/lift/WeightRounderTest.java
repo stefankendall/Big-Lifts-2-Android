@@ -87,7 +87,7 @@ public class WeightRounderTest extends BLTestCase {
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("159")).compareTo(new BigDecimal("155")));
     }
 
-    public void testRoundToNearest5WithDirection(){
+    public void testRoundToNearest5WithDirection() {
         ((JSettings) JSettingsStore.instance().first()).setRoundTo(new BigDecimal(JSettings.NEAREST_5_ROUNDING));
         ((JSettings) JSettingsStore.instance().first()).setRoundingType(JSettings.ROUNDING_TYPE_UP);
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("165")).compareTo(new BigDecimal("165")));
@@ -98,11 +98,24 @@ public class WeightRounderTest extends BLTestCase {
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("164.9")).compareTo(new BigDecimal("155")));
     }
 
-    public void testRoundsTo2(){
-        ((JSettings)JSettingsStore.instance().first()).setRoundTo(new BigDecimal("2"));
+    public void testRoundsTo2() {
+        ((JSettings) JSettingsStore.instance().first()).setRoundTo(new BigDecimal("2"));
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("166")).compareTo(new BigDecimal("166")));
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("160")).compareTo(new BigDecimal("160")));
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("159")).compareTo(new BigDecimal("160")));
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("158.9")).compareTo(new BigDecimal("158")));
+    }
+
+    public void testRoundsTo2WithDirection() {
+        ((JSettings) JSettingsStore.instance().first()).setRoundTo(new BigDecimal("2"));
+        ((JSettings) JSettingsStore.instance().first()).setRoundingType(JSettings.ROUNDING_TYPE_UP);
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("166")).compareTo(new BigDecimal("166")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("166.1")).compareTo(new BigDecimal("168")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("165.9")).compareTo(new BigDecimal("166")));
+
+        ((JSettings) JSettingsStore.instance().first()).setRoundingType(JSettings.ROUNDING_TYPE_DOWN);
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("166")).compareTo(new BigDecimal("166")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("166.1")).compareTo(new BigDecimal("166")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("165.9")).compareTo(new BigDecimal("164")));
     }
 }

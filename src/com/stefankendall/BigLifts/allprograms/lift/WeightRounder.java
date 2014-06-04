@@ -139,7 +139,41 @@ public class WeightRounder {
     }
 
     protected static BigDecimal roundTo2(BigDecimal number, String roundingType) {
-        return null;
+        int lastDigitAndDecimalTimes10 = number.multiply(BigDecimal.TEN).intValue() % 100;
+        while (lastDigitAndDecimalTimes10 >= 20) {
+            lastDigitAndDecimalTimes10 -= 20;
+        }
+
+        BigDecimal roundedTo1 = WeightRounder.roundTo1(number, roundingType);
+        if (lastDigitAndDecimalTimes10 == 0) {
+            return roundedTo1;
+        }
+
+        BigDecimal numberWithoutDecimals = number.subtract(WeightRounder.getDecimalPart(number));
+        if (roundingType.equals(JSettings.ROUNDING_TYPE_UP)) {
+            if (numberWithoutDecimals.intValue() % 2 == 0) {
+                return numberWithoutDecimals.add(new BigDecimal("2"));
+            } else {
+                return numberWithoutDecimals.add(new BigDecimal("1"));
+            }
+        } else if (roundingType.equals(JSettings.ROUNDING_TYPE_DOWN)) {
+            if (numberWithoutDecimals.intValue() % 2 == 0) {
+                return numberWithoutDecimals;
+            } else {
+                return numberWithoutDecimals.subtract(BigDecimal.ONE);
+            }
+        }
+
+        if (roundedTo1.compareTo(number) > 0) {
+            return roundedTo1.subtract(BigDecimal.ONE);
+        } else {
+            return roundedTo1.add(BigDecimal.ONE);
+        }
+    }
+
+    private static BigDecimal getDecimalPart(BigDecimal number) {
+        BigDecimal wholeNumbers = number.setScale(0, RoundingMode.DOWN);
+        return number.subtract(wholeNumbers);
     }
 
     protected static BigDecimal roundTo1(BigDecimal number, String roundingType) {
