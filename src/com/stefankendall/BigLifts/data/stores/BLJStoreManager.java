@@ -1,6 +1,9 @@
 package com.stefankendall.BigLifts.data.stores;
 
 import android.util.Log;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
@@ -53,5 +56,24 @@ public class BLJStoreManager {
         for (BLJStore store : this.allStores) {
             store.setupDefaults();
         }
+    }
+
+    public BLJStore storeForModel(final Class klass, String uuid) {
+        List<BLJStore> matchingStores = ImmutableList.copyOf(Iterables.filter(this.allStores, new Predicate<BLJStore>() {
+            @Override
+            public boolean apply(BLJStore bljStore) {
+                return klass.isAssignableFrom(bljStore.modelClass());
+            }
+        }));
+        if (matchingStores.size() == 1) {
+            return matchingStores.get(0);
+        }
+
+        for (BLJStore store : matchingStores) {
+            if (store.find("uuid", uuid) != null) {
+                return store;
+            }
+        }
+        return null;
     }
 }
