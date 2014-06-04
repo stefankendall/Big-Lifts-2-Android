@@ -7,6 +7,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOVariantStore;
 
 import java.util.List;
 
@@ -36,9 +37,12 @@ public class BLJStoreManager {
                     JLiftStore.instance(),
 
                     JSetStore.instance(),
+                    JWorkoutStore.instance(),
 
                     JBarStore.instance(),
                     JPlateStore.instance(),
+
+                    JFTOVariantStore.instance(),
 
                     JFTOLiftStore.instance()
             );
