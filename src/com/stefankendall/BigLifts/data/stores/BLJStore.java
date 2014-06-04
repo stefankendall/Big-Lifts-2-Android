@@ -104,7 +104,23 @@ abstract public class BLJStore {
     }
 
     private void removeCascadeAssocations(JModel model) {
-        //TODO: fix
+        for (String property : model.cascadeDeleteProperties()) {
+            Object value = ObjectHelper.getProperty(model, property);
+            if (value == null) {
+                continue;
+            }
+
+            if (value instanceof List) {
+                List<JModel> models = (List<JModel>) value;
+                for (JModel association : models) {
+                    BLJStoreManager.instance().storeForModel(association.getClass(), association.uuid).remove(association);
+                }
+            }
+            else {
+                JModel association = (JModel) value;
+                BLJStoreManager.instance().storeForModel(association.getClass(), association.uuid).remove(association);
+            }
+        }
     }
 
     public void removeAtIndex(int index) {

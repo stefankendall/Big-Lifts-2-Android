@@ -24,7 +24,7 @@ import com.stefankendall.BigLifts.data.stores.fto.plans.JFTOWorkoutSetsGenerator
 import java.util.List;
 import java.util.Map;
 
-class JFTOWorkoutStore extends BLJStore {
+public class JFTOWorkoutStore extends BLJStore {
     @Override
     public Class<? extends JModel> modelClass() {
         return JFTOWorkout.class;
@@ -39,7 +39,7 @@ class JFTOWorkoutStore extends BLJStore {
         this.switchTemplate();
     }
 
-    private void switchTemplate() {
+    public void switchTemplate() {
         this.restoreTemplate();
         //todo: add assistance
     }

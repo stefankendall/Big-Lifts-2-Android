@@ -13,4 +13,16 @@ public class JFTOVariantStore extends BLJStore {
     public static JFTOVariantStore instance() {
         return (JFTOVariantStore) BLJStore.instance(JFTOVariantStore.class);
     }
+
+    @Override
+    public void setupDefaults() {
+        JFTOVariant variant = (JFTOVariant) this.create();
+        variant.name = JFTOVariant.STANDARD;
+    }
+
+    public void changeTo(String variant) {
+        JFTOVariant ftoVariant = (JFTOVariant) this.first();
+        ftoVariant.name = variant;
+        JFTOWorkoutStore.instance().switchTemplate();
+    }
 }
