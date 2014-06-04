@@ -24,6 +24,7 @@ public class BLJStoreManager {
             instance = new BLJStoreManager();
             instance.allStores = Lists.newArrayList(
                     JVersionStore.instance(),
+                    JCurrentProgramStore.instance(),
 
                     JSettingsStore.instance(),
                     JFTOSettingsStore.instance(),
