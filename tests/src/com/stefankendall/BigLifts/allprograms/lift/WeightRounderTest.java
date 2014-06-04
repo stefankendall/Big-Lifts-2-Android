@@ -42,4 +42,23 @@ public class WeightRounderTest extends BLTestCase {
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("88.75")).compareTo(new BigDecimal("90")));
         Assert.assertEquals(0, WeightRounder.round(new BigDecimal("90")).compareTo(new BigDecimal("90")));
     }
+
+    public void testRoundsTo2p5WithDirection() {
+        ((JSettings) JSettingsStore.instance().first()).setRoundTo(new BigDecimal("2.5"));
+        ((JSettings) JSettingsStore.instance().first()).setRoundingType(JSettings.ROUNDING_TYPE_UP);
+
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("80.1")).compareTo(new BigDecimal("82.5")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("82.5")).compareTo(new BigDecimal("82.5")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("85")).compareTo(new BigDecimal("85")));
+
+        ((JSettings) JSettingsStore.instance().first()).setRoundingType(JSettings.ROUNDING_TYPE_DOWN);
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("82.4")).compareTo(new BigDecimal("80")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("89.9")).compareTo(new BigDecimal("87.5")));
+        Assert.assertEquals(0, WeightRounder.round(new BigDecimal("85")).compareTo(new BigDecimal("85")));
+    }
+
+    public void testDoesNotCrashOnBoundaryInputs() {
+        Assert.assertEquals(0, WeightRounder.round(BigDecimal.ZERO).compareTo(BigDecimal.ZERO));
+        Assert.assertEquals(0, WeightRounder.round(null).compareTo(BigDecimal.ZERO));
+    }
 }
