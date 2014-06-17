@@ -10,6 +10,7 @@ import junit.framework.Assert;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.TreeSet;
 
 public class BLJStoreTest extends BLTestCase {
     @Override
@@ -141,10 +142,19 @@ public class BLJStoreTest extends BLTestCase {
         JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
         lift3.name = "A";
 
-        List<JModel> found = JFTOLiftStore.instance().findAllWhere("name", "A");
+        List<JFTOLift> found = (List<JFTOLift>) JFTOLiftStore.instance().findAllWhere("name", "A");
         Assert.assertEquals(found.size(), 2);
         Assert.assertEquals(found.get(0), lift1);
         Assert.assertEquals(found.get(1), lift3);
+    }
+
+    public void testFindAllWhereIntegers() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.order = 9;
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.order = 9;
+        List<JFTOLift> found = (List<JFTOLift>) JFTOLiftStore.instance().findAllWhere("order", 9);
+        Assert.assertEquals(found.size(), 2);
     }
 
     public void testMax() {
@@ -156,5 +166,21 @@ public class BLJStoreTest extends BLTestCase {
         lift3.weight = new BigDecimal("150");
 
         Assert.assertEquals(JFTOLiftStore.instance().max("weight"), new BigDecimal("200"));
+    }
+
+    public void testUnique() {
+        JFTOLiftStore.instance().empty();
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
+
+        JFTOLift lift2 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift2.name = "A";
+
+        JFTOLift lift3 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift3.name = "B";
+
+        TreeSet<? extends Comparable> unique = JFTOLiftStore.instance().unique("name");
+        Assert.assertTrue(unique.contains("A"));
+        Assert.assertTrue(unique.contains("B"));
     }
 }

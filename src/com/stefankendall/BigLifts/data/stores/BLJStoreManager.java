@@ -34,20 +34,18 @@ public class BLJStoreManager {
 
                     JSettingsStore.instance(),
                     JFTOSettingsStore.instance(),
+                    JBarStore.instance(),
+                    JPlateStore.instance(),
 
                     JFTOVariantStore.instance(),
 
                     JLiftStore.instance(),
+                    JFTOLiftStore.instance(),
 
                     JSetStore.instance(),
                     JFTOSetStore.instance(),
                     JWorkoutStore.instance(),
-                    JFTOWorkoutStore.instance(),
-
-                    JBarStore.instance(),
-                    JPlateStore.instance(),
-
-                    JFTOLiftStore.instance()
+                    JFTOWorkoutStore.instance()
             );
         }
 

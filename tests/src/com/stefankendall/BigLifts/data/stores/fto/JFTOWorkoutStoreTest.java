@@ -3,9 +3,12 @@ package com.stefankendall.BigLifts.data.stores.fto;
 import com.stefankendall.BigLifts.BLTestCase;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JWorkout;
+import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.JWorkoutStore;
 import junit.framework.Assert;
+
+import java.util.List;
 
 public class JFTOWorkoutStoreTest extends BLTestCase {
     public void testRemovesWorkoutsAndSetsOnRemove() {
@@ -22,4 +25,21 @@ public class JFTOWorkoutStoreTest extends BLTestCase {
         Assert.assertEquals(setCount - 1, JFTOSetStore.instance().count());
     }
 
+    public void testDoesNotLeakWorkouts() {
+        int workoutCount = JWorkoutStore.instance().count();
+        Assert.assertTrue(workoutCount > 0);
+        JFTOWorkoutStore.instance().restoreTemplate();
+        Assert.assertEquals(workoutCount, JWorkoutStore.instance().count());
+    }
+
+    public void testCreatesSixWeekDataProperly() {
+        JFTOSettings jftoSettings = (JFTOSettings) JFTOSettingsStore.instance().first();
+        jftoSettings.sixWeekEnabled = true;
+        JFTOWorkoutStore.instance().switchTemplate();
+        Assert.assertEquals(JFTOWorkoutStore.instance().count(), 28);
+        List<JFTOWorkout> week6Workouts = (List<JFTOWorkout>) JFTOWorkoutStore.instance().findAllWhere("week", 6);
+        Assert.assertEquals(week6Workouts.size(), 4);
+        Assert.assertTrue(JFTOWorkoutStore.instance().unique("week").contains(6));
+        Assert.assertEquals(JFTOWorkoutStore.instance().unique("week").size(), 7);
+    }
 }

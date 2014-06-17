@@ -17,7 +17,7 @@ abstract public class BLJStore {
     private static Gson gson;
 
     public BLJStore() {
-        this.data = Lists.newArrayList();
+        this.data = Lists.newCopyOnWriteArrayList();
     }
 
     public synchronized static BLJStore instance(Class<? extends BLJStore> klass) {
@@ -76,7 +76,7 @@ abstract public class BLJStore {
     abstract public Class<? extends JModel> modelClass();
 
     public void empty() {
-        this.data = Lists.newArrayList();
+        this.data = Lists.newCopyOnWriteArrayList();
         this.uuidCache = Maps.newHashMap();
     }
 
@@ -145,7 +145,7 @@ abstract public class BLJStore {
         return Iterables.find(this.data, nameValuePredicate(name, value));
     }
 
-    public List<? extends JModel> findAll() {
+    public synchronized List<? extends JModel> findAll() {
         if (Orderable.class.isAssignableFrom(this.modelClass())) {
             Ordering<Orderable> byOrderOrdering = new Ordering<Orderable>() {
                 @Override
@@ -165,15 +165,16 @@ abstract public class BLJStore {
         return Iterables.find(this.data, function);
     }
 
-    public List<JModel> findAllWhere(final String name, final Object value) {
-        return ImmutableList.copyOf(Iterables.filter(this.data, nameValuePredicate(name, value)));
+    public synchronized List<? extends JModel> findAllWhere(final String name, final Object value) {
+        Iterable<JModel> filteredData = Iterables.filter(this.data, nameValuePredicate(name, value));
+        return ImmutableList.copyOf(filteredData);
     }
 
     private Predicate<JModel> nameValuePredicate(final String name, final Object value) {
         return new Predicate<JModel>() {
             @Override
             public boolean apply(JModel model) {
-                return ObjectHelper.getProperty(model, name) == value;
+                return value.equals(ObjectHelper.getProperty(model, name));
             }
         };
     }
@@ -202,8 +203,13 @@ abstract public class BLJStore {
         return this.data.size();
     }
 
-    public TreeSet<? extends Comparable> unique(String property) {
-        return Sets.newTreeSet();
+    public TreeSet<? extends Comparable> unique(final String property) {
+        return Sets.newTreeSet(Iterables.transform(this.data, new Function<JModel, Comparable>() {
+            @Override
+            public Comparable apply(JModel jModel) {
+                return (Comparable) ObjectHelper.getProperty(jModel, property);
+            }
+        }));
     }
 
     public List<String> serialize() {

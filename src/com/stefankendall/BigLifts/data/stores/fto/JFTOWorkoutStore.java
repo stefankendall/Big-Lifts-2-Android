@@ -44,7 +44,7 @@ public class JFTOWorkoutStore extends BLJStore {
         //todo: add assistance
     }
 
-    private void restoreTemplate() {
+    public void restoreTemplate() {
         ListMultimap<Integer, JLift> doneLiftsByWeek = this.getDoneLiftsByWeek();
         this.removeAll();
         this.createWorkoutsForEachLift();
