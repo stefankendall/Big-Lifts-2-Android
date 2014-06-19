@@ -14,6 +14,7 @@ public class JFTOWorkoutSetsGenerator {
         Map<String, JFTOPlan> plans = ImmutableMap.<String, JFTOPlan>builder()
                 .put(JFTOVariant.STANDARD, new JFTOStandardPlan())
                 .put(JFTOVariant.HEAVIER, new JFTOHeavierPlan())
+                .put(JFTOVariant.POWERLIFTING, new JFTOPowerliftingPlan())
                 .build();
         return plans.get(variant);
     }
