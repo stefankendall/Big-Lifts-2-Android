@@ -50,6 +50,11 @@ public class JSetData {
         return this;
     }
 
+    public JSetData withOptional(boolean optional){
+        this.optional = optional;
+        return this;
+    }
+
     public JSet createSet() {
         JFTOSet set = (JFTOSet) JFTOSetStore.instance().create();
         set.reps = this.reps;

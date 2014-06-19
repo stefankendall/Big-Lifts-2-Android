@@ -17,6 +17,8 @@ public class JFTOWorkoutSetsGenerator {
                 .put(JFTOVariant.POWERLIFTING, new JFTOPowerliftingPlan())
                 .put(JFTOVariant.PYRAMID, new JFTOPyramidPlan())
                 .put(JFTOVariant.JOKER, new JFTOJokerPlan())
+                .put(JFTOVariant.FIRST_SET_LAST, new JFTOFirstSetLastPlan())
+                .put(JFTOVariant.FIRST_SET_LAST_MULTIPLE_SETS, new JFTOFirstSetLastsMultipleSetsPlan())
                 .build();
         return plans.get(variant);
     }
