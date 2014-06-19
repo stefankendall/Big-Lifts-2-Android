@@ -183,4 +183,22 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertTrue(unique.contains("A"));
         Assert.assertTrue(unique.contains("B"));
     }
+
+    public void testSync() {
+        JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
+        lift1.name = "A";
+        lift1.increment = new BigDecimal("5.5");
+        lift1.usesBar = true;
+        lift1.weight = new BigDecimal("100");
+        lift1.order = 1;
+        JFTOLiftStore.instance().sync();
+        JFTOLiftStore.instance().empty();
+        JFTOLiftStore.instance().load();
+
+        JFTOLift syncedLift = (JFTOLift) JFTOLiftStore.instance().first();
+        Assert.assertEquals(syncedLift.name, "A");
+        Assert.assertEquals(syncedLift.increment, new BigDecimal("5.5"));
+        Assert.assertEquals(syncedLift.usesBar, true);
+        Assert.assertEquals(syncedLift.weight, new BigDecimal("100"));
+    }
 }
