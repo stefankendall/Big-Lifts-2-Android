@@ -20,6 +20,7 @@ public class JFTOWorkoutSetsGenerator {
                 .put(JFTOVariant.FIRST_SET_LAST, new JFTOFirstSetLastPlan())
                 .put(JFTOVariant.FIRST_SET_LAST_MULTIPLE_SETS, new JFTOFirstSetLastsMultipleSetsPlan())
                 .put(JFTOVariant.ADVANCED, new JFTOAdvancedPlan())
+                .put(JFTOVariant.FIVES_PROGRESSION, new JFTOFivesProgression())
                 .build();
         return plans.get(variant);
     }
