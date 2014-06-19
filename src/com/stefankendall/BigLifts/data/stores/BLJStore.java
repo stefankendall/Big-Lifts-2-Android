@@ -124,7 +124,7 @@ abstract public class BLJStore {
     }
 
     public void removeAtIndex(int index) {
-        this.remove(this.data.get(index));
+        this.remove(this.findAll().get(index));
     }
 
     public void reset() {
