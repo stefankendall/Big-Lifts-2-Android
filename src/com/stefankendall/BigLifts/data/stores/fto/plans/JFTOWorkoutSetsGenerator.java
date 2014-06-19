@@ -16,6 +16,7 @@ public class JFTOWorkoutSetsGenerator {
                 .put(JFTOVariant.HEAVIER, new JFTOHeavierPlan())
                 .put(JFTOVariant.POWERLIFTING, new JFTOPowerliftingPlan())
                 .put(JFTOVariant.PYRAMID, new JFTOPyramidPlan())
+                .put(JFTOVariant.JOKER, new JFTOJokerPlan())
                 .build();
         return plans.get(variant);
     }
