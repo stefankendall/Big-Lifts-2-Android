@@ -30,6 +30,11 @@ public class JFTOWorkoutStore extends BLJStore {
         return JFTOWorkout.class;
     }
 
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.<Class>newArrayList(JWorkout.class);
+    }
+
     public static JFTOWorkoutStore instance() {
         return (JFTOWorkoutStore) BLJStore.instance(JFTOWorkoutStore.class);
     }
