@@ -1,9 +1,12 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import android.util.Log;
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.stefankendall.BigLifts.BLTestCase;
 import com.stefankendall.BigLifts.data.models.JModel;
+import com.stefankendall.BigLifts.data.models.JSet;
+import com.stefankendall.BigLifts.data.models.JWorkout;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import junit.framework.Assert;
@@ -201,4 +204,34 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertEquals(syncedLift.usesBar, true);
         Assert.assertEquals(syncedLift.weight, new BigDecimal("100"));
     }
+
+    public void testKeyNameForStore() {
+        Assert.assertEquals(JFTOLiftStore.instance().keyNameForStore(), "JFTOLiftStore");
+    }
+
+    public void testDeserializeObject(){
+        JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
+        lift.order = 1;
+        lift.name = "A";
+        lift.usesBar = true;
+        lift.weight = new BigDecimal("5.5");
+        lift.increment = new BigDecimal("100");
+        JFTOLift deserialized = (JFTOLift) JFTOLiftStore.instance().deserializeObject(JFTOLiftStore.instance().serializeObject(lift));
+        Assert.assertEquals(lift.order, deserialized.order);
+        Assert.assertEquals(lift.name, deserialized.name);
+        Assert.assertEquals(lift.usesBar, deserialized.usesBar);
+        Assert.assertEquals(lift.weight, deserialized.weight);
+        Assert.assertEquals(lift.increment, deserialized.increment);
+    }
+
+    public void testSerializesAssociations(){
+        JWorkout workout = (JWorkout) JWorkoutStore.instance().create();
+        JSet set = (JSet) JSetStore.instance().create();
+        workout.addSet(set);
+
+        String serialized = JWorkoutStore.instance().serializeObject(workout);
+        Assert.assertTrue(serialized, serialized.contains(set.uuid));
+        Assert.assertFalse(serialized, serialized.contains("optional"));
+    }
+
 }

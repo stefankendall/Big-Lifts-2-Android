@@ -1,20 +1,26 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import com.google.common.base.Function;
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.data.ObjectHelper;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.Orderable;
+import com.stefankendall.BigLifts.data.models.json.JModelSerializer;
 
 import java.util.*;
 
 abstract public class BLJStore {
+    private static String PREFERENCE_FILE_NAME = "biglifts";
     public List<JModel> data;
     public Map<String, Object> uuidCache;
     private static Map<String, BLJStore> stores;
-    private static Gson gson;
 
     public BLJStore() {
         this.data = Lists.newCopyOnWriteArrayList();
@@ -22,7 +28,6 @@ abstract public class BLJStore {
 
     public synchronized static BLJStore instance(Class<? extends BLJStore> klass) {
         if (stores == null) {
-            gson = new Gson();
             stores = Maps.newHashMap();
         }
 
@@ -115,8 +120,7 @@ abstract public class BLJStore {
                 for (JModel association : models) {
                     BLJStoreManager.instance().storeForModel(association.getClass(), association.uuid).remove(association);
                 }
-            }
-            else {
+            } else {
                 JModel association = (JModel) value;
                 BLJStoreManager.instance().storeForModel(association.getClass(), association.uuid).remove(association);
             }
@@ -180,7 +184,7 @@ abstract public class BLJStore {
     }
 
     public Object atIndex(int index) {
-        return this.data.get(index);
+        return this.findAll().get(index);
     }
 
     public Comparable max(final String property) {
@@ -216,12 +220,47 @@ abstract public class BLJStore {
         return Lists.transform(this.data, new Function<JModel, String>() {
             @Override
             public String apply(JModel model) {
-                return gson.toJson(model);
+                return BLJStore.this.serializeObject(model);
             }
         });
     }
 
+    protected String serializeObject(JModel model) {
+        return BLJStore.this.getGson().toJson(model);
+    }
+
+    protected Gson getGson() {
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        for (Class klass : this.getAssociations()) {
+            gsonBuilder.registerTypeAdapter(klass, new JModelSerializer());
+        }
+        return gsonBuilder.create();
+    }
+
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
+    }
+
+    public List<? extends JModel> deserialize(List<String> serialized) {
+        List<JModel> deserialized = Lists.newArrayList();
+        for (String string : serialized) {
+            deserialized.add(this.deserializeObject(string));
+        }
+        return deserialized;
+    }
+
+    protected JModel deserializeObject(String string) {
+        return BLJStore.this.getGson().fromJson(string, this.modelClass());
+    }
+
     public void sync() {
-        //todo
+        SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(this.keyNameForStore(), "[" + Joiner.on(',').join(this.serialize()) + "]");
+        editor.commit();
+    }
+
+    protected String keyNameForStore() {
+        return this.getClass().getSimpleName();
     }
 }
