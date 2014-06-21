@@ -81,4 +81,10 @@ public class BLJStoreManager {
         }
         return null;
     }
+
+    public void writeStores() {
+        for (BLJStore store : this.allStores) {
+            store.sync();
+        }
+    }
 }
