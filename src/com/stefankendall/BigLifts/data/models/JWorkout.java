@@ -12,7 +12,7 @@ public class JWorkout extends JModel {
     public List<JSet> sets;
 
     public List<String> cascadeDeleteProperties() {
-        return Lists.newArrayList("sets");
+        return Lists.newCopyOnWriteArrayList(Lists.newArrayList("sets"));
     }
 
     public List<JSet> workSets() {
@@ -60,7 +60,7 @@ public class JWorkout extends JModel {
             for (JSet set : setsToRemove) {
                 BLJStoreManager.instance().storeForModel(set.getClass(), set.uuid).remove(set);
             }
-            this.sets = Lists.newArrayList();
+            this.sets = Lists.newCopyOnWriteArrayList();
         } else {
             for (JSet set : setsToRemove) {
                 this.removeSet(set);

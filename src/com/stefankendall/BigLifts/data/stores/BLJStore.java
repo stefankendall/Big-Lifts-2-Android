@@ -6,14 +6,17 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.data.ObjectHelper;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.Orderable;
+import com.stefankendall.BigLifts.data.models.json.JModelDeserializer;
 import com.stefankendall.BigLifts.data.models.json.JModelSerializer;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 abstract public class BLJStore {
@@ -44,15 +47,6 @@ abstract public class BLJStore {
         return stores.get(klass.getName());
     }
 
-    public void load() {
-        if (this.data.isEmpty()) {
-            this.setupDefaults();
-        }
-
-        this.buildUuidCache();
-        this.onLoad();
-    }
-
     protected void onLoad() {
     }
 
@@ -66,7 +60,7 @@ abstract public class BLJStore {
     public Object create() {
         JModel object = null;
         try {
-            object = this.modelClass().newInstance();
+            object = this.checkedModelClass().newInstance();
         } catch (InstantiationException e) {
         } catch (IllegalAccessException e) {
         }
@@ -79,6 +73,12 @@ abstract public class BLJStore {
     }
 
     abstract public Class<? extends JModel> modelClass();
+
+    public Class<? extends JModel> checkedModelClass() {
+        Class<? extends JModel> klass = modelClass();
+        assert ModelTypeListFactory.contains(klass);
+        return klass;
+    }
 
     public void empty() {
         this.data = Lists.newCopyOnWriteArrayList();
@@ -145,7 +145,7 @@ abstract public class BLJStore {
         return this.count() == 0 ? null : (JModel) all.get(all.size() - 1);
     }
 
-    public Object find(final String name, final Object value) {
+    public JModel find(final String name, final Object value) {
         return Iterables.find(this.data, nameValuePredicate(name, value));
     }
 
@@ -233,6 +233,7 @@ abstract public class BLJStore {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         for (Class klass : this.getAssociations()) {
             gsonBuilder.registerTypeAdapter(klass, new JModelSerializer());
+            gsonBuilder.registerTypeAdapter(klass, new JModelDeserializer());
         }
         return gsonBuilder.create();
     }
@@ -241,23 +242,32 @@ abstract public class BLJStore {
         return Lists.newArrayList();
     }
 
-    public List<? extends JModel> deserialize(List<String> serialized) {
-        List<JModel> deserialized = Lists.newArrayList();
-        for (String string : serialized) {
-            deserialized.add(this.deserializeObject(string));
-        }
-        return deserialized;
-    }
-
-    protected JModel deserializeObject(String string) {
-        return BLJStore.this.getGson().fromJson(string, this.modelClass());
-    }
-
     public void sync() {
         SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(this.keyNameForStore(), "[" + Joiner.on(',').join(this.serialize()) + "]");
         editor.commit();
+    }
+
+    public void load() {
+        this.data = (List<JModel>) this.loadDataFromStore();
+
+        if (this.data.isEmpty()) {
+            this.setupDefaults();
+        }
+
+        this.buildUuidCache();
+        this.onLoad();
+    }
+
+    public List<? extends JModel> loadDataFromStore() {
+        SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        String values = sharedPreferences.getString(this.keyNameForStore(), "[]");
+        return this.deserialize(values);
+    }
+
+    public List<? extends JModel> deserialize(String values) {
+        return getGson().fromJson(values, ModelTypeListFactory.forClass(this.checkedModelClass()));
     }
 
     protected String keyNameForStore() {

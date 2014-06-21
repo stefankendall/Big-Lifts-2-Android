@@ -188,6 +188,7 @@ public class BLJStoreTest extends BLTestCase {
     }
 
     public void testSync() {
+        JFTOLiftStore.instance().empty();
         JFTOLift lift1 = (JFTOLift) JFTOLiftStore.instance().create();
         lift1.name = "A";
         lift1.increment = new BigDecimal("5.5");
@@ -198,6 +199,7 @@ public class BLJStoreTest extends BLTestCase {
         JFTOLiftStore.instance().empty();
         JFTOLiftStore.instance().load();
 
+        Assert.assertEquals(JFTOLiftStore.instance().count(), 1);
         JFTOLift syncedLift = (JFTOLift) JFTOLiftStore.instance().first();
         Assert.assertEquals(syncedLift.name, "A");
         Assert.assertEquals(syncedLift.increment, new BigDecimal("5.5"));
@@ -209,14 +211,14 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertEquals(JFTOLiftStore.instance().keyNameForStore(), "JFTOLiftStore");
     }
 
-    public void testDeserializeObject(){
+    public void testDeserializeObjects(){
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         lift.order = 1;
         lift.name = "A";
         lift.usesBar = true;
         lift.weight = new BigDecimal("5.5");
         lift.increment = new BigDecimal("100");
-        JFTOLift deserialized = (JFTOLift) JFTOLiftStore.instance().deserializeObject(JFTOLiftStore.instance().serializeObject(lift));
+        JFTOLift deserialized = (JFTOLift) JFTOLiftStore.instance().deserialize("[" + JFTOLiftStore.instance().serializeObject(lift) + "]").get(0);
         Assert.assertEquals(lift.order, deserialized.order);
         Assert.assertEquals(lift.name, deserialized.name);
         Assert.assertEquals(lift.usesBar, deserialized.usesBar);
@@ -232,6 +234,19 @@ public class BLJStoreTest extends BLTestCase {
         String serialized = JWorkoutStore.instance().serializeObject(workout);
         Assert.assertTrue(serialized, serialized.contains(set.uuid));
         Assert.assertFalse(serialized, serialized.contains("optional"));
+    }
+
+    public void testDeserializesAssociations(){
+        JWorkout workout = (JWorkout) JWorkoutStore.instance().create();
+        JSet set = (JSet) JSetStore.instance().create();
+        set.percentage = new BigDecimal("55");
+        workout.addSet(set);
+
+        String serialized = "[" + JWorkoutStore.instance().serializeObject(workout) + "]";
+        JWorkout deserialized = (JWorkout) JWorkoutStore.instance().deserialize(serialized).get(0);
+        Assert.assertEquals(deserialized.sets.size(), 1);
+        JSet deserializedSet = deserialized.sets.get(0);
+        Assert.assertEquals(deserializedSet.percentage, new BigDecimal("55"));
     }
 
 }
