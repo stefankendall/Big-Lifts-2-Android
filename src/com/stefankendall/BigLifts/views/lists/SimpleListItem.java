@@ -15,7 +15,7 @@ public class SimpleListItem implements CustomListItem {
     @Override
     public View fillView(View view, LayoutInflater inflater) {
         if (view == null) {
-            view = inflater.inflate(R.layout.simple_list_item, null);
+            view = inflater.inflate(listItemLayout(), null);
         }
 
         TextView textView = (TextView) view.findViewById(R.id.textView);
@@ -23,5 +23,9 @@ public class SimpleListItem implements CustomListItem {
             textView.setText(this.value);
         }
         return view;
+    }
+
+    protected int listItemLayout() {
+        return R.layout.simple_list_item;
     }
 }

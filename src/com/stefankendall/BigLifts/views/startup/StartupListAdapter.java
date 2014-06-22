@@ -11,8 +11,8 @@ public class StartupListAdapter extends SimpleListAdapter {
     @Override
     public List<? extends CustomListItem> buildItems() {
         return Lists.newArrayList(
-                new SimpleListItem("5/3/1"),
-                new SimpleListItem("What's next?")
+                new StartupListItem("5/3/1"),
+                new StartupListItem("What's next?")
         );
     }
 }
