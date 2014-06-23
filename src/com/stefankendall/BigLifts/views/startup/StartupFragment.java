@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import com.stefankendall.BigLifts.App;
+import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 
 public class StartupFragment extends ListFragment {
 
@@ -27,7 +28,15 @@ public class StartupFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (position == this.adapter.getWhatsNextPosition()) {
             this.showWhatsNextEmail();
+        } else if (position == this.adapter.get531Position()) {
+            this.start(FTOEditViewActivity.class);
         }
+    }
+
+    private void start(Class context) {
+        Intent intent = new Intent(getActivity(), context);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     public void showWhatsNextEmail() {

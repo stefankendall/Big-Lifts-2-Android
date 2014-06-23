@@ -19,5 +19,9 @@ public class StartupListAdapter extends SimpleListAdapter {
     public int getWhatsNextPosition() {
         return 1;
     }
+
+    public int get531Position() {
+        return 0;
+    }
 }
 
