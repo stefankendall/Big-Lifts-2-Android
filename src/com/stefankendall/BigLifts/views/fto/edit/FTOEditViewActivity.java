@@ -9,6 +9,7 @@ public class FTOEditViewActivity extends FtoSingleFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupNavigation();
+        setTitle("Edit");
     }
 
     @Override
