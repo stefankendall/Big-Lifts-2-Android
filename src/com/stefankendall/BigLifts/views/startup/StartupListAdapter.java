@@ -15,5 +15,9 @@ public class StartupListAdapter extends SimpleListAdapter {
                 new StartupListItem("What's next?")
         );
     }
+
+    public int getWhatsNextPosition() {
+        return 1;
+    }
 }
 
