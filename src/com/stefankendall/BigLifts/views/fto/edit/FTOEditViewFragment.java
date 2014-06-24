@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.edit;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import com.stefankendall.BigLifts.R;
 
 public class FTOEditViewFragment extends ListFragment {
     @Override
@@ -9,5 +10,11 @@ public class FTOEditViewFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         this.setListAdapter(new FTOEditViewListAdapter(getActivity()));
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getListView().setSelector(R.drawable.not_selectable);
     }
 }
