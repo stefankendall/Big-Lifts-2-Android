@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.nav;
 
 import android.app.Activity;
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.nav.NavAction;
 import com.stefankendall.BigLifts.views.nav.NavListAdapter;
@@ -13,47 +14,47 @@ public class FTONavListAdapter extends NavListAdapter {
     @Override
     public List<? extends CustomListItem> buildItems() {
         return Lists.newArrayList(
-                new NavListItem("Lift", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Lift", R.drawable._89_dumbells, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Edit Lifts", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Edit Lifts", R.drawable._20_gear_2, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Plan Workout", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Plan Workout", R.drawable._101_gameplan, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Bar Loading", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Bar Loading", R.drawable._95_equalizer, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Track", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Track", R.drawable._16_line_chart, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Estimate 1RM", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Estimate 1RM", R.drawable._161_calculator, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Settings", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Settings", R.drawable._157_wrench, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Feedback", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Feedback", R.drawable._09_chat_2, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
                 }),
-                new NavListItem("Program", android.R.drawable.ic_menu_search, new NavAction() {
+                new NavListItem("Program", R.drawable._213_reply, new NavAction() {
                     @Override
                     public void run(Activity context) {
                     }
