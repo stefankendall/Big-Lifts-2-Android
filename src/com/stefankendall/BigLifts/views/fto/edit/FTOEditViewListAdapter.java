@@ -1,6 +1,8 @@
 package com.stefankendall.BigLifts.views.fto.edit;
 
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.LeftRightHeaderListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
@@ -10,8 +12,19 @@ import java.util.List;
 public class FTOEditViewListAdapter extends SimpleListAdapter {
     @Override
     public List<? extends CustomListItem> buildItems() {
-        return Lists.newArrayList(
+        List<CustomListItem> view = Lists.<CustomListItem>newArrayList(
                 new LeftRightHeaderListItem("Max", "Training Max")
         );
+
+        for (int i = 0; i < JFTOLiftStore.instance().count(); i++) {
+            JFTOLift jftoLift = this.liftAtIndex(i);
+            view.add(new FTOEditLiftCell(jftoLift));
+        }
+
+        return view;
+    }
+
+    private JFTOLift liftAtIndex(int i) {
+        return (JFTOLift) JFTOLiftStore.instance().atIndex(i);
     }
 }
