@@ -11,7 +11,7 @@ import com.stefankendall.BigLifts.SingleFragmentActivity;
 import com.stefankendall.BigLifts.views.fto.nav.FTONavListAdapter;
 import com.stefankendall.BigLifts.views.nav.NavListItem;
 
-public abstract class FtoSingleFragmentActivity extends SingleFragmentActivity {
+public abstract class FTOSingleFragmentActivity extends SingleFragmentActivity {
     protected void setupNavigation() {
         getActionBar().setDisplayShowHomeEnabled(false);
         getActionBar().setHomeAsUpIndicator(
@@ -23,7 +23,7 @@ public abstract class FtoSingleFragmentActivity extends SingleFragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 NavListItem item = (NavListItem) listView.getAdapter().getItem(i);
-                item.getNavAction().run(FtoSingleFragmentActivity.this);
+                item.getNavAction().run(FTOSingleFragmentActivity.this);
             }
         });
 
