@@ -1,5 +1,7 @@
 package com.stefankendall.BigLifts.views.lists;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class SimpleListAdapter extends BaseAdapter {
+    private Activity activity;
     protected List<? extends CustomListItem> items;
 
-    public SimpleListAdapter() {
+    public SimpleListAdapter(Activity context) {
         this.items = buildItems();
+        this.activity = context;
     }
 
     public abstract List<? extends CustomListItem> buildItems();
@@ -70,6 +74,7 @@ public abstract class SimpleListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         CustomListItem item = items.get(position);
-        return item.fillView(convertView, LayoutInflater.from(App.getContext()));
+        LayoutInflater inflater = this.activity == null ? LayoutInflater.from(App.getContext()) : this.activity.getLayoutInflater();
+        return item.fillView(convertView, inflater);
     }
 }

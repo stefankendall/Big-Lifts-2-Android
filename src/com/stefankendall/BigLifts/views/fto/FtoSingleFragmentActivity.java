@@ -18,7 +18,7 @@ public abstract class FTOSingleFragmentActivity extends SingleFragmentActivity {
                 getResources().getDrawable(R.drawable.ic_navigation_drawer));
 
         final ListView listView = (ListView) findViewById(R.id.left_drawer);
-        listView.setAdapter(new FTONavListAdapter());
+        listView.setAdapter(new FTONavListAdapter(this));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

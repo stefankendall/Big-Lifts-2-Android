@@ -11,6 +11,10 @@ import com.stefankendall.BigLifts.views.nav.NavListItem;
 import java.util.List;
 
 public class FTONavListAdapter extends NavListAdapter {
+    public FTONavListAdapter(Activity context) {
+        super(context);
+    }
+
     @Override
     public List<? extends CustomListItem> buildItems() {
         return Lists.newArrayList(

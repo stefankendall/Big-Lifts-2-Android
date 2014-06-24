@@ -12,6 +12,10 @@ import java.util.List;
 
 public class NavListAdapter extends SimpleListAdapter {
 
+    public NavListAdapter(Activity context) {
+        super(context);
+    }
+
     private void start(Activity context, Class activity) {
         if (!activity.isInstance(context)) {
             Intent intent = new Intent(context, activity);

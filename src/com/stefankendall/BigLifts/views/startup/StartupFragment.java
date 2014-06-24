@@ -20,7 +20,7 @@ public class StartupFragment extends ListFragment {
 
         setRetainInstance(true);
         getActivity().setTitle("Choose a program!");
-        adapter = new StartupListAdapter();
+        adapter = new StartupListAdapter(getActivity());
         this.setListAdapter(adapter);
     }
 

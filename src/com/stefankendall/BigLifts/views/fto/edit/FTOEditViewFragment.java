@@ -8,6 +8,6 @@ public class FTOEditViewFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        this.setListAdapter(new FTOEditViewListAdapter());
+        this.setListAdapter(new FTOEditViewListAdapter(getActivity()));
     }
 }

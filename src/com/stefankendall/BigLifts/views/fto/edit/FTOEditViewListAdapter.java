@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.edit;
 
+import android.app.Activity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
@@ -10,6 +11,10 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class FTOEditViewListAdapter extends SimpleListAdapter {
+    public FTOEditViewListAdapter(Activity context) {
+        super(context);
+    }
+
     @Override
     public List<? extends CustomListItem> buildItems() {
         List<CustomListItem> view = Lists.<CustomListItem>newArrayList(
