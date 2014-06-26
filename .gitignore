@@ -26,4 +26,4 @@ proguard_logs
 
 .DS_Store
 com_crashlytics_export_strings.xml
-*.iml
+**/*.iml
