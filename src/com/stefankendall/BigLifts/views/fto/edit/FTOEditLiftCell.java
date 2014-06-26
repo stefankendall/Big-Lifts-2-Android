@@ -22,7 +22,7 @@ public class FTOEditLiftCell implements CustomListItem {
 
         TextView textView = (TextView) view.findViewById(R.id.lift_name);
         if (textView != null) {
-            textView.setText(jftoLift.name);
+//            textView.setText(jftoLift.name);
         }
         return view;
     }

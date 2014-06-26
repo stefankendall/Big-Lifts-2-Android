@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".views.fto.edit.FTOEditViewActivity"></activity>
+        <activity android:name=".views.fto.edit.FTOEditViewActivity" android:windowSoftInputMode="adjustPan"></activity>
         <meta-data android:name="com.crashlytics.ApiKey" android:value="f1f936528fec614b3f5e265a22c4bef0a92d8dc4"/>
     </application>
 </manifest>
