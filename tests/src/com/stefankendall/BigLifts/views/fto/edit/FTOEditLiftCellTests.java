@@ -47,4 +47,25 @@ public class FTOEditLiftCellTests extends BLTestCase {
         EditText trainingMax = (EditText) view.findViewById(R.id.training_max);
         Assert.assertEquals(trainingMax.getText().toString(), "");
     }
+
+    public void testUpdatesMax() {
+        JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
+        lift.weight = new BigDecimal("0");
+        FTOEditLiftCell cell = new FTOEditLiftCell(lift);
+
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        cell.updateMax("100");
+        Assert.assertEquals(lift.weight, new BigDecimal("100"));
+        EditText trainingMaxField = (EditText) view.findViewById(R.id.training_max);
+        Assert.assertEquals(trainingMaxField.getText().toString(), "90");
+    }
+
+    public void testEditTrainingMaxUpdatesMax() {
+        JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
+        FTOEditLiftCell cell = new FTOEditLiftCell(lift);
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        cell.updateTrainingMax("105");
+        Assert.assertEquals(lift.weight, new BigDecimal("116.7"));
+        Assert.assertEquals(cell.maxField.getText().toString(), "116.7");
+    }
 }
