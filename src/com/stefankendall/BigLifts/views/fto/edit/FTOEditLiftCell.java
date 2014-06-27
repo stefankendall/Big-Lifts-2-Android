@@ -47,6 +47,6 @@ public class FTOEditLiftCell implements CustomListItem {
     public void updateTrainingMax(BigDecimal weight) {
         JFTOSettings settings = (JFTOSettings) JFTOSettingsStore.instance().first();
         BigDecimal trainingWeight = weight.multiply(settings.trainingMax).divide(new BigDecimal("100"));
-        this.trainingMaxField.setText(trainingWeight.setScale(1).toPlainString());
+        this.trainingMaxField.setText(trainingWeight.setScale(1).stripTrailingZeros().toPlainString());
     }
 }

@@ -19,7 +19,7 @@ public class JFTOLiftStoreTest extends BLTestCase {
         Assert.assertEquals(newLift.order, 4);
     }
 
-    public void testIncrementsHonorsUnits(){
+    public void testIncrementsHonorsUnits() {
         JSettings settings = (JSettings) JSettingsStore.instance().first();
         settings.setUnits("kg");
         JFTOLift press = (JFTOLift) JFTOLiftStore.instance().find("name", "Press");
@@ -28,7 +28,7 @@ public class JFTOLiftStoreTest extends BLTestCase {
         Assert.assertEquals(press.increment, new BigDecimal("5"));
     }
 
-    public void testIncrementsLifts(){
+    public void testIncrementsLifts() {
         JFTOLift squat = (JFTOLift) JFTOLiftStore.instance().find("name", "Squat");
         BigDecimal weight = new BigDecimal(String.valueOf(squat.weight));
         JFTOLiftStore.instance().incrementLifts();

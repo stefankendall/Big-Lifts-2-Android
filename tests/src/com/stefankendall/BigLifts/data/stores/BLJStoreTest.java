@@ -1,6 +1,5 @@
 package com.stefankendall.BigLifts.data.stores;
 
-import android.util.Log;
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.stefankendall.BigLifts.BLTestCase;
@@ -211,7 +210,7 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertEquals(JFTOLiftStore.instance().keyNameForStore(), "JFTOLiftStore");
     }
 
-    public void testDeserializeObjects(){
+    public void testDeserializeObjects() {
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         lift.order = 1;
         lift.name = "A";
@@ -226,7 +225,7 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertEquals(lift.increment, deserialized.increment);
     }
 
-    public void testSerializesAssociations(){
+    public void testSerializesAssociations() {
         JWorkout workout = (JWorkout) JWorkoutStore.instance().create();
         JSet set = (JSet) JSetStore.instance().create();
         workout.addSet(set);
@@ -236,7 +235,7 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertFalse(serialized, serialized.contains("optional"));
     }
 
-    public void testDeserializesAssociations(){
+    public void testDeserializesAssociations() {
         JWorkout workout = (JWorkout) JWorkoutStore.instance().create();
         JSet set = (JSet) JSetStore.instance().create();
         set.percentage = new BigDecimal("55");

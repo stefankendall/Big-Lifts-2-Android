@@ -10,7 +10,7 @@ import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
-import com.stefankendall.BigLifts.tests.R;
+import com.stefankendall.BigLifts.R;
 import junit.framework.Assert;
 
 import java.math.BigDecimal;
@@ -25,15 +25,26 @@ public class FTOEditLiftCellTests extends BLTestCase {
         settings.trainingMax = new BigDecimal("50");
         FTOEditLiftCell cell = new FTOEditLiftCell(lift);
 
-        View view = new View(App.getContext());
-        cell.fillView(view, LayoutInflater.from(App.getContext()));
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
 
         TextView name = (TextView) view.findViewById(R.id.lift_name);
         EditText max = (EditText) view.findViewById(R.id.max);
         EditText trainingMax = (EditText) view.findViewById(R.id.training_max);
 
+        Assert.assertNotNull(name);
+
         Assert.assertEquals(name.getText(), "A");
         Assert.assertEquals(max.getText().toString(), "120");
         Assert.assertEquals(trainingMax.getText().toString(), "60");
+    }
+
+    public void testDoesNotCrashWith0Weight() {
+        JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
+        lift.weight = new BigDecimal("0");
+        FTOEditLiftCell cell = new FTOEditLiftCell(lift);
+
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        EditText trainingMax = (EditText) view.findViewById(R.id.training_max);
+        Assert.assertEquals(trainingMax.getText().toString(), "");
     }
 }
