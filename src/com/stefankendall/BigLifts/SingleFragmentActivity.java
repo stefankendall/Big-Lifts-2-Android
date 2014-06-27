@@ -1,13 +1,12 @@
 package com.stefankendall.BigLifts;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
-public abstract class SingleFragmentActivity extends Activity {
+public abstract class SingleFragmentActivity extends BLActivity {
     public Fragment fragment;
     protected ActionBarDrawerToggle drawerToggle;
     protected DrawerLayout drawerLayout;

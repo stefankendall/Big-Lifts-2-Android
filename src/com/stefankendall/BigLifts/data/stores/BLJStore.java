@@ -146,7 +146,7 @@ abstract public class BLJStore {
     }
 
     public JModel find(final String name, final Object value) {
-        return Iterables.find(this.data, nameValuePredicate(name, value));
+        return Iterables.find(this.data, nameValuePredicate(name, value), null);
     }
 
     public synchronized List<? extends JModel> findAll() {

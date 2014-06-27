@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.stefankendall.BigLifts.data.DataLoader;
 import com.stefankendall.BigLifts.data.stores.BLJStoreManager;
@@ -46,16 +47,13 @@ public class App extends Application implements Application.ActivityLifecycleCal
 
     @Override
     public void onActivityStopped(Activity activity) {
-
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
     }
 }

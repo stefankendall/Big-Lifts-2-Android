@@ -26,6 +26,10 @@ public class BLJStoreTest extends BLTestCase {
         Assert.assertNotNull(lift);
     }
 
+    public void testFindReturnsNullWhenNoMatches() {
+        Assert.assertNull(JFTOLiftStore.instance().find("name", "notthere"));
+    }
+
     public void testCount() {
         Assert.assertEquals(JFTOLiftStore.instance().count(), 0);
         JFTOLiftStore.instance().create();
