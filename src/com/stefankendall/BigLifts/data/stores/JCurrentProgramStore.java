@@ -9,6 +9,11 @@ public class JCurrentProgramStore extends BLJStore {
         return JCurrentProgram.class;
     }
 
+    @Override
+    public void setupDefaults() {
+        this.create();
+    }
+
     public static JCurrentProgramStore instance() {
         return (JCurrentProgramStore) BLJStore.instance(JCurrentProgramStore.class);
     }

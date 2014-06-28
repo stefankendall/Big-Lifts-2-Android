@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import com.stefankendall.BigLifts.App;
+import com.stefankendall.BigLifts.data.models.JCurrentProgram;
+import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 
 public class StartupFragment extends ListFragment {
@@ -18,10 +20,16 @@ public class StartupFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setRetainInstance(true);
-        getActivity().setTitle("Choose a program!");
-        adapter = new StartupListAdapter(getActivity());
-        this.setListAdapter(adapter);
+        JCurrentProgram program = (JCurrentProgram) JCurrentProgramStore.instance().first();
+        if( program.name != null ){
+            this.start(FTOEditViewActivity.class);
+        }
+        else {
+            setRetainInstance(true);
+            getActivity().setTitle("Choose a program!");
+            adapter = new StartupListAdapter(getActivity());
+            this.setListAdapter(adapter);
+        }
     }
 
     @Override
@@ -29,6 +37,8 @@ public class StartupFragment extends ListFragment {
         if (position == this.adapter.getWhatsNextPosition()) {
             this.showWhatsNextEmail();
         } else if (position == this.adapter.get531Position()) {
+            JCurrentProgram program = (JCurrentProgram) JCurrentProgramStore.instance().first();
+            program.name = JCurrentProgram.PROGRAM_531;
             this.start(FTOEditViewActivity.class);
         }
     }
@@ -37,6 +47,7 @@ public class StartupFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), context);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        getActivity().finish();
     }
 
     public void showWhatsNextEmail() {
