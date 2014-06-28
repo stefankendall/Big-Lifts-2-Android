@@ -6,6 +6,8 @@ import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JCurrentProgram;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
+import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
+import com.stefankendall.BigLifts.views.fto.settings.SettingsActivity;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.nav.NavAction;
 import com.stefankendall.BigLifts.views.nav.NavListAdapter;
@@ -30,6 +32,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Edit Lifts", R.drawable._20_gear_2, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(FTOEditViewActivity.class);
                     }
                 }),
                 new NavListItem("Plan Workout", R.drawable._101_gameplan, new NavAction() {
@@ -55,6 +58,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Settings", R.drawable._157_wrench, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(SettingsActivity.class);
                     }
                 }),
                 new NavListItem("Feedback", R.drawable._09_chat_2, new NavAction() {
@@ -66,11 +70,17 @@ public class FTONavListAdapter extends NavListAdapter {
                     @Override
                     public void run(Activity context) {
                         JCurrentProgramStore.instance().clearProgram();
-                        Intent intent = new Intent(context, StartupActivity.class);
-                        context.startActivity(intent);
-                        context.finish();
+                        FTONavListAdapter.this.switchTo(StartupActivity.class);
                     }
                 })
         );
+    }
+
+    private void switchTo(Class nextActivity) {
+        if (activity.getClass() != nextActivity) {
+            Intent intent = new Intent(this.activity, nextActivity);
+            this.activity.startActivity(intent);
+            this.activity.finish();
+        }
     }
 }
