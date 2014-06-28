@@ -38,6 +38,15 @@ public class FTOEditLiftCellTests extends BLTestCase {
         Assert.assertEquals(trainingMax.getText().toString(), "60");
     }
 
+    public void testHandlesEmpty(){
+        JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
+        FTOEditLiftCell cell = new FTOEditLiftCell(lift);
+        cell.fillView(null, LayoutInflater.from(App.getContext()));
+        cell.updateTrainingMax("");
+        cell.updateMax("");
+        Assert.assertEquals(lift.weight, BigDecimal.ZERO);
+    }
+
     public void testDoesNotCrashWith0Weight() {
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         lift.weight = new BigDecimal("0");

@@ -82,13 +82,24 @@ public class FTOEditLiftCell implements CustomListItem {
     }
 
     protected void updateMax(CharSequence text) {
-        this.jftoLift.weight = new BigDecimal(text.toString());
+        try {
+            this.jftoLift.weight = new BigDecimal(text.toString());
+        } catch (Exception ignored) {
+            this.jftoLift.weight = BigDecimal.ZERO;
+        }
         this.updateTrainingMaxForWeight(this.jftoLift.weight);
     }
 
     protected void updateTrainingMax(CharSequence text) {
         JFTOSettings jftoSettings = (JFTOSettings) JFTOSettingsStore.instance().first();
-        BigDecimal weight = new BigDecimal(text.toString());
+
+        BigDecimal weight;
+        try {
+            weight = new BigDecimal(text.toString());
+        } catch (Exception ignored) {
+            weight = BigDecimal.ZERO;
+        }
+
         BigDecimal trainingMaxFraction = new BigDecimal("100").divide(jftoSettings.trainingMax, 4, RoundingMode.HALF_UP);
         this.jftoLift.weight = weight.multiply(trainingMaxFraction).setScale(1, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 
