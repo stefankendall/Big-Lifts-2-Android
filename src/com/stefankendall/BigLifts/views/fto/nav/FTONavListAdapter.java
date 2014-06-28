@@ -1,12 +1,16 @@
 package com.stefankendall.BigLifts.views.fto.nav;
 
 import android.app.Activity;
+import android.content.Intent;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.data.models.JCurrentProgram;
+import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.nav.NavAction;
 import com.stefankendall.BigLifts.views.nav.NavListAdapter;
 import com.stefankendall.BigLifts.views.nav.NavListItem;
+import com.stefankendall.BigLifts.views.startup.StartupActivity;
 
 import java.util.List;
 
@@ -61,6 +65,10 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Program", R.drawable._213_reply, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        JCurrentProgramStore.instance().clearProgram();
+                        Intent intent = new Intent(context, StartupActivity.class);
+                        context.startActivity(intent);
+                        context.finish();
                     }
                 })
         );

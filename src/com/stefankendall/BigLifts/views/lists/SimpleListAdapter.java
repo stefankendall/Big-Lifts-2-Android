@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class SimpleListAdapter extends BaseAdapter {
-    private Activity activity;
+    protected Activity activity;
     protected List<? extends CustomListItem> items;
 
     public SimpleListAdapter(Activity context) {

@@ -17,4 +17,9 @@ public class JCurrentProgramStore extends BLJStore {
     public static JCurrentProgramStore instance() {
         return (JCurrentProgramStore) BLJStore.instance(JCurrentProgramStore.class);
     }
+
+    public void clearProgram() {
+        JCurrentProgram program = (JCurrentProgram) this.first();
+        program.name = null;
+    }
 }
