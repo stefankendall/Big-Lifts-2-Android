@@ -13,7 +13,8 @@
               android:text="Power Clean"
               android:textStyle="bold"
               android:textSize="20dp"
-              android:id="@+id/lift_name"/>
+              android:id="@+id/lift_name"
+              android:gravity="left"/>
     <EditText android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               android:id="@+id/increment"
@@ -21,5 +22,6 @@
               android:text="10.5"
               android:hint="0"
               android:inputType="numberDecimal"
+              android:gravity="right"
             />
 </LinearLayout>
