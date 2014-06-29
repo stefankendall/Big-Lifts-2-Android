@@ -25,7 +25,7 @@ public abstract class SwitchCell implements CustomListItem {
         if (view == null) {
             view = inflater.inflate(R.layout.switch_cell, null);
         }
-        RadioGroup group = (RadioGroup) view.findViewById(R.id.options);
+        final RadioGroup group = (RadioGroup) view.findViewById(R.id.options);
         group.removeAllViews();
 
         List<Integer> ids = Lists.newArrayList();
@@ -42,7 +42,9 @@ public abstract class SwitchCell implements CustomListItem {
         group.check(ids.get(defaultSelectedIndex()));
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int selection) {
+            public void onCheckedChanged(RadioGroup radioGroup, int selectedId) {
+                RadioButton button = (RadioButton) group.findViewById(selectedId);
+                int selection = SwitchCell.this.options.indexOf(button.getText().toString());
                 SwitchCell.this.valueChanged(selection);
             }
         });
