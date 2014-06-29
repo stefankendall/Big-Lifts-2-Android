@@ -1,22 +1,11 @@
 package com.stefankendall.BigLifts.views.fto.edit;
 
-import android.app.ListFragment;
-import android.os.Bundle;
-import android.view.ViewGroup;
-import com.stefankendall.BigLifts.R;
+import android.widget.ListAdapter;
+import com.stefankendall.BigLifts.views.ListFragmentWithControls;
 
-public class FTOEditViewFragment extends ListFragment {
+public class FTOEditViewFragment extends ListFragmentWithControls {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        this.setListAdapter(new FTOEditViewListAdapter(getActivity()));
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        getListView().setSelector(R.drawable.not_selectable);
-        getListView().setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+    protected ListAdapter getListAdapterForControls() {
+        return new FTOEditViewListAdapter(getActivity());
     }
 }
