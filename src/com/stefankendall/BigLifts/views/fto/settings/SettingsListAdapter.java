@@ -16,7 +16,8 @@ public class SettingsListAdapter extends SimpleListAdapter {
     public List<? extends CustomListItem> buildItems() {
         return Lists.newArrayList(
                 new LbsKgSwitchCell(),
-                new BarWeightCell()
+                new BarWeightCell(),
+                new RoundToCell()
         );
     }
 }
