@@ -6,7 +6,7 @@ import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 
 import java.util.List;
 
-public class LbsKgSwitchCell extends SwitchCell {
+public class LbsKgSwitchCell extends RadioButtonCell {
     static List<String> units = Lists.newArrayList("lbs", "kg");
 
     public LbsKgSwitchCell() {

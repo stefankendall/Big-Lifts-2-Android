@@ -18,7 +18,8 @@ public class SettingsListAdapter extends SimpleListAdapter {
                 new LbsKgSwitchCell(),
                 new BarWeightCell(),
                 new RoundToCell(),
-                new RoundingTypeCell()
+                new RoundingTypeCell(),
+                new KeepScreenOnCell()
         );
     }
 }
