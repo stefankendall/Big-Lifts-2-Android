@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.R;
-import com.stefankendall.BigLifts.data.models.JCurrentProgram;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
+import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.settings.SettingsActivity;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.nav.NavAction;
@@ -27,6 +27,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Lift", R.drawable._89_dumbells, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(FTOWorkoutListActivity.class);
                     }
                 }),
                 new NavListItem("Edit Lifts", R.drawable._20_gear_2, new NavAction() {
