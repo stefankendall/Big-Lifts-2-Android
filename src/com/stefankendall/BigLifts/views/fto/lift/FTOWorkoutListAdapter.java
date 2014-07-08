@@ -1,14 +1,16 @@
 package com.stefankendall.BigLifts.views.fto.lift;
 
 import android.app.Activity;
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.HeaderListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FTOWorkoutListAdapter extends SimpleListAdapter {
@@ -23,7 +25,10 @@ public class FTOWorkoutListAdapter extends SimpleListAdapter {
 
         List<CustomListItem> items = Lists.newArrayList();
         for (int week : weeks) {
-            items.add(new HeaderListItem(""));
+            items.add(new HeaderListItem(new FTOSectionTitleHelper().titleForSection(week - 1)));
+            for (JFTOWorkout jftoWorkout : workoutsByWeek.get(week)) {
+                items.add(new FTOWorkoutSummaryCell(jftoWorkout));
+            }
         }
 
         return items;
