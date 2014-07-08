@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 
 public class HeaderListItem implements CustomListItem {
-    private String value;
+    public String value;
 
     public HeaderListItem(String value) {
         this.value = value;

@@ -21,7 +21,7 @@ public class JFTOSettingsStore extends BLJStore {
         JFTOSettings settings = (JFTOSettings) this.create();
         settings.trainingMax = new BigDecimal("90");
         settings.warmupEnabled = true;
-        settings.sixWeekEnabled = true;
+        settings.sixWeekEnabled = false;
         settings.logState = JFTOSettings.LogState.kShowWorkSets;
         settings.repsToBeatConfig = JFTOSettings.RepsToBeatConfig.kRepsToBeatEverything;
     }
