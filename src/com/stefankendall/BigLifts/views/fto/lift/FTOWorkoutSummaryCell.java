@@ -2,15 +2,12 @@ package com.stefankendall.BigLifts.views.fto.lift;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
-import com.stefankendall.BigLifts.views.lists.SimpleListItem;
-
-import java.math.BigDecimal;
 
 public class FTOWorkoutSummaryCell implements CustomListItem {
 
@@ -35,11 +32,8 @@ public class FTOWorkoutSummaryCell implements CustomListItem {
                 label.setText("Empty workout");
             }
 
-            if (jftoWorkout.done) {
-
-            } else {
-
-            }
+            ImageView checkmark = (ImageView) view.findViewById(R.id.checkmark);
+            checkmark.setVisibility(jftoWorkout.done ? View.VISIBLE : View.GONE);
         }
 
         return view;
