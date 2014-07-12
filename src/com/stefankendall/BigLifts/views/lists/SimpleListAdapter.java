@@ -20,6 +20,9 @@ public abstract class SimpleListAdapter extends BaseAdapter {
     protected Activity activity;
     protected List<? extends CustomListItem> items;
 
+    public SimpleListAdapter(){
+    }
+
     public SimpleListAdapter(Activity context) {
         this.items = buildItems();
         this.activity = context;

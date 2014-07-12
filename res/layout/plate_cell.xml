@@ -19,5 +19,26 @@
             android:text="6 plates"
             android:layout_weight="1"
             />
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+        <Button android:id="@+id/minus"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="32dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="-"/>
+        <Button android:id="@+id/plus"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="32dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="+"/>
 
+    </LinearLayout>
 </LinearLayout>
