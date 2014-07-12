@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
+import com.stefankendall.BigLifts.views.fto.barloading.BarLoadingActivity;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.settings.SettingsActivity;
@@ -44,6 +45,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Bar Loading", R.drawable._95_equalizer, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(BarLoadingActivity.class);
                     }
                 }),
                 new NavListItem("Track", R.drawable._16_line_chart, new NavAction() {
