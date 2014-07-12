@@ -3,15 +3,12 @@ package com.stefankendall.BigLifts.views.fto.barloading;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JPlate;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
-
-import java.math.BigDecimal;
 
 public class PlateCell implements CustomListItem {
     private final JPlate plate;
@@ -32,19 +29,28 @@ public class PlateCell implements CustomListItem {
         TextView plateCount = (TextView) view.findViewById(R.id.plate_count);
         Button plusButton = (Button) view.findViewById(R.id.plus);
         Button minusButton = (Button) view.findViewById(R.id.minus);
+        Button deleteButton = (Button) view.findViewById(R.id.delete);
         if (plateWeight != null) {
-            JSettings settings = (JSettings) JSettingsStore.instance().first();
-            plateWeight.setText(plate.weight + " " + settings.units);
-            plateCount.setText(plate.count + " plates");
+            if (this.plate.count > 0) {
+                plateCount.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.GONE);
+            } else {
+                plateCount.setVisibility(View.GONE);
+                deleteButton.setVisibility(View.VISIBLE);
+            }
 
-            plusButton.setOnClickListener(new View.OnClickListener(){
+            JSettings settings = (JSettings) JSettingsStore.instance().first();
+            plateWeight.setText(this.plate.weight + " " + settings.units);
+            plateCount.setText(this.plate.count + " plates");
+
+            plusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     PlateCell.this.addPlates(2);
                 }
             });
 
-            minusButton.setOnClickListener(new View.OnClickListener(){
+            minusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     PlateCell.this.addPlates(-2);
@@ -54,8 +60,11 @@ public class PlateCell implements CustomListItem {
         return view;
     }
 
-    private void addPlates(int plates) {
+    protected void addPlates(int plates) {
         this.plate.count += plates;
+        if (this.plate.count < 0) {
+            this.plate.count = 0;
+        }
         this.refreshingList.refresh();
     }
 }
