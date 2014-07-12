@@ -19,7 +19,11 @@ public abstract class ListFragmentWithControls extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getListView().setSelector(R.drawable.not_selectable);
+        removeListSelection();
         getListView().setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+    }
+
+    protected void removeListSelection() {
+        getListView().setSelector(R.drawable.not_selectable);
     }
 }
