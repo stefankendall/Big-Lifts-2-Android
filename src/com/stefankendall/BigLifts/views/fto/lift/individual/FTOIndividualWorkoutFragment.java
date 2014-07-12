@@ -8,6 +8,6 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-//        this.setListAdapter(new FTOWorkoutListAdapter(this.getActivity()));
+        this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity()));
     }
 }
