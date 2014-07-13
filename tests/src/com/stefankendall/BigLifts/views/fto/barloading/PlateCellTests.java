@@ -37,6 +37,17 @@ public class PlateCellTests extends BLTestCase {
         Assert.assertEquals(plateCount.getVisibility(), View.VISIBLE);
     }
 
+    public void testTappingDeleteButtonRemovesPlate() {
+        JPlate p = (JPlate) JPlateStore.instance().create();
+        p.count = 2;
+        p.weight = new BigDecimal("45");
+        PlateCell cell = getPlateCell(p);
+        View v = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        Button deleteButton = (Button) v.findViewById(R.id.delete);
+        deleteButton.callOnClick();
+        Assert.assertFalse(JPlateStore.instance().findAll().contains(p));
+    }
+
     public void testDoesNotGoBelow0() {
         JPlate p = (JPlate) JPlateStore.instance().create();
         p.count = 0;

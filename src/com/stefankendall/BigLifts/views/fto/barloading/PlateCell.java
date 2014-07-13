@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JPlate;
 import com.stefankendall.BigLifts.data.models.JSettings;
+import com.stefankendall.BigLifts.data.stores.JPlateStore;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
@@ -56,8 +57,20 @@ public class PlateCell implements CustomListItem {
                     PlateCell.this.addPlates(-2);
                 }
             });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PlateCell.this.delete();
+                }
+            });
         }
         return view;
+    }
+
+    protected void delete() {
+        JPlateStore.instance().remove(this.plate);
+        this.refreshingList.refresh();
     }
 
     protected void addPlates(int plates) {
