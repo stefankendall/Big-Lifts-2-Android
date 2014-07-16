@@ -11,11 +11,13 @@ import java.util.List;
 
 public class AddPlateListAdapter extends SimpleListAdapter {
 
+    protected final FieldsWatcher watcher;
     protected ParameterizedDecimalInputCell weight;
     protected ParameterizedIntegerInputCell count;
 
-    public AddPlateListAdapter(Activity context) {
+    public AddPlateListAdapter(Activity context, FieldsWatcher watcher) {
         super(context);
+        this.watcher = watcher;
     }
 
     @Override

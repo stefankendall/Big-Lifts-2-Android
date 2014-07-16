@@ -12,6 +12,10 @@ public class JModelDeserializer implements JsonDeserializer<JModel> {
     public JModel deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         String uuid = jsonElement.getAsString();
         BLJStore store = BLJStoreManager.instance().storeForModel((Class) type, uuid);
-        return store.find("uuid", uuid);
+        if (store == null) {
+            return null;
+        } else {
+            return store.find("uuid", uuid);
+        }
     }
 }

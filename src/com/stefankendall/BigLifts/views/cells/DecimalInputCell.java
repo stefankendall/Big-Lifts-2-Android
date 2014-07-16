@@ -12,44 +12,11 @@ import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 import java.math.BigDecimal;
 
-public abstract class DecimalInputCell implements CustomListItem {
-    private EditText input;
-
+public abstract class DecimalInputCell extends NumberInputCell {
     @Override
-    public View fillView(View view, LayoutInflater inflater) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.decimal_input_cell, null);
-        }
-
-        TextView labelView = (TextView) view.findViewById(R.id.label);
-        if (labelView != null) {
-            labelView.setText(this.label());
-            this.input = (EditText) view.findViewById(R.id.input);
-            this.input.setText(this.defaultValue());
-            this.input.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                    DecimalInputCell.this.valueChanged(BigDecimals.parse(charSequence.toString()));
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                }
-            });
-        }
-
-        return view;
+    protected int getLayoutResource() {
+        return R.layout.decimal_input_cell;
     }
-
-    protected abstract String label();
-
-    protected abstract String defaultValue();
-
-    abstract protected void valueChanged(BigDecimal value);
 
     public BigDecimal getValue() {
         return BigDecimals.parse(this.input.getText().toString());

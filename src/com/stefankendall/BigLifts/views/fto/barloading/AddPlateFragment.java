@@ -12,7 +12,7 @@ import com.stefankendall.BigLifts.views.ListFragmentWithControls;
 
 import java.math.BigDecimal;
 
-public class AddPlateFragment extends ListFragmentWithControls {
+public class AddPlateFragment extends ListFragmentWithControls implements FieldsWatcher {
     protected MenuItem saveButton;
 
     @Override
@@ -30,7 +30,7 @@ public class AddPlateFragment extends ListFragmentWithControls {
 
     @Override
     protected ListAdapter getListAdapterForControls() {
-        return new AddPlateListAdapter(this.getActivity());
+        return new AddPlateListAdapter(this.getActivity(), this);
     }
 
     public void saveTapped() {
@@ -40,5 +40,10 @@ public class AddPlateFragment extends ListFragmentWithControls {
         JPlateStore.instance().createPlate(weight, count);
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
+    }
+
+    @Override
+    public void fieldsChanged() {
+
     }
 }

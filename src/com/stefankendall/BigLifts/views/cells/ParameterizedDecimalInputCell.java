@@ -15,6 +15,10 @@ public class ParameterizedDecimalInputCell extends DecimalInputCell {
     }
 
     @Override
+    protected void stringValueChanged(String s) {
+    }
+
+    @Override
     protected String label() {
         return this.label;
     }
@@ -22,9 +26,5 @@ public class ParameterizedDecimalInputCell extends DecimalInputCell {
     @Override
     protected String defaultValue() {
         return this.defaultValue;
-    }
-
-    @Override
-    protected void valueChanged(BigDecimal value) {
     }
 }
