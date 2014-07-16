@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.stores.JPlateStore;
@@ -12,6 +13,8 @@ import com.stefankendall.BigLifts.views.ListFragmentWithControls;
 import java.math.BigDecimal;
 
 public class AddPlateFragment extends ListFragmentWithControls {
+    protected MenuItem saveButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,8 @@ public class AddPlateFragment extends ListFragmentWithControls {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.save_menu, menu);
+        this.saveButton = menu.findItem(R.id.save);
+        this.saveButton.setEnabled(false);
     }
 
     @Override
