@@ -12,11 +12,11 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class BarLoadingListAdapter extends SimpleListAdapter {
-    private final RefreshingList refreshingList;
+    private final BarLoadingFragment fragment;
 
-    public BarLoadingListAdapter(Activity context, RefreshingList refreshingList) {
+    public BarLoadingListAdapter(Activity context, BarLoadingFragment fragment) {
         this.activity = context;
-        this.refreshingList = refreshingList;
+        this.fragment = fragment;
         this.items = buildItems();
     }
 
@@ -25,15 +25,9 @@ public class BarLoadingListAdapter extends SimpleListAdapter {
         List<CustomListItem> items = Lists.newArrayList();
         items.add(new HeaderListItem("Plates"));
         for (JPlate p : JPlateStore.instance().findAll()) {
-            items.add(new PlateCell(p, this.refreshingList));
+            items.add(new PlateCell(p, this.fragment));
         }
-        items.add(new AddCell(new Function<Void, Void>() {
-            @Override
-            public Void apply(Void aVoid) {
-                return null;
-            }
-        }));
-
+        items.add(new AddCell());
         return items;
     }
 }

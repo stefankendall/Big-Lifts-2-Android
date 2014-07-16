@@ -1,4 +1,4 @@
-package com.stefankendall.BigLifts.views.fto.settings;
+package com.stefankendall.BigLifts.views.cells;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +13,8 @@ import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import java.math.BigDecimal;
 
 public abstract class DecimalInputCell implements CustomListItem {
+    private EditText input;
+
     @Override
     public View fillView(View view, LayoutInflater inflater) {
         if (view == null) {
@@ -22,9 +24,9 @@ public abstract class DecimalInputCell implements CustomListItem {
         TextView labelView = (TextView) view.findViewById(R.id.label);
         if (labelView != null) {
             labelView.setText(this.label());
-            EditText input = (EditText) view.findViewById(R.id.decimal_input);
-            input.setText(this.defaultValue());
-            input.addTextChangedListener(new TextWatcher() {
+            this.input = (EditText) view.findViewById(R.id.input);
+            this.input.setText(this.defaultValue());
+            this.input.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 }
@@ -48,4 +50,8 @@ public abstract class DecimalInputCell implements CustomListItem {
     protected abstract String defaultValue();
 
     abstract protected void valueChanged(BigDecimal value);
+
+    public BigDecimal getValue() {
+        return BigDecimals.parse(this.input.getText().toString());
+    }
 }

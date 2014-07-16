@@ -30,7 +30,7 @@ public class JPlateStore extends BLJStore {
         this.createPlate(new BigDecimal("2.5"), 6);
     }
 
-    private void createPlate(BigDecimal weight, int count) {
+    public void createPlate(BigDecimal weight, int count) {
         JPlate p = (JPlate) this.create();
         p.weight = weight;
         p.count = count;

@@ -3,16 +3,12 @@ package com.stefankendall.BigLifts.views.fto.settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLTestCase;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JBar;
-import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
-import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import junit.framework.Assert;
 
 import java.math.BigDecimal;
@@ -28,7 +24,7 @@ public class BarWeightCellTests extends BLTestCase {
     public void testSetsDefaultValue() {
         BarWeightCell cell = new BarWeightCell();
         View v = cell.fillView(null, LayoutInflater.from(App.getContext()));
-        EditText input = (EditText) v.findViewById(R.id.decimal_input);
+        EditText input = (EditText) v.findViewById(R.id.input);
         Assert.assertEquals(input.getText().toString(), "45");
     }
 

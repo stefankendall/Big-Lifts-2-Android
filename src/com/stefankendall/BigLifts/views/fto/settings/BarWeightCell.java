@@ -3,6 +3,7 @@ package com.stefankendall.BigLifts.views.fto.settings;
 import com.stefankendall.BigLifts.data.models.JBar;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
+import com.stefankendall.BigLifts.views.cells.DecimalInputCell;
 
 import java.math.BigDecimal;
 

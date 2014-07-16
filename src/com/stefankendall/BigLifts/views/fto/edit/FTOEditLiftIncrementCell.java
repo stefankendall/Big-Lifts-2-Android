@@ -8,12 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
-import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class FTOEditLiftIncrementCell implements CustomListItem {
     private final JFTOLift jftoLift;
@@ -26,7 +23,7 @@ public class FTOEditLiftIncrementCell implements CustomListItem {
     @Override
     public View fillView(View view, LayoutInflater inflater) {
         if (view == null) {
-            view = inflater.inflate(R.layout.fto_edit_lift_increment_cell, null);
+            view = inflater.inflate(R.layout.decimal_input_cell, null);
         }
 
         TextView liftName = (TextView) view.findViewById(R.id.lift_name);
