@@ -23,17 +23,32 @@ public class AddPlateFragmentTests extends ActivityInstrumentationTestCase2<AddP
         Assert.assertFalse(fragment.saveButton.isEnabled());
     }
 
-    public void testSaveDisabledWhenOnlyOneFieldSet(){
-        Assert.fail();
+    public void testSaveDisabledWhenOnlyOneFieldSet() {
+        final AddPlateFragment fragment = (AddPlateFragment) getActivity().fragment;
+        final AddPlateListAdapter listAdapter = (AddPlateListAdapter) fragment.getListAdapter();
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                listAdapter.weight.setValue("100");
+                fragment.fieldChanged();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
 
-        AddPlateFragment fragment = (AddPlateFragment) getActivity().fragment;
         Assert.assertFalse(fragment.saveButton.isEnabled());
     }
 
     public void testSaveEnabledWhenBothFieldsSet() {
-        Assert.fail();
+        final AddPlateFragment fragment = (AddPlateFragment) getActivity().fragment;
+        final AddPlateListAdapter listAdapter = (AddPlateListAdapter) fragment.getListAdapter();
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                listAdapter.weight.setValue("100");
+                listAdapter.count.setValue("2");
+                fragment.fieldChanged();
+            }
+        });
 
-        AddPlateFragment fragment = (AddPlateFragment) getActivity().fragment;
+        getInstrumentation().waitForIdleSync();
         Assert.assertTrue(fragment.saveButton.isEnabled());
     }
 }

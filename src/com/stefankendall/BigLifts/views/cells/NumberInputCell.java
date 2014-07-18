@@ -2,15 +2,19 @@ package com.stefankendall.BigLifts.views.cells;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.google.common.base.Strings;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.views.fto.barloading.FieldWatcher;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 public abstract class NumberInputCell implements CustomListItem {
     protected EditText input;
+    private FieldWatcher fieldWatcher;
 
     @Override
     public View fillView(View view, LayoutInflater inflater) {
@@ -35,11 +39,18 @@ public abstract class NumberInputCell implements CustomListItem {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
+                    if (NumberInputCell.this.fieldWatcher != null) {
+                        NumberInputCell.this.fieldWatcher.fieldChanged();
+                    }
                 }
             });
         }
 
         return view;
+    }
+
+    public void setValue(String value) {
+        this.input.setText(value);
     }
 
     protected abstract void stringValueChanged(String s);
@@ -49,4 +60,12 @@ public abstract class NumberInputCell implements CustomListItem {
     protected abstract String label();
 
     protected abstract String defaultValue();
+
+    public boolean isEmpty() {
+        return Strings.isNullOrEmpty(this.input.getText().toString());
+    }
+
+    public void setFieldWatcher(FieldWatcher fieldWatcher) {
+        this.fieldWatcher = fieldWatcher;
+    }
 }

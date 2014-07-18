@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.barloading;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ import com.stefankendall.BigLifts.views.ListFragmentWithControls;
 
 import java.math.BigDecimal;
 
-public class AddPlateFragment extends ListFragmentWithControls implements FieldsWatcher {
+public class AddPlateFragment extends ListFragmentWithControls implements FieldWatcher {
     protected MenuItem saveButton;
 
     @Override
@@ -43,7 +44,9 @@ public class AddPlateFragment extends ListFragmentWithControls implements Fields
     }
 
     @Override
-    public void fieldsChanged() {
-
+    public void fieldChanged() {
+        AddPlateListAdapter adapter = (AddPlateListAdapter) this.getListAdapter();
+        boolean shouldEnableSave = !adapter.weight.isEmpty() && !adapter.count.isEmpty();
+        this.saveButton.setEnabled(shouldEnableSave);
     }
 }

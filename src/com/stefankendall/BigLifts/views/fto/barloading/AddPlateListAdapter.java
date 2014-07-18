@@ -11,19 +11,22 @@ import java.util.List;
 
 public class AddPlateListAdapter extends SimpleListAdapter {
 
-    protected final FieldsWatcher watcher;
+    protected final FieldWatcher watcher;
     protected ParameterizedDecimalInputCell weight;
     protected ParameterizedIntegerInputCell count;
 
-    public AddPlateListAdapter(Activity context, FieldsWatcher watcher) {
-        super(context);
+    public AddPlateListAdapter(Activity context, FieldWatcher watcher) {
+        this.activity = context;
         this.watcher = watcher;
+        this.items = buildItems();
     }
 
     @Override
     public List<? extends CustomListItem> buildItems() {
         this.weight = new ParameterizedDecimalInputCell("Weight", "");
         this.count = new ParameterizedIntegerInputCell("Count", "");
+        this.weight.setFieldWatcher(watcher);
+        this.count.setFieldWatcher(watcher);
         return Lists.newArrayList(this.weight, this.count);
     }
 }
