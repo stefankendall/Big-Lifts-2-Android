@@ -31,4 +31,8 @@ public abstract class ReadOnlyDecimalCell implements CustomListItem {
     public void setValue(String value) {
         this.input.setText(value);
     }
+
+    public String getValue() {
+        return this.input.getText().toString();
+    }
 }
