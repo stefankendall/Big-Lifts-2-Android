@@ -26,8 +26,8 @@ public class FTOEditLiftIncrementCell implements CustomListItem {
             view = inflater.inflate(R.layout.decimal_input_cell, null);
         }
 
-        TextView liftName = (TextView) view.findViewById(R.id.lift_name);
-        this.increment = (EditText) view.findViewById(R.id.increment);
+        TextView liftName = (TextView) view.findViewById(R.id.label);
+        this.increment = (EditText) view.findViewById(R.id.input);
         if (this.increment != null) {
             liftName.setText(jftoLift.name);
             this.increment.setText(jftoLift.increment.toPlainString());
