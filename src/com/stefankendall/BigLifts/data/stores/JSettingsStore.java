@@ -32,6 +32,8 @@ public class JSettingsStore extends BLJStore {
         JSettings settings = (JSettings) this.first();
         if (settings.units.equals("kg")) {
             settings.roundTo = new BigDecimal("1");
+        } else {
+            settings.roundTo = new BigDecimal("5");
         }
     }
 

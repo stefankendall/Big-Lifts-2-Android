@@ -24,9 +24,11 @@ public class JBarStore extends BLJStore {
 
     public void adjustForKg() {
         JSettings settings = (JSettings) JSettingsStore.instance().first();
+        JBar bar = (JBar) this.first();
         if (settings.units.equals("kg")) {
-            JBar bar = (JBar) this.first();
             bar.weight = new BigDecimal("20");
+        } else {
+            bar.weight = new BigDecimal("45");
         }
     }
 }

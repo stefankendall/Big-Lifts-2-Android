@@ -16,7 +16,7 @@ public class LbsKgSwitchCell extends RadioButtonCell {
     @Override
     protected void valueChanged(int selection) {
         JSettings settings = (JSettings) JSettingsStore.instance().first();
-        settings.units = units.get(selection);
+        settings.setUnits(units.get(selection));
     }
 
     @Override
