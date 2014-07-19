@@ -1,27 +1,26 @@
 package com.stefankendall.BigLifts.views.cells;
 
-import java.math.BigDecimal;
+import com.stefankendall.BigLifts.R;
 
-public class ParameterizedIntegerInputCell extends IntegerInputCell {
-    private String defaultValue;
-    private String label;
-
+public class ParameterizedIntegerInputCell extends ParameterizedNumberInputCell {
     public ParameterizedIntegerInputCell(String label, String defaultValue) {
-        this.label = label;
-        this.defaultValue = defaultValue;
+        super(label, defaultValue);
+    }
+
+    public ParameterizedIntegerInputCell(String label, String defaultValue, String hint) {
+        super(label, defaultValue, hint);
+    }
+
+    public int getValue() {
+        try {
+            return Integer.parseInt(this.input.getText().toString());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     @Override
-    protected void stringValueChanged(String s) {
-    }
-
-    @Override
-    protected String label() {
-        return this.label;
-    }
-
-    @Override
-    protected String defaultValue() {
-        return this.defaultValue;
+    protected int getLayoutResource() {
+        return R.layout.integer_input_cell;
     }
 }

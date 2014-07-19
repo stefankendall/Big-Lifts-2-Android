@@ -27,6 +27,7 @@ public abstract class NumberInputCell implements CustomListItem {
             labelView.setText(this.label());
             this.input = (EditText) view.findViewById(R.id.input);
             this.input.setText(this.defaultValue());
+            this.input.setHint(this.hint());
             this.input.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -47,6 +48,10 @@ public abstract class NumberInputCell implements CustomListItem {
         }
 
         return view;
+    }
+
+    protected String hint() {
+        return "0";
     }
 
     public void setValue(String value) {

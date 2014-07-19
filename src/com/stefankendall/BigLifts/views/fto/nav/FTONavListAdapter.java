@@ -8,6 +8,7 @@ import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.views.fto.barloading.BarLoadingActivity;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
+import com.stefankendall.BigLifts.views.fto.onerep.OneRepMaxActivity;
 import com.stefankendall.BigLifts.views.fto.settings.SettingsActivity;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.nav.NavAction;
@@ -56,6 +57,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Estimate 1RM", R.drawable._161_calculator, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(OneRepMaxActivity.class);
                     }
                 }),
                 new NavListItem("Settings", R.drawable._157_wrench, new NavAction() {

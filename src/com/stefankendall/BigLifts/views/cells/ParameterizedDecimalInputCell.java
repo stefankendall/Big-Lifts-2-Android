@@ -1,30 +1,25 @@
 package com.stefankendall.BigLifts.views.cells;
 
-import com.google.common.base.Function;
+import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 
 import java.math.BigDecimal;
 
-public class ParameterizedDecimalInputCell extends DecimalInputCell {
-
-    public String label;
-    public String defaultValue;
-
+public class ParameterizedDecimalInputCell extends ParameterizedNumberInputCell {
     public ParameterizedDecimalInputCell(String label, String defaultValue) {
-        this.label = label;
-        this.defaultValue = defaultValue;
+        super(label, defaultValue);
+    }
+
+    public ParameterizedDecimalInputCell(String label, String defaultValue, String hint) {
+        super(label, defaultValue, hint);
     }
 
     @Override
-    protected void stringValueChanged(String s) {
+    protected int getLayoutResource() {
+        return R.layout.decimal_input_cell;
     }
 
-    @Override
-    protected String label() {
-        return this.label;
-    }
-
-    @Override
-    protected String defaultValue() {
-        return this.defaultValue;
+    public BigDecimal getValue() {
+        return BigDecimals.parse(this.input.getText().toString());
     }
 }

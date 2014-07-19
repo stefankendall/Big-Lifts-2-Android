@@ -3,19 +3,18 @@ package com.stefankendall.BigLifts.views.fto.settings;
 import com.stefankendall.BigLifts.data.models.JBar;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
-import com.stefankendall.BigLifts.views.cells.DecimalInputCell;
+import com.stefankendall.BigLifts.views.cells.ParameterizedDecimalInputCell;
 
 import java.math.BigDecimal;
 
-public class BarWeightCell extends DecimalInputCell {
-    @Override
-    protected void stringValueChanged(String s) {
-        this.valueChanged(this.getValue());
+public class BarWeightCell extends ParameterizedDecimalInputCell {
+    public BarWeightCell() {
+        super("Bar Weight", "");
     }
 
     @Override
-    protected String label() {
-        return "Bar Weight";
+    protected void stringValueChanged(String s) {
+        this.valueChanged(this.getValue());
     }
 
     @Override
