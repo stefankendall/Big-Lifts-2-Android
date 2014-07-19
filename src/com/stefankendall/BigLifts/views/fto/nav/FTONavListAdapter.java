@@ -67,6 +67,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Feedback", R.drawable._09_chat_2, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.sendFeedback(context);
                     }
                 }),
                 new NavListItem("Program", R.drawable._213_reply, new NavAction() {
