@@ -3,14 +3,15 @@ package com.stefankendall.BigLifts.views.fto.settings;
 import com.google.common.collect.*;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
+import com.stefankendall.BigLifts.views.cells.SpinnerCell;
 
 import java.util.List;
 import java.util.Map;
 
 public class RoundingTypeCell extends SpinnerCell {
     @Override
-    protected List<CharSequence> options() {
-        return Lists.<CharSequence>newArrayList(JSettings.ROUNDING_TYPE_DOWN, JSettings.ROUNDING_TYPE_NORMAL, JSettings.ROUNDING_TYPE_UP);
+    protected List<String> options() {
+        return Lists.newArrayList(JSettings.ROUNDING_TYPE_DOWN, JSettings.ROUNDING_TYPE_NORMAL, JSettings.ROUNDING_TYPE_UP);
     }
 
     @Override

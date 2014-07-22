@@ -4,15 +4,16 @@ import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
+import com.stefankendall.BigLifts.views.cells.SpinnerCell;
 
 import java.util.List;
 
 public class RoundToCell extends SpinnerCell {
 
-    private static List<CharSequence> options = Lists.<CharSequence>newArrayList("0.5", "1", "2", "2.5", "5", "Nearest 5");
+    private static List<String> options = Lists.newArrayList("0.5", "1", "2", "2.5", "5", "Nearest 5");
 
     @Override
-    protected List<CharSequence> options() {
+    protected List<String> options() {
         return options;
     }
 

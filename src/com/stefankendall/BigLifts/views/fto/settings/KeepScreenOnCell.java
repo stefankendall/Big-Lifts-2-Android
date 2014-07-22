@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.settings;
 
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
+import com.stefankendall.BigLifts.views.cells.SwitchCell;
 
 public class KeepScreenOnCell extends SwitchCell {
     @Override

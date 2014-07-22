@@ -1,4 +1,4 @@
-package com.stefankendall.BigLifts.views.fto.settings;
+package com.stefankendall.BigLifts.views.cells;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
@@ -23,7 +25,7 @@ public abstract class SpinnerCell implements CustomListItem {
         if (labelView != null) {
             labelView.setText(this.label());
             Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
-            ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(App.getContext(), R.layout.spinner_list_item, this.options());
+            ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(App.getContext(), R.layout.spinner_list_item, Lists.newArrayList(Iterables.filter(this.options(), CharSequence.class)));
             adapter.setDropDownViewResource(R.layout.spinner_dropdown_list_item);
             spinner.setAdapter(adapter);
             spinner.setSelection(this.defaultSelection());
@@ -43,7 +45,7 @@ public abstract class SpinnerCell implements CustomListItem {
         return view;
     }
 
-    protected abstract List<CharSequence> options();
+    protected abstract List<String> options();
 
     protected abstract String label();
 

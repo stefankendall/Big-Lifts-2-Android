@@ -16,7 +16,7 @@
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:gravity="right"
-              android:text="145.5"
+              android:text=""
               android:selectAllOnFocus="true"
             />
 

@@ -1,4 +1,4 @@
-package com.stefankendall.BigLifts.views.fto.settings;
+package com.stefankendall.BigLifts.views.cells;
 
 import android.view.LayoutInflater;
 import android.view.View;
