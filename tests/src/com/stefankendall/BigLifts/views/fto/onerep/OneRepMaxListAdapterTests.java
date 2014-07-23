@@ -57,4 +57,27 @@ public class OneRepMaxListAdapterTests extends ActivityInstrumentationTestCase2<
 
         Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "");
     }
+
+    public void testOneRepMaxEstimateChangesWithValues() {
+        final OneRepMaxListAdapter adapter = (OneRepMaxListAdapter) this.fragment.getListAdapter();
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                adapter.weight.setValue("100");
+                adapter.reps.setValue("3");
+                adapter.oneRepValuesChanged();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "103.3");
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                adapter.weight.setValue("100");
+                adapter.reps.setValue("4");
+                adapter.oneRepValuesChanged();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "104.4");
+    }
 }

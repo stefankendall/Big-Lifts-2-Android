@@ -10,6 +10,7 @@ import com.stefankendall.BigLifts.views.fto.barloading.FieldWatcher;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OneRepMaxListAdapter extends SimpleListAdapter {
@@ -43,6 +44,11 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     }
 
     protected void oneRepValuesChanged() {
+        if(this.weight.isEmpty() || this.reps.isEmpty()){
+            this.oneRepMaxEstimate.setValue("");
+        }
 
+        BigDecimal weight = this.weight.getValue();
+        int count = this.reps.getValue();
     }
 }
