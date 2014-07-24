@@ -2,6 +2,8 @@ package com.stefankendall.BigLifts.views.fto.onerep;
 
 import android.app.Activity;
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.allprograms.formulas.OneRepEstimator;
+import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.views.cells.ParameterizedDecimalInputCell;
 import com.stefankendall.BigLifts.views.cells.ParameterizedIntegerInputCell;
 import com.stefankendall.BigLifts.views.cells.ParameterizedReadOnlyDecimalCell;
@@ -44,11 +46,17 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     }
 
     protected void oneRepValuesChanged() {
-        if(this.weight.isEmpty() || this.reps.isEmpty()){
+        if (this.weight.isEmpty() || this.reps.isEmpty()) {
             this.oneRepMaxEstimate.setValue("");
         }
 
         BigDecimal weight = this.weight.getValue();
         int count = this.reps.getValue();
+        BigDecimal estimate = OneRepEstimator.estimate(weight, count);
+        if (estimate.compareTo(BigDecimal.ZERO) > 0) {
+            this.oneRepMaxEstimate.setValue(BigDecimals.print(estimate));
+        } else {
+            this.oneRepMaxEstimate.setValue("");
+        }
     }
 }

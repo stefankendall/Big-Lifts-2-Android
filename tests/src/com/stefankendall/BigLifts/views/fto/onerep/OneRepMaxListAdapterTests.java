@@ -68,7 +68,7 @@ public class OneRepMaxListAdapterTests extends ActivityInstrumentationTestCase2<
             }
         });
         getInstrumentation().waitForIdleSync();
-        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "103.3");
+        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "110");
 
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
@@ -78,6 +78,6 @@ public class OneRepMaxListAdapterTests extends ActivityInstrumentationTestCase2<
             }
         });
         getInstrumentation().waitForIdleSync();
-        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "104.4");
+        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "113.3");
     }
 }
