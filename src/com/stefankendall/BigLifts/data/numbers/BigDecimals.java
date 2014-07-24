@@ -15,7 +15,7 @@ public class BigDecimals {
         if (number == null) {
             return "";
         }
-        
+
         return number.stripTrailingZeros().toPlainString();
     }
 }
