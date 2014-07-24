@@ -22,6 +22,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     protected ReadOnlyDecimalCell oneRepMaxEstimate;
     protected FormulaSelectorCell formulaSelector;
     private FormulaDisplayCell formulaDisplay;
+    private MaleFemaleCell maleFemaleCell;
 
     public OneRepMaxListAdapter(Activity context) {
         super(context);
@@ -42,19 +43,27 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
         this.oneRepMaxEstimate = new ParameterizedReadOnlyDecimalCell("Estimated Max");
         this.formulaDisplay = new FormulaDisplayCell();
 
-        FieldWatcher formulaWatcher = new FieldWatcher() {
+        this.formulaSelector = new FormulaSelectorCell(new FieldWatcher() {
             @Override
             public void fieldChanged() {
                 OneRepMaxListAdapter.this.formulaChanged();
             }
-        };
-        this.formulaSelector = new FormulaSelectorCell(formulaWatcher);
+        });
+
+        this.maleFemaleCell = new MaleFemaleCell(new FieldWatcher(){
+            @Override
+            public void fieldChanged() {
+                OneRepMaxListAdapter.this.maleFemaleChanged();
+            }
+        });
+
         return Lists.newArrayList(
                 this.weight,
                 this.reps,
                 this.oneRepMaxEstimate,
                 this.formulaSelector,
-                this.formulaDisplay
+                this.formulaDisplay,
+                this.maleFemaleCell
         );
     }
 
@@ -76,5 +85,9 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     protected void formulaChanged() {
         this.oneRepValuesChanged();
         this.formulaDisplay.update();
+    }
+
+    protected void maleFemaleChanged() {
+
     }
 }
