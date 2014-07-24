@@ -12,6 +12,10 @@ public class BigDecimals {
     }
 
     public static String print(BigDecimal number) {
+        if (number == null) {
+            return "";
+        }
+        
         return number.stripTrailingZeros().toPlainString();
     }
 }

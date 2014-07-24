@@ -23,6 +23,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     protected FormulaSelectorCell formulaSelector;
     private FormulaDisplayCell formulaDisplay;
     private MaleFemaleCell maleFemaleCell;
+    private BodyweightCell bodyweightCell;
 
     public OneRepMaxListAdapter(Activity context) {
         super(context);
@@ -57,13 +58,16 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
             }
         });
 
+        this.bodyweightCell = new BodyweightCell("Bodyweight", "");
+
         return Lists.newArrayList(
                 this.weight,
                 this.reps,
                 this.oneRepMaxEstimate,
                 this.formulaSelector,
                 this.formulaDisplay,
-                this.maleFemaleCell
+                this.maleFemaleCell,
+                this.bodyweightCell
         );
     }
 
