@@ -21,6 +21,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     protected ParameterizedIntegerInputCell reps;
     protected ReadOnlyDecimalCell oneRepMaxEstimate;
     protected FormulaSelectorCell formulaSelector;
+    private FormulaDisplayCell formulaDisplay;
 
     public OneRepMaxListAdapter(Activity context) {
         super(context);
@@ -39,6 +40,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
         this.weight.setFieldWatcher(oneRepWatcher);
         this.reps.setFieldWatcher(oneRepWatcher);
         this.oneRepMaxEstimate = new ParameterizedReadOnlyDecimalCell("Estimated Max");
+        this.formulaDisplay = new FormulaDisplayCell();
 
         FieldWatcher formulaWatcher = new FieldWatcher() {
             @Override
@@ -51,7 +53,8 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
                 this.weight,
                 this.reps,
                 this.oneRepMaxEstimate,
-                this.formulaSelector
+                this.formulaSelector,
+                this.formulaDisplay
         );
     }
 
@@ -72,5 +75,6 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
 
     protected void formulaChanged() {
         this.oneRepValuesChanged();
+        this.formulaDisplay.update();
     }
 }
