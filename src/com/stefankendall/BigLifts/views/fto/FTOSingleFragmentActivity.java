@@ -1,9 +1,11 @@
 package com.stefankendall.BigLifts.views.fto;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.stefankendall.BigLifts.R;
@@ -41,9 +43,18 @@ public abstract class FTOSingleFragmentActivity extends SingleFragmentActivity {
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                FTOSingleFragmentActivity.this.hideKeyboard();
             }
         };
         this.drawerLayout.setDrawerListener(this.drawerToggle);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        View v = this.getCurrentFocus();
+        if (v != null) {
+            inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override

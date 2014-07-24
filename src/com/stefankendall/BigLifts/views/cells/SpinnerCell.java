@@ -10,11 +10,22 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.views.fto.barloading.FieldWatcher;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 import java.util.List;
 
 public abstract class SpinnerCell implements CustomListItem {
+
+    protected FieldWatcher fieldWatcher;
+
+    public SpinnerCell() {
+    }
+
+    public SpinnerCell(FieldWatcher fieldWatcher) {
+        this.fieldWatcher = fieldWatcher;
+    }
+
     @Override
     public View fillView(View view, LayoutInflater inflater) {
         if (view == null) {
@@ -34,6 +45,9 @@ public abstract class SpinnerCell implements CustomListItem {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     SpinnerCell.this.valueChanged(position);
+                    if (SpinnerCell.this.fieldWatcher != null) {
+                        fieldWatcher.fieldChanged();
+                    }
                 }
 
                 @Override
