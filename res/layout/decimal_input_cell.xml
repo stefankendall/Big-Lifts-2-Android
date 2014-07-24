@@ -21,6 +21,8 @@
               android:text="45"
               android:hint="0"
               android:selectAllOnFocus="true"
+              android:imeOptions="actionDone"
+              android:textColor="@color/disabled"
             />
 
 </LinearLayout>

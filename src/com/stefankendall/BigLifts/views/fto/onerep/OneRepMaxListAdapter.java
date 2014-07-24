@@ -3,7 +3,9 @@ package com.stefankendall.BigLifts.views.fto.onerep;
 import android.app.Activity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.allprograms.formulas.OneRepEstimator;
+import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
+import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import com.stefankendall.BigLifts.views.cells.ParameterizedDecimalInputCell;
 import com.stefankendall.BigLifts.views.cells.ParameterizedIntegerInputCell;
 import com.stefankendall.BigLifts.views.cells.ParameterizedReadOnlyDecimalCell;
@@ -24,6 +26,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     private FormulaDisplayCell formulaDisplay;
     private MaleFemaleCell maleFemaleCell;
     private BodyweightCell bodyweightCell;
+    private WilksCell wilksCell;
 
     public OneRepMaxListAdapter(Activity context) {
         super(context);
@@ -51,7 +54,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
             }
         });
 
-        this.maleFemaleCell = new MaleFemaleCell(new FieldWatcher(){
+        this.maleFemaleCell = new MaleFemaleCell(new FieldWatcher() {
             @Override
             public void fieldChanged() {
                 OneRepMaxListAdapter.this.maleFemaleChanged();
@@ -59,6 +62,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
         });
 
         this.bodyweightCell = new BodyweightCell("Bodyweight", "");
+        this.wilksCell = new WilksCell();
 
         return Lists.newArrayList(
                 this.weight,
@@ -67,7 +71,8 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
                 this.formulaSelector,
                 this.formulaDisplay,
                 this.maleFemaleCell,
-                this.bodyweightCell
+                this.bodyweightCell,
+                this.wilksCell
         );
     }
 
@@ -76,14 +81,20 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
             this.oneRepMaxEstimate.setValue("");
         }
 
-        BigDecimal weight = this.weight.getValue();
-        int count = this.reps.getValue();
-        BigDecimal estimate = OneRepEstimator.estimate(weight, count);
+        BigDecimal estimate = getEstimate();
         if (estimate.compareTo(BigDecimal.ZERO) > 0) {
             this.oneRepMaxEstimate.setValue(BigDecimals.print(estimate));
         } else {
             this.oneRepMaxEstimate.setValue("");
         }
+
+        this.updateWilks();
+    }
+
+    private BigDecimal getEstimate() {
+        BigDecimal weight = this.weight.getValue();
+        int count = this.reps.getValue();
+        return OneRepEstimator.estimate(weight, count);
     }
 
     protected void formulaChanged() {
@@ -92,6 +103,12 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     }
 
     protected void maleFemaleChanged() {
+        this.updateWilks();
+    }
 
+    private void updateWilks() {
+        BigDecimal weight = getEstimate();
+        JSettings settings = (JSettings) JSettingsStore.instance().first();
+        this.wilksCell.update(weight, settings.bodyweight);
     }
 }

@@ -2,7 +2,6 @@ package com.stefankendall.BigLifts.views.cells;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -45,9 +44,14 @@ public abstract class NumberInputCell implements CustomListItem {
                     }
                 }
             });
+            this.input.setEnabled(this.enabled());
         }
 
         return view;
+    }
+
+    protected boolean enabled() {
+        return true;
     }
 
     protected String hint() {
