@@ -11,7 +11,7 @@ import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 public class FTOWorkoutSummaryCell implements CustomListItem {
 
-    private final JFTOWorkout jftoWorkout;
+    protected final JFTOWorkout jftoWorkout;
 
     public FTOWorkoutSummaryCell(JFTOWorkout jftoWorkout) {
         this.jftoWorkout = jftoWorkout;

@@ -42,4 +42,13 @@ public class FTOWorkoutListAdapter extends SimpleListAdapter {
 
         return workoutsByWeek;
     }
+
+    public JFTOWorkout workoutForPosition(int pos) {
+        CustomListItem item = this.items.get(pos);
+        if (item instanceof HeaderListItem) {
+            return null;
+        }
+
+        return ((FTOWorkoutSummaryCell) item).jftoWorkout;
+    }
 }
