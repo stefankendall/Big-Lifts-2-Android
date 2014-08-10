@@ -4,7 +4,10 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:padding="5dp">
+              android:paddingTop="8dp"
+              android:paddingBottom="8dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp">
     <ImageView
             android:id="@+id/menu_item_image"
             android:layout_width="30dp"

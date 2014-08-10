@@ -42,4 +42,9 @@ public class JFTOWorkoutStoreTest extends BLTestCase {
         Assert.assertTrue(JFTOWorkoutStore.instance().unique("week").contains(6));
         Assert.assertEquals(JFTOWorkoutStore.instance().unique("week").size(), 7);
     }
+
+    public void testDefaultWorkoutsHaveWarmup() {
+        JFTOWorkout jftoWorkout = (JFTOWorkout) JFTOWorkoutStore.instance().first();
+        Assert.assertEquals(jftoWorkout.workout.sets.size(), 6);
+    }
 }

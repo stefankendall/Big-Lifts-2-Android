@@ -56,7 +56,7 @@ public class JFTOWorkoutStore extends BLJStore {
         this.markDeloadWorkouts();
         this.markWeekIncrements();
         this.remarkDoneLifts(doneLiftsByWeek);
-        if (((JFTOSettings) JFTOSettingsStore.instance().first()).warmupEnabled) {
+        if (!((JFTOSettings) JFTOSettingsStore.instance().first()).warmupEnabled) {
             this.removeWarmup();
         }
         //todo: Full custom adjust to fto

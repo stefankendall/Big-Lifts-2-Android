@@ -54,7 +54,7 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     }
 
     protected boolean hasAssistance() {
-        return this.jftoWorkout.workout.warmupSets().size() > 0;
+        return this.jftoWorkout.workout.assistanceSets().size() > 0;
     }
 
     protected boolean hasWorkSets() {
