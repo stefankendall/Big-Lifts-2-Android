@@ -25,7 +25,7 @@ public class JFTOWorkoutSetsGenerator {
         return plans.get(variant);
     }
 
-    private JFTOPlan planForCurrentVariant() {
+    public JFTOPlan planForCurrentVariant() {
         JFTOVariant variant = (JFTOVariant) JFTOVariantStore.instance().first();
         return this.planForVariant(variant.name);
     }
