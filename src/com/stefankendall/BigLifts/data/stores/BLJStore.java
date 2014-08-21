@@ -6,7 +6,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.stefankendall.BigLifts.App;
@@ -16,7 +15,6 @@ import com.stefankendall.BigLifts.data.models.Orderable;
 import com.stefankendall.BigLifts.data.models.json.JModelDeserializer;
 import com.stefankendall.BigLifts.data.models.json.JModelSerializer;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 abstract public class BLJStore {
@@ -87,6 +85,7 @@ abstract public class BLJStore {
 
     public void addUuid(JModel model) {
         model.uuid = UUID.randomUUID().toString();
+        this.uuidCache.put(model.uuid, model);
     }
 
     public void setupDefaults() {
@@ -229,7 +228,7 @@ abstract public class BLJStore {
         return BLJStore.this.getGson().toJson(model);
     }
 
-    protected Gson getGson() {
+    public Gson getGson() {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         for (Class klass : this.getAssociations()) {
             gsonBuilder.registerTypeAdapter(klass, new JModelSerializer());
@@ -238,15 +237,17 @@ abstract public class BLJStore {
         return gsonBuilder.create();
     }
 
-    protected List<Class> getAssociations() {
-        return Lists.newArrayList();
-    }
+    abstract protected List<Class> getAssociations();
 
     public void sync() {
         SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(this.keyNameForStore(), "[" + Joiner.on(',').join(this.serialize()) + "]");
+        editor.putString(this.keyNameForStore(), serializedAsJson());
         editor.commit();
+    }
+
+    public String serializedAsJson() {
+        return "[" + Joiner.on(',').join(this.serialize()) + "]";
     }
 
     public void load() {

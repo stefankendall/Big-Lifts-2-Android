@@ -1,10 +1,12 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.stores.BLJStore;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class JFTOSettingsStore extends BLJStore {
     @Override
@@ -24,5 +26,10 @@ public class JFTOSettingsStore extends BLJStore {
         settings.sixWeekEnabled = false;
         settings.logState = JFTOSettings.LogState.kShowWorkSets;
         settings.repsToBeatConfig = JFTOSettings.RepsToBeatConfig.kRepsToBeatEverything;
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
     }
 }

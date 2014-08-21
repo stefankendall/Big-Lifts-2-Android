@@ -37,11 +37,15 @@ public class ModelTypeListFactory {
         });
         types.put(JSet.class, new TypeToken<CopyOnWriteArrayList<JSet>>() {
         });
+        types.put(JSetLog.class, new TypeToken<CopyOnWriteArrayList<JSetLog>>() {
+        });
         types.put(JSettings.class, new TypeToken<CopyOnWriteArrayList<JSettings>>() {
         });
         types.put(JVersion.class, new TypeToken<CopyOnWriteArrayList<JVersion>>() {
         });
         types.put(JWorkout.class, new TypeToken<CopyOnWriteArrayList<JWorkout>>() {
+        });
+        types.put(JWorkoutLog.class, new TypeToken<CopyOnWriteArrayList<JWorkoutLog>>() {
         });
         return types;
     }

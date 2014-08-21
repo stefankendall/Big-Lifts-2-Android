@@ -1,10 +1,12 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JLift;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSet;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class JSetStore extends BLJStore {
     @Override
@@ -20,6 +22,11 @@ public class JSetStore extends BLJStore {
     public void setDefaultsForObject(JModel object) {
         JSet set = (JSet) object;
         set.percentage = new BigDecimal("100");
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
     }
 
     public JSet create(JLift lift, BigDecimal percentage) {

@@ -1,10 +1,12 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JBar;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSettings;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class JBarStore extends BLJStore {
     @Override
@@ -20,6 +22,11 @@ public class JBarStore extends BLJStore {
     public void setupDefaults() {
         JBar bar = (JBar) this.create();
         bar.weight = new BigDecimal("45");
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
     }
 
     public void adjustForKg() {

@@ -1,7 +1,10 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JVersion;
+
+import java.util.List;
 
 public class JVersionStore extends BLJStore {
     @Override
@@ -17,5 +20,10 @@ public class JVersionStore extends BLJStore {
     public void setupDefaults() {
         JVersion version = (JVersion) this.create();
         version.version = 14;
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
     }
 }

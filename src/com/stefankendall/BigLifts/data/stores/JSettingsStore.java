@@ -1,10 +1,12 @@
 package com.stefankendall.BigLifts.data.stores;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSettings;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 public class JSettingsStore extends BLJStore {
@@ -26,6 +28,11 @@ public class JSettingsStore extends BLJStore {
         settings.roundingFormula = JSettings.ROUNDING_FORMULA_EPLEY;
         settings.roundingType = JSettings.ROUNDING_TYPE_NORMAL;
         settings.isMale = true;
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
     }
 
     public void adjustForKg() {

@@ -1,8 +1,11 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
+import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOVariant;
 import com.stefankendall.BigLifts.data.stores.BLJStore;
+
+import java.util.List;
 
 public class JFTOVariantStore extends BLJStore {
     @Override
@@ -18,6 +21,11 @@ public class JFTOVariantStore extends BLJStore {
     public void setupDefaults() {
         JFTOVariant variant = (JFTOVariant) this.create();
         variant.name = JFTOVariant.STANDARD;
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
     }
 
     public void changeTo(String variant) {

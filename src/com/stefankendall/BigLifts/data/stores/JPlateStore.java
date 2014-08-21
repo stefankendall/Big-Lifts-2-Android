@@ -48,6 +48,11 @@ public class JPlateStore extends BLJStore {
         return sorted;
     }
 
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.newArrayList();
+    }
+
     public void adjustForKg() {
         if (((JSettings) JSettingsStore.instance().first()).units.equals("kg")) {
             JPlate firstPlate = (JPlate) this.first();

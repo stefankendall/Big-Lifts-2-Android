@@ -32,6 +32,9 @@ public class BLJStoreManager {
                     JVersionStore.instance(),
                     JCurrentProgramStore.instance(),
 
+                    JSetLogStore.instance(),
+                    JWorkoutLogStore.instance(),
+
                     JSettingsStore.instance(),
                     JFTOSettingsStore.instance(),
                     JBarStore.instance(),
