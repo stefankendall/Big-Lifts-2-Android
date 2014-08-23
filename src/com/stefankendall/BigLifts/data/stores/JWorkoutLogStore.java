@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.stefankendall.BigLifts.data.models.JModel;
-import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JSetLog;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 

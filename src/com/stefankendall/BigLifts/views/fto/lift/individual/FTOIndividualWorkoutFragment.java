@@ -6,7 +6,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.data.models.JSet;
+import com.stefankendall.BigLifts.data.models.JSetLog;
+import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
+import com.stefankendall.BigLifts.data.stores.JSetLogStore;
+import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 public class FTOIndividualWorkoutFragment extends ListFragment {
     private JFTOWorkout ftoWorkout;
@@ -47,6 +56,29 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
     }
 
     protected void logWorkout() {
+        JWorkoutLog workoutLog = JWorkoutLogStore.instance().create("5/3/1", new Date());
+        workoutLog.deload = this.ftoWorkout.deload;
 
+        List<JSet> sets = this.ftoWorkout.workout.sets;
+        for (int i = 0; i < sets.size(); i++) {
+            JSet set = sets.get(i);
+            SetChange setChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.ftoWorkout, i);
+            Integer reps = setChange.reps;
+            if (reps != null && reps == 0) {
+                continue;
+            }
+            BigDecimal weight = setChange.weight;
+
+            JSetLog setLog = JSetLogStore.instance().createFromSet(set);
+            if (reps != null) {
+                setLog.reps = reps;
+            }
+            if (weight != null) {
+                setLog.weight = weight;
+            }
+
+            workoutLog.addSet(setLog);
+        }
+        FTOWorkoutChangeCache.instance().clear();
     }
 }

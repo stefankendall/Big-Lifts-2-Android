@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.lift.individual;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
 import com.stefankendall.BigLifts.views.fto.FTOSingleFragmentActivity;
@@ -13,6 +14,7 @@ public class FTOIndividualWorkoutActivity extends FTOSingleFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JFTOWorkout ftoWorkout = getFtoWorkoutFromIntent();
+        assert ftoWorkout != null;
         setTitle(ftoWorkout.workout.sets.get(0).lift.name);
     }
 

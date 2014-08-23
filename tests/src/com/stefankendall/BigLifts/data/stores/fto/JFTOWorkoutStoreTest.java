@@ -47,4 +47,9 @@ public class JFTOWorkoutStoreTest extends BLTestCase {
         JFTOWorkout jftoWorkout = (JFTOWorkout) JFTOWorkoutStore.instance().first();
         Assert.assertEquals(jftoWorkout.workout.sets.size(), 6);
     }
+
+    public void testFindsWorkoutsByUuid() {
+        JFTOWorkout jftoWorkout = (JFTOWorkout) JFTOWorkoutStore.instance().first();
+        Assert.assertNotNull(JFTOWorkoutStore.instance().find("uuid", jftoWorkout.uuid));
+    }
 }
