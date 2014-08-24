@@ -10,6 +10,7 @@ import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.onerep.OneRepMaxActivity;
 import com.stefankendall.BigLifts.views.fto.settings.SettingsActivity;
+import com.stefankendall.BigLifts.views.fto.track.FTOTrackViewActivity;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.nav.NavAction;
 import com.stefankendall.BigLifts.views.nav.NavListAdapter;
@@ -52,6 +53,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Track", R.drawable._16_line_chart, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(FTOTrackViewActivity.class);
                     }
                 }),
                 new NavListItem("Estimate 1RM", R.drawable._161_calculator, new NavAction() {

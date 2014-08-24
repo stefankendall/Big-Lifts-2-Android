@@ -1,11 +1,12 @@
 package com.stefankendall.BigLifts.views.fto.lift.individual;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JSetLog;
@@ -13,6 +14,7 @@ import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.JSetLogStore;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
+import com.stefankendall.BigLifts.views.fto.track.FTOTrackViewActivity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -58,7 +60,10 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
         if (willIncrement) {
 //            [self performSegueWithIdentifier:@"ftoShowLiftIncrements" sender:self];
         } else {
-            
+            this.getActivity().setResult(BLActivity.RESULT_CLOSE_ALL);
+            this.getActivity().finish();
+            Intent i = new Intent(this.getActivity(), FTOTrackViewActivity.class);
+            startActivity(i);
         }
     }
 

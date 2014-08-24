@@ -8,6 +8,8 @@ import com.stefankendall.BigLifts.data.stores.BLJStoreManager;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 
 public class BLActivity extends Activity {
+    public static int RESULT_CLOSE_ALL = -1;
+
     @Override
     protected void onPause() {
         super.onPause();

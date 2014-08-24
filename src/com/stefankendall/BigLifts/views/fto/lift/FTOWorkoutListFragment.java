@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.views.fto.lift.individual.FTOIndividualWorkoutActivity;
 
@@ -22,6 +23,15 @@ public class FTOWorkoutListFragment extends ListFragment {
         JFTOWorkout jftoWorkout = adapter.workoutForPosition(position);
         Intent individualWorkoutIntent = new Intent(this.getActivity(), FTOIndividualWorkoutActivity.class);
         individualWorkoutIntent.putExtra(FTOIndividualWorkoutActivity.FTO_WORKOUT_UUID, jftoWorkout.uuid);
-        startActivity(individualWorkoutIntent);
+        startActivityForResult(individualWorkoutIntent, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == BLActivity.RESULT_CLOSE_ALL) {
+            getActivity().setResult(BLActivity.RESULT_CLOSE_ALL);
+            this.getActivity().finish();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

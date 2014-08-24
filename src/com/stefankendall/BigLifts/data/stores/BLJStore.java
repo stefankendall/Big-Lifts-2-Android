@@ -49,7 +49,6 @@ abstract public class BLJStore {
     }
 
     private void buildUuidCache() {
-        this.uuidCache = Maps.newHashMap();
         for (JModel model : this.data) {
             this.uuidCache.put(model.uuid, model);
         }
@@ -252,6 +251,7 @@ abstract public class BLJStore {
 
     public void load() {
         this.data = (List<JModel>) this.loadDataFromStore();
+        this.uuidCache = Maps.newHashMap();
 
         if (this.data.isEmpty()) {
             this.setupDefaults();
