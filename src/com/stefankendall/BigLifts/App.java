@@ -24,7 +24,6 @@ public class App extends Application implements Application.ActivityLifecycleCal
         return context;
     }
 
-
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
 

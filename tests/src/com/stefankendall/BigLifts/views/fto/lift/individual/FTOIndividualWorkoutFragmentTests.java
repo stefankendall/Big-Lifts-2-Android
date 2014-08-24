@@ -41,11 +41,11 @@ public class FTOIndividualWorkoutFragmentTests extends ActivityInstrumentationTe
         Assert.assertTrue(this.ftoWorkout.done);
     }
 
-    public void testDoesNotSave0RepsInLog() {
+//    public void testDoesNotSave0RepsInLog() {
 //        self.controller.tappedSetRow = @0;
 //        [self.controller repsChanged:@0];
 //        [self.controller doneButtonTapped:nil];
 //        JWorkoutLog *workoutLog = [[JWorkoutLogStore instance] find:@"name" value:@"5/3/1"];
 //        STAssertEquals((int) [workoutLog.sets count], 5, @"");
-    }
+//    }
 }

@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import android.util.Log;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -15,10 +16,15 @@ import java.util.List;
 public class BLJStoreManager {
     private List<? extends BLJStore> allStores;
 
+    public static boolean loaded = false;
+
     public void loadStores() {
-        for (BLJStore store : this.allStores) {
-            if (store != JVersionStore.instance()) {
-                store.load();
+        if (!BLJStoreManager.loaded) {
+            BLJStoreManager.loaded = true;
+            for (BLJStore store : this.allStores) {
+                if (store != JVersionStore.instance()) {
+                    store.load();
+                }
             }
         }
     }
