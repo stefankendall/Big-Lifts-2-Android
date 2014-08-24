@@ -31,6 +31,7 @@ public class JWorkoutLogStore extends BLJStore {
         JWorkoutLog log = (JWorkoutLog) object;
         log.sets = Lists.newArrayList();
         log.deload = false;
+        log.date = new Date();
     }
 
     @Override

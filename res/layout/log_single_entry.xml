@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              style="@style/list_item"
+              android:paddingLeft="0dp"
+        >
+    <TextView
+            android:id="@+id/lift_name"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:text="Bench"/>
+    <TextView
+            android:id="@+id/reps"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="5x"/>
+    <TextView
+            android:id="@+id/weight"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="135lbs"/>
+
+</LinearLayout>
