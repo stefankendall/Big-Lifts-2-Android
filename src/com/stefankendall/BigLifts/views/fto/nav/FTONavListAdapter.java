@@ -9,6 +9,7 @@ import com.stefankendall.BigLifts.views.fto.barloading.BarLoadingActivity;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.onerep.OneRepMaxActivity;
+import com.stefankendall.BigLifts.views.fto.plan.FTOPlanActivity;
 import com.stefankendall.BigLifts.views.fto.settings.SettingsActivity;
 import com.stefankendall.BigLifts.views.fto.track.FTOTrackViewActivity;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
@@ -42,6 +43,7 @@ public class FTONavListAdapter extends NavListAdapter {
                 new NavListItem("Plan Workout", R.drawable._101_gameplan, new NavAction() {
                     @Override
                     public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(FTOPlanActivity.class);
                     }
                 }),
                 new NavListItem("Bar Loading", R.drawable._95_equalizer, new NavAction() {
