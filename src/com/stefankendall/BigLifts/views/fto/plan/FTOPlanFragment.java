@@ -8,4 +8,7 @@ public class FTOPlanFragment extends ListFragmentWithControls {
     protected ListAdapter getListAdapterForControls() {
         return new FTOPlanListAdapter(getActivity());
     }
+
+    protected void removeListSelection() {
+    }
 }
