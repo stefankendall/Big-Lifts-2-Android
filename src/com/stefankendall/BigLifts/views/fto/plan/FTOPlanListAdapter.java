@@ -19,6 +19,8 @@ public class FTOPlanListAdapter extends SimpleListAdapter {
         return Lists.newArrayList(
                 new HeaderListItem("Lifting"),
                 new TrainingMaxCell(),
+                new WarmupCell(),
+                new SixWeekCell(),
                 new HeaderListItem("Variation")
         );
     }
