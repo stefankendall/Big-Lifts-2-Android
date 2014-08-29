@@ -12,7 +12,7 @@ import com.stefankendall.BigLifts.views.lists.CustomListItem;
 public class PlanListItem implements CustomListItem {
     private final String templateLabel;
     private final String description;
-    private final String variant;
+    public final String variant;
 
     public PlanListItem(String templateLabel, String description, String variant) {
         this.templateLabel = templateLabel;

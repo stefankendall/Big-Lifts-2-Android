@@ -19,7 +19,7 @@ public class FTOWorkoutListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         ListMultimap<Integer, JFTOWorkout> workoutsByWeek = this.workoutsByWeek();
         List<Integer> weeks = Ordering.natural().immutableSortedCopy(workoutsByWeek.keySet());
 

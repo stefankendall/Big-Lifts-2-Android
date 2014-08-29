@@ -1,7 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.barloading;
 
 import android.app.Activity;
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JPlate;
 import com.stefankendall.BigLifts.data.stores.JPlateStore;
@@ -21,7 +20,7 @@ public class BarLoadingListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         List<CustomListItem> items = Lists.newArrayList();
         items.add(new HeaderListItem("Plates"));
         for (JPlate p : JPlateStore.instance().findAll()) {

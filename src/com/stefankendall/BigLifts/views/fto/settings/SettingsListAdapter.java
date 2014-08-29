@@ -18,7 +18,7 @@ public class SettingsListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         LbsKgSwitchCell lbsKgSwitchCell = new LbsKgSwitchCell();
         lbsKgSwitchCell.setFieldWatcher(this.watcher);
         return Lists.newArrayList(

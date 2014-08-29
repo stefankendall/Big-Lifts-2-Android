@@ -33,7 +33,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         this.weight = new ParameterizedDecimalInputCell("Weight", "", "300");
         this.reps = new ParameterizedIntegerInputCell("Reps", "", "5");
         FieldWatcher oneRepWatcher = new FieldWatcher() {

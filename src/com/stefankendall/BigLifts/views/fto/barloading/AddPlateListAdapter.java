@@ -22,11 +22,11 @@ public class AddPlateListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         this.weight = new ParameterizedDecimalInputCell("Weight", "");
         this.count = new ParameterizedIntegerInputCell("Count", "");
         this.weight.setFieldWatcher(watcher);
         this.count.setFieldWatcher(watcher);
-        return Lists.newArrayList(this.weight, this.count);
+        return Lists.<CustomListItem>newArrayList(this.weight, this.count);
     }
 }

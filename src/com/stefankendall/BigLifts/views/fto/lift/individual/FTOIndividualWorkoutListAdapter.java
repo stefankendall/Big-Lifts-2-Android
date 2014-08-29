@@ -22,7 +22,7 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         List<CustomListItem> items = Lists.newArrayList();
 
         if (this.hasWarmup()) {

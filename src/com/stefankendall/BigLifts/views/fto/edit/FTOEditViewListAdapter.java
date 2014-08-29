@@ -17,7 +17,7 @@ public class FTOEditViewListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         List<CustomListItem> view = Lists.<CustomListItem>newArrayList(
                 new LeftRightHeaderListItem("Max", "Training Max")
         );

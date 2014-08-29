@@ -26,8 +26,8 @@ public class FTONavListAdapter extends NavListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
-        return Lists.newArrayList(
+    public List<CustomListItem> buildItems() {
+        return Lists.<CustomListItem>newArrayList(
                 new NavListItem("Lift", R.drawable._89_dumbells, new NavAction() {
                     @Override
                     public void run(Activity context) {

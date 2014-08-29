@@ -32,8 +32,8 @@ public class NavListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
-        return Lists.newArrayList(new NavListItem("Nothing", android.R.drawable.ic_menu_search, new NavAction() {
+    public List<CustomListItem> buildItems() {
+        return Lists.<CustomListItem>newArrayList(new NavListItem("Nothing", android.R.drawable.ic_menu_search, new NavAction() {
             @Override
             public void run(Activity context) {
             }

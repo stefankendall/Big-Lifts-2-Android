@@ -3,8 +3,6 @@ package com.stefankendall.BigLifts.views.fto.plan;
 import android.app.Activity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.fto.JFTOVariant;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOVariantStore;
-import com.stefankendall.BigLifts.views.cells.ParameterizedDecimalInputCell;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.HeaderListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
@@ -17,7 +15,7 @@ public class FTOPlanListAdapter extends SimpleListAdapter {
     }
 
     @Override
-    public List<? extends CustomListItem> buildItems() {
+    public List<CustomListItem> buildItems() {
         return Lists.newArrayList(
                 new HeaderListItem("Lifting"),
                 new TrainingMaxCell(),
