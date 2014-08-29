@@ -14,7 +14,7 @@ import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import java.math.BigDecimal;
 
 public class SetCell implements CustomListItem {
-    private final JSet set;
+    protected final JSet set;
 
     public SetCell(JSet set) {
         this.set = set;
