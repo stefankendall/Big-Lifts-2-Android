@@ -27,19 +27,34 @@ public class SetCell implements CustomListItem {
         }
 
         TextView liftName = (TextView) view.findViewById(R.id.lift_name);
-        TextView reps = (TextView) view.findViewById(R.id.reps);
-        TextView percentage = (TextView) view.findViewById(R.id.percentage);
-        TextView units = (TextView) view.findViewById(R.id.units);
-        TextView weight = (TextView) view.findViewById(R.id.weight);
         if (liftName != null) {
-            liftName.setText(set.lift.name);
-            reps.setText(set.reps + "x");
-            percentage.setText(set.percentage + "%");
-            JSettings settings = (JSettings) JSettingsStore.instance().first();
-            units.setText(settings.units);
-            weight.setText(BigDecimals.print(this.set.roundedEffectiveWeight()));
+            setupSetData(view);
         }
 
         return view;
+    }
+
+    protected void setupSetData(View view) {
+        TextView liftName = (TextView) view.findViewById(R.id.lift_name);
+        TextView reps = (TextView) view.findViewById(R.id.reps);
+        TextView percentage = (TextView) view.findViewById(R.id.percentage);
+        TextView units = (TextView) view.findViewById(R.id.units);
+        liftName.setText(set.lift.name);
+        reps.setText(set.reps + "x");
+        percentage.setText(set.percentage + "%");
+        JSettings settings = (JSettings) JSettingsStore.instance().first();
+        units.setText(settings.units);
+
+        this.setWeightLabelText(view);
+    }
+
+    private void setWeightLabelText(View view) {
+        TextView weight = (TextView) view.findViewById(R.id.weight);
+
+        if (!this.set.lift.usesBar && set.roundedEffectiveWeight().equals(BigDecimal.ZERO)) {
+            weight.setText("");
+        } else {
+            weight.setText(BigDecimals.print(this.set.roundedEffectiveWeight()));
+        }
     }
 }
