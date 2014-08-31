@@ -86,7 +86,6 @@ public class JFTOWorkoutStore extends BLJStore {
         }
     }
 
-
     private void markDeloadWorkouts() {
         for (int week : new JFTOWorkoutSetsGenerator().deloadWeeks()) {
             for (JModel model : JFTOWorkoutStore.instance().findAllWhere("week", week)) {

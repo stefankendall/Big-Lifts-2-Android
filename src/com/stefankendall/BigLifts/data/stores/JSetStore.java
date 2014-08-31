@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JLift;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSet;
+import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
+import com.stefankendall.BigLifts.data.models.fto.JFTOSet;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,7 +28,7 @@ public class JSetStore extends BLJStore {
 
     @Override
     protected List<Class> getAssociations() {
-        return Lists.newArrayList();
+        return Lists.<Class>newArrayList(JLift.class, JFTOLift.class);
     }
 
     public JSet create(JLift lift, BigDecimal percentage) {
