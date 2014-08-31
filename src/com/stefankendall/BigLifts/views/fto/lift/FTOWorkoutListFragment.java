@@ -21,9 +21,11 @@ public class FTOWorkoutListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         FTOWorkoutListAdapter adapter = (FTOWorkoutListAdapter) this.getListAdapter();
         JFTOWorkout jftoWorkout = adapter.workoutForPosition(position);
-        Intent individualWorkoutIntent = new Intent(this.getActivity(), FTOIndividualWorkoutActivity.class);
-        individualWorkoutIntent.putExtra(FTOIndividualWorkoutActivity.FTO_WORKOUT_UUID, jftoWorkout.uuid);
-        startActivityForResult(individualWorkoutIntent, 0);
+        if (jftoWorkout != null) {
+            Intent individualWorkoutIntent = new Intent(this.getActivity(), FTOIndividualWorkoutActivity.class);
+            individualWorkoutIntent.putExtra(FTOIndividualWorkoutActivity.FTO_WORKOUT_UUID, jftoWorkout.uuid);
+            startActivityForResult(individualWorkoutIntent, 0);
+        }
     }
 
     @Override

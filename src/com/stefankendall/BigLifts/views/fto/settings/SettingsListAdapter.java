@@ -24,6 +24,7 @@ public class SettingsListAdapter extends SimpleListAdapter {
         return Lists.newArrayList(
                 lbsKgSwitchCell,
                 new BarWeightCell(),
+                new BarLoadingCell(),
                 new RoundToCell(),
                 new RoundingTypeCell(),
                 new KeepScreenOnCell()
