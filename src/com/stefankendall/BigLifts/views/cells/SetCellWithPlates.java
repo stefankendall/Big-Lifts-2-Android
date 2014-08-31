@@ -3,12 +3,16 @@ package com.stefankendall.BigLifts.views.cells;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import com.google.common.base.Joiner;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.allprograms.formulas.bar.BarCalculator;
 import com.stefankendall.BigLifts.data.models.JBar;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
 import com.stefankendall.BigLifts.data.stores.JPlateStore;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class SetCellWithPlates extends SetCell {
     public SetCellWithPlates(JSet set) {
@@ -23,13 +27,24 @@ public class SetCellWithPlates extends SetCell {
         TextView liftName = (TextView) view.findViewById(R.id.lift_name);
         if (liftName != null) {
             setupSetData(view);
-            TextView plates = (TextView) view.findViewById(R.id.plates);
+            TextView platesText = (TextView) view.findViewById(R.id.plates);
             if (!this.set.lift.usesBar) {
-                plates.setText("");
+                platesText.setVisibility(View.GONE);
+                platesText.setText("");
+            } else {
+                JBar bar = (JBar) JBarStore.instance().first();
+                BarCalculator calculator = new BarCalculator(JPlateStore.instance().findAll(), bar.weight);
+                BigDecimal weightToMake = this.set.roundedEffectiveWeight();
+                List<BigDecimal> plates = calculator.platesToMakeWeight(weightToMake);
+                String platesString = "";
+                if (plates.size() > 0) {
+                    platesText.setVisibility(View.VISIBLE);
+                    platesString = "[" + Joiner.on(", ").join(plates) + "]";
+                } else {
+                    platesText.setVisibility(View.GONE);
+                }
+                platesText.setText(platesString);
             }
-
-            JBar bar = (JBar) JBarStore.instance().first();
-            BarCalculator calculator = new BarCalculator(JPlateStore.instance().findAll(), bar.weight);
         }
 
         return view;

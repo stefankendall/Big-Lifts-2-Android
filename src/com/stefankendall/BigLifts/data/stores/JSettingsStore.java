@@ -28,6 +28,7 @@ public class JSettingsStore extends BLJStore {
         settings.roundingFormula = JSettings.ROUNDING_FORMULA_EPLEY;
         settings.roundingType = JSettings.ROUNDING_TYPE_NORMAL;
         settings.isMale = true;
+        settings.barLoadingEnabled = true;
     }
 
     @Override

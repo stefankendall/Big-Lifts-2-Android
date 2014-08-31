@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 public class SetCellWithPlatesTests extends BLTestCase {
     public void testSetCellSetsPlates() {
         JLift lift = (JLift) JLiftStore.instance().create();
+        lift.usesBar = true;
         lift.weight = new BigDecimal("300");
         JSet set = JSetStore.instance().create(lift, new BigDecimal("100"));
 

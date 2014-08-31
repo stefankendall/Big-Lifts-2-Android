@@ -22,6 +22,7 @@ public class JSettings extends JModel {
     public boolean screenAlwaysOn;
     public boolean isMale;
     public BigDecimal bodyweight;
+    public boolean barLoadingEnabled;
 
     public void setUnits(String units) {
         this.units = units;

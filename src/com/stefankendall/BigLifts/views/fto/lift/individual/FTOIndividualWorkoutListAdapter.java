@@ -4,7 +4,7 @@ import android.app.Activity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
-import com.stefankendall.BigLifts.views.cells.SetCell;
+import com.stefankendall.BigLifts.views.cells.SetCellFactory;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.HeaderListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
@@ -44,7 +44,7 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     private Collection<CustomListItem> itemsForSets(List<JSet> sets) {
         List<CustomListItem> items = Lists.newArrayList();
         for (JSet set : sets) {
-            items.add(new SetCell(set));
+            items.add(SetCellFactory.create(set));
         }
         return items;
     }
