@@ -3,5 +3,9 @@
     <style name="MyCustomTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:actionMenuTextAppearance">@style/MyCustomTheme.MenuTextStyle</item>
+    </style>
+    <style name="MyCustomTheme.MenuTextStyle">
+        <item name="android:textStyle">normal</item>
     </style>
 </resources>

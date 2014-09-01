@@ -34,13 +34,17 @@ public class PlanListItem implements CustomListItem {
             templateLabel.setText(this.templateLabel);
             description.setText(this.description);
 
-            JFTOVariant jftoVariant = (JFTOVariant) JFTOVariantStore.instance().first();
-            if (jftoVariant.name.equals(this.variant)) {
-                checkmark.setVisibility(View.VISIBLE);
-            } else {
-                checkmark.setVisibility(View.INVISIBLE);
-            }
+            setCheckMarkState(checkmark);
         }
         return view;
+    }
+
+    protected void setCheckMarkState(ImageView checkmark) {
+        JFTOVariant jftoVariant = (JFTOVariant) JFTOVariantStore.instance().first();
+        if (jftoVariant.name.equals(this.variant)) {
+            checkmark.setVisibility(View.VISIBLE);
+        } else {
+            checkmark.setVisibility(View.INVISIBLE);
+        }
     }
 }
