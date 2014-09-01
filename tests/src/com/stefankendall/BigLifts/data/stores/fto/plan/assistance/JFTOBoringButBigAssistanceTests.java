@@ -28,7 +28,7 @@ public class JFTOBoringButBigAssistanceTests extends BLTestCase {
 
     public void testAddsBoringButBigSets() {
         new JFTOBoringButBigAssistance().setup();
-        JFTOWorkout workoutInWeek1 = (JFTOWorkout) JFTOWorkoutStore.instance().findAllWhere("week", 1);
+        JFTOWorkout workoutInWeek1 = (JFTOWorkout) JFTOWorkoutStore.instance().findAllWhere("week", 1).get(0);
         Assert.assertEquals(workoutInWeek1.workout.sets.size(), 11);
         JSet boringSet = workoutInWeek1.workout.sets.get(6);
         Assert.assertEquals(boringSet.percentage.compareTo(new BigDecimal(50)), 0);
