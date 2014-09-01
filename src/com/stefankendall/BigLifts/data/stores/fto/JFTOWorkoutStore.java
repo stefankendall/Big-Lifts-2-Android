@@ -46,7 +46,7 @@ public class JFTOWorkoutStore extends BLJStore {
 
     public void switchTemplate() {
         this.restoreTemplate();
-        //todo: add assistance
+        JFTOAssistanceStore.instance().addAssistance();
     }
 
     public void restoreTemplate() {

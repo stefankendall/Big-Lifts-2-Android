@@ -1,15 +1,10 @@
 package com.stefankendall.BigLifts.data.stores;
 
-import android.util.Log;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOSetStore;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOVariantStore;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
+import com.stefankendall.BigLifts.data.stores.fto.*;
 
 import java.util.List;
 
@@ -47,6 +42,7 @@ public class BLJStoreManager {
                     JPlateStore.instance(),
 
                     JFTOVariantStore.instance(),
+                    JFTOAssistanceStore.instance(),
 
                     JLiftStore.instance(),
                     JFTOLiftStore.instance(),
