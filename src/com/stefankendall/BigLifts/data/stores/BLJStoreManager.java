@@ -48,6 +48,8 @@ public class BLJStoreManager {
                     JLiftStore.instance(),
                     JFTOLiftStore.instance(),
 
+                    JFTOBoringButBigLiftStore.instance(),
+
                     JSetStore.instance(),
                     JFTOSetStore.instance(),
                     JWorkoutStore.instance(),
