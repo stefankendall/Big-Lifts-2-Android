@@ -43,6 +43,7 @@ public class BLJStoreManager {
 
                     JFTOVariantStore.instance(),
                     JFTOAssistanceStore.instance(),
+                    JFTOBoringButBigStore.instance(),
 
                     JLiftStore.instance(),
                     JFTOLiftStore.instance(),

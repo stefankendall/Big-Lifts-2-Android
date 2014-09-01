@@ -7,6 +7,7 @@ import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.BLJStore;
 import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTOAssistanceProtocol;
+import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTOBoringButBigAssistance;
 import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTONoneAssistance;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class JFTOAssistanceStore extends BLJStore {
     public JFTOAssistanceProtocol assistanceGeneratorForName(String name) {
         Map<String, JFTOAssistanceProtocol> generators = ImmutableMap.<String, JFTOAssistanceProtocol>builder()
                 .put(JFTOAssistance.NONE, new JFTONoneAssistance())
+                .put(JFTOAssistance.BORING_BUT_BIG, new JFTOBoringButBigAssistance())
                 .build();
 //        NSDictionary *assistanceGenerators = @{
 //            FTO_ASSISTANCE_NONE : [JFTONoneAssistance new],
