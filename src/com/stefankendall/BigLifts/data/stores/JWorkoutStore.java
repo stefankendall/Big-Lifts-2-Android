@@ -28,4 +28,8 @@ public class JWorkoutStore extends BLJStore {
         JWorkout workout = (JWorkout) object;
         workout.sets = Lists.newArrayList();
     }
+
+    public void adjustToLifts() {
+
+    }
 }

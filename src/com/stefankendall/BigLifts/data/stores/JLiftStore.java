@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class JLiftStore extends BLJStore {
+    protected boolean isSettingDefaults = false;
+
     public static JLiftStore instance() {
         return (JLiftStore) BLJStore.instance(JLiftStore.class);
     }
@@ -41,5 +43,25 @@ public class JLiftStore extends BLJStore {
             JLift lift = (JLift) object;
             lift.weight = lift.weight.add(lift.increment);
         }
+    }
+
+
+    @Override
+    public void remove(JModel model) {
+        super.remove(model);
+        this.liftsChanged();
+    }
+
+    public void liftsChanged() {
+        JWorkoutStore.instance().adjustToLifts();
+    }
+
+    @Override
+    public Object create() {
+        JLift lift = (JLift) super.create();
+        if (!this.isSettingDefaults) {
+            this.liftsChanged();
+        }
+        return lift;
     }
 }

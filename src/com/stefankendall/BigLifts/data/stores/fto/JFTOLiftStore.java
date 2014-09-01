@@ -10,8 +10,6 @@ import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import java.math.BigDecimal;
 
 public class JFTOLiftStore extends JLiftStore {
-    public boolean isSettingDefaults;
-
     public static JFTOLiftStore instance() {
         return (JFTOLiftStore) BLJStore.instance(JFTOLiftStore.class);
     }
@@ -66,5 +64,10 @@ public class JFTOLiftStore extends JLiftStore {
                         ? settingsStore.defaultIncrementForLift(lift.name) : lift.increment;
             }
         }
+    }
+
+    @Override
+    public void liftsChanged() {
+        JFTOBoringButBigLiftStore.instance().adjustToMainLifts();
     }
 }
