@@ -17,7 +17,13 @@ public class ModelTypeListFactory {
 
     private static Map<Class, TypeToken> getTypeMap() {
         Map<Class, TypeToken> types = Maps.newHashMap();
+        types.put(JFTOAssistance.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
+        });
         types.put(JFTOLift.class, new TypeToken<CopyOnWriteArrayList<JFTOLift>>() {
+        });
+        types.put(JFTOBoringButBig.class, new TypeToken<CopyOnWriteArrayList<JFTOBoringButBig>>() {
+        });
+        types.put(JFTOBoringButBigLift.class, new TypeToken<CopyOnWriteArrayList<JFTOBoringButBigLift>>() {
         });
         types.put(JFTOSet.class, new TypeToken<CopyOnWriteArrayList<JFTOSet>>() {
         });

@@ -16,7 +16,6 @@ import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
 public class FTOPlanFragment extends ListFragmentWithControls {
-    private MenuItem button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,9 +34,9 @@ public class FTOPlanFragment extends ListFragmentWithControls {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.single_button, menu);
-        this.button = menu.findItem(R.id.button);
-        this.button.setTitle("Assistance");
-        this.button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        MenuItem button = menu.findItem(R.id.button);
+        button.setTitle("Assistance");
+        button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 FTOPlanFragment.this.buttonTapped();
@@ -48,15 +47,6 @@ public class FTOPlanFragment extends ListFragmentWithControls {
 
     public void buttonTapped() {
         startActivity(new Intent(this.getActivity(), FTOAssistanceActivity.class));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item == this.button) {
-
-            return true;
-        }
-        return false;
     }
 
     @Override
