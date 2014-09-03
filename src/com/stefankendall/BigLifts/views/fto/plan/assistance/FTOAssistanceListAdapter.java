@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.fto.JFTOAssistance;
 import com.stefankendall.BigLifts.data.stores.fto.plans.JFTOAdvancedPlan;
 import com.stefankendall.BigLifts.views.fto.plan.PlanListItem;
+import com.stefankendall.BigLifts.views.fto.plan.assistance.boringbutbig.FTOBoringButBigActivity;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
@@ -18,8 +19,8 @@ public class FTOAssistanceListAdapter extends SimpleListAdapter {
     @Override
     public List<CustomListItem> buildItems() {
         return Lists.<CustomListItem>newArrayList(
-                new AssistancePlanListItem("None", "", JFTOAssistance.NONE),
-                new AssistancePlanListItem("Boring But Big", "5 sets 10 reps @50% of main lift", JFTOAssistance.BORING_BUT_BIG)
+                new AssistancePlanListItem("None", "", JFTOAssistance.NONE, null),
+                new AssistancePlanListItem("Boring But Big", "5 sets 10 reps @50% of main lift", JFTOAssistance.BORING_BUT_BIG, FTOBoringButBigActivity.class)
         );
     }
 }

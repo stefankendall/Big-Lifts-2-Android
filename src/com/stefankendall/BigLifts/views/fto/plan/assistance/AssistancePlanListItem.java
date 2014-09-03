@@ -9,8 +9,8 @@ import com.stefankendall.BigLifts.data.stores.fto.JFTOVariantStore;
 import com.stefankendall.BigLifts.views.fto.plan.PlanListItem;
 
 public class AssistancePlanListItem extends PlanListItem {
-    public AssistancePlanListItem(String templateLabel, String description, String variant) {
-        super(templateLabel, description, variant);
+    public AssistancePlanListItem(String templateLabel, String description, String variant, Class segue) {
+        super(templateLabel, description, variant, segue);
     }
 
     protected void setCheckMarkState(ImageView checkmark) {

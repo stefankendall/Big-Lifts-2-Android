@@ -13,6 +13,14 @@ public class PlanListItem implements CustomListItem {
     private final String templateLabel;
     private final String description;
     public final String variant;
+    public Class segue;
+
+    public PlanListItem(String templateLabel, String description, String variant, Class segue) {
+        this.templateLabel = templateLabel;
+        this.description = description;
+        this.variant = variant;
+        this.segue = segue;
+    }
 
     public PlanListItem(String templateLabel, String description, String variant) {
         this.templateLabel = templateLabel;

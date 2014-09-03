@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -22,10 +23,16 @@ public class FTOAssistanceFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         CustomListItem item = (CustomListItem) this.getListAdapter().getItem(position);
         if (item instanceof PlanListItem) {
-            PlanListItem planListItem = (PlanListItem) item;
-            JFTOAssistanceStore.instance().changeTo(planListItem.variant);
             SimpleListAdapter listAdapter = (SimpleListAdapter) this.getListAdapter();
             listAdapter.reload();
+
+            PlanListItem planListItem = (PlanListItem) item;
+            if (planListItem.segue != null) {
+                Intent i = new Intent(this.getActivity(), planListItem.segue);
+                startActivity(i);
+            } else {
+                JFTOAssistanceStore.instance().changeTo(planListItem.variant);
+            }
         }
     }
 }
