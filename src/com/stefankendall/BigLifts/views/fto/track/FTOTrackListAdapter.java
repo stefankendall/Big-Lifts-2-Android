@@ -28,12 +28,12 @@ public class FTOTrackListAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.transform(getLog(), new Function<JWorkoutLog, CustomListItem>() {
+        return Lists.newArrayList(Lists.transform(getLog(), new Function<JWorkoutLog, CustomListItem>() {
             @Override
             public CustomListItem apply(JWorkoutLog log) {
                 return new TrackListItem(log);
             }
-        });
+        }));
     }
 
     public List<JWorkoutLog> getLog() {

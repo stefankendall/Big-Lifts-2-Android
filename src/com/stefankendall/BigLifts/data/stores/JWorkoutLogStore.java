@@ -7,25 +7,12 @@ import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSetLog;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 public class JWorkoutLogStore extends BLJStore {
-    @Override
-    public Class<? extends JModel> modelClass() {
-        return JWorkoutLog.class;
-    }
-
-    public static JWorkoutLogStore instance() {
-        return (JWorkoutLogStore) BLJStore.instance(JWorkoutLogStore.class);
-    }
-
-    @Override
-    protected List<Class> getAssociations() {
-        return Lists.<Class>newArrayList(JSetLog.class);
-    }
-
     @Override
     public void setDefaultsForObject(JModel object) {
         JWorkoutLog log = (JWorkoutLog) object;
@@ -51,5 +38,19 @@ public class JWorkoutLogStore extends BLJStore {
         workoutLog.name = name;
         workoutLog.date = date;
         return workoutLog;
+    }
+
+    @Override
+    public Class<? extends JModel> modelClass() {
+        return JWorkoutLog.class;
+    }
+
+    public static JWorkoutLogStore instance() {
+        return (JWorkoutLogStore) BLJStore.instance(JWorkoutLogStore.class);
+    }
+
+    @Override
+    protected List<Class> getAssociations() {
+        return Lists.<Class>newArrayList(JSetLog.class);
     }
 }
