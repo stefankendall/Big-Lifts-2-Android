@@ -14,8 +14,9 @@ public class FTOBoringButBigListAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.<CustomListItem>newArrayList(
-                new BoringButBigPercentageCell()
+        return Lists.newArrayList(
+                new BoringButBigPercentageCell(),
+                new ThreeMonthChallengeCell()
         );
     }
 }

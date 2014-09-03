@@ -55,7 +55,7 @@ public class JFTOBoringButBigLiftStore extends BLJStore {
 
     @Override
     protected List<Class> getAssociations() {
-        return Lists.newArrayList();
+        return Lists.<Class>newArrayList(JFTOLift.class);
     }
 
     public static JFTOBoringButBigLiftStore instance() {
