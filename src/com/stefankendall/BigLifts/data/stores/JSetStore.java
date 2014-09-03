@@ -38,13 +38,6 @@ public class JSetStore extends BLJStore {
         return set;
     }
 
-    public JSet createWarmup(JLift lift, BigDecimal percentage, int reps) {
-        JSet set = this.create(lift, percentage);
-        set.warmup = true;
-        set.reps = reps;
-        return set;
-    }
-
     public JSet createFromSet(JSet set) {
         JSet newSet = (JSet) this.create();
         newSet.reps = set.reps;

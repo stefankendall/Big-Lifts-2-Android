@@ -101,6 +101,7 @@ abstract public class BLJStore {
     }
 
     public void remove(JModel model) {
+        model.dead = true;
         this.data.remove(model);
         this.uuidCache.remove(model.uuid);
         this.removeCascadeAssocations(model);

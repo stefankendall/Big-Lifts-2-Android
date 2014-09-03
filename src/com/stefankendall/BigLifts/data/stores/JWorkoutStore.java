@@ -30,6 +30,15 @@ public class JWorkoutStore extends BLJStore {
     }
 
     public void adjustToLifts() {
-
+        for (JModel model : JWorkoutStore.instance().findAll()) {
+            JWorkout workout = (JWorkout) model;
+            List<JSet> deadSets = Lists.newArrayList();
+            for (JSet set : workout.sets) {
+                if (set.lift.isDead()) {
+                    deadSets.add(set);
+                }
+            }
+            workout.removeSets(deadSets);
+        }
     }
 }

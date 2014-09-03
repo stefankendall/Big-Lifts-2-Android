@@ -19,7 +19,7 @@ public class JVersionStore extends BLJStore {
     @Override
     public void setupDefaults() {
         JVersion version = (JVersion) this.create();
-        version.version = 14;
+        version.version = 1;
     }
 
     @Override
