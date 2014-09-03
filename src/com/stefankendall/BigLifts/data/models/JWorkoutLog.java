@@ -41,6 +41,12 @@ public class JWorkoutLog extends JModel {
         return bestSet;
     }
 
+    @Override
+    public String toString() {
+        JSetLog setLog = this.sets.get(0);
+        return this.date.toString() + " " + setLog.name;
+    }
+
     public void addSet(JSetLog log) {
         this.sets.add(log);
     }

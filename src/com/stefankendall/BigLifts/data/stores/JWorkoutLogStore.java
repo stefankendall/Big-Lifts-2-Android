@@ -41,7 +41,7 @@ public class JWorkoutLogStore extends BLJStore {
             public int compare(JModel model1, JModel model2) {
                 JWorkoutLog log1 = (JWorkoutLog) model1;
                 JWorkoutLog log2 = (JWorkoutLog) model2;
-                return log1.date.compareTo(log2.date);
+                return log2.date.compareTo(log1.date);
             }
         }).sortedCopy(this.data));
     }
