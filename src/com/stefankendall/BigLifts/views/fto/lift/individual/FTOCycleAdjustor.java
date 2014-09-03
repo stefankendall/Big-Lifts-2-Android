@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOAssistanceStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
 import com.stefankendall.BigLifts.data.stores.fto.plans.JFTOPlan;
 import com.stefankendall.BigLifts.data.stores.fto.plans.JFTOWorkoutSetsGenerator;
@@ -26,6 +27,7 @@ public class FTOCycleAdjustor {
             JFTOWorkout jftoWorkout = (JFTOWorkout) model;
             jftoWorkout.done = false;
         }
+        JFTOAssistanceStore.instance().cycleChange();
     }
 
     public boolean shouldIncrementLifts() {
