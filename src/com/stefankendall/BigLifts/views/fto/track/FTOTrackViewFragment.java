@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.google.common.collect.ImmutableMap;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
+
+import java.util.Map;
 
 public class FTOTrackViewFragment extends ListFragment {
     @Override
@@ -32,6 +36,19 @@ public class FTOTrackViewFragment extends ListFragment {
                 return true;
             case R.id.menu_sort_name:
                 sortBy(TrackSort.NAME);
+                return true;
+            case R.id.menu_best_set:
+            case R.id.menu_work_sets:
+            case R.id.menu_all_sets:
+                Map<Integer, JFTOSettings.LogState> idToNewState = ImmutableMap
+                        .<Integer, JFTOSettings.LogState>builder()
+                        .put(R.id.menu_best_set, JFTOSettings.LogState.kShowAmrap)
+                        .put(R.id.menu_work_sets, JFTOSettings.LogState.kShowWorkSets)
+                        .put(R.id.menu_all_sets, JFTOSettings.LogState.kShowAll)
+                        .build();
+                JFTOSettings settings = (JFTOSettings) JFTOSettingsStore.instance().first();
+                settings.logState = idToNewState.get(item.getItemId());
+                ((FTOTrackListAdapter) this.getListAdapter()).reload();
                 return true;
             case R.id.graph_button:
                 return true;

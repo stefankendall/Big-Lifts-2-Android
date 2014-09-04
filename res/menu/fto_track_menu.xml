@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Sort"
-          android:icon="@android:drawable/ic_menu_sort_by_size"
+          android:icon="@android:drawable/ic_menu_sort_alphabetically"
           android:showAsAction="ifRoom">
         <menu>
             <item
@@ -11,6 +11,20 @@
             <item
                     android:id="@+id/menu_sort_name"
                     android:title="Sort by Name"/>
+        </menu>
+    </item>
+    <item android:title="Show"
+          android:showAsAction="always">
+        <menu>
+            <item
+                    android:id="@+id/menu_work_sets"
+                    android:title="Work Sets"/>
+            <item
+                    android:id="@+id/menu_best_set"
+                    android:title="Best Set"/>
+            <item
+                    android:id="@+id/menu_all_sets"
+                    android:title="All Sets"/>
         </menu>
     </item>
     <item android:id="@+id/graph_button"
