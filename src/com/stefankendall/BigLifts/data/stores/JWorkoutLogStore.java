@@ -6,6 +6,7 @@ import com.google.common.collect.Ordering;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSetLog;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
+import com.stefankendall.BigLifts.data.stores.fto.FakeLogData;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -19,6 +20,11 @@ public class JWorkoutLogStore extends BLJStore {
         log.sets = Lists.newArrayList();
         log.deload = false;
         log.date = new Date();
+    }
+
+    @Override
+    protected void onLoad() {
+//        FakeLogData.createData();
     }
 
     @Override
