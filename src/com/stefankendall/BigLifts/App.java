@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import com.crashlytics.android.Crashlytics;
+import com.stefankendall.BigLifts.billing.util.IabService;
 import com.stefankendall.BigLifts.data.DataLoader;
 import com.stefankendall.BigLifts.data.stores.BLJStoreManager;
 
@@ -18,6 +18,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
         context = this;
         Crashlytics.start(this);
         new DataLoader().load();
+        IabService.getInstance().start();
     }
 
     public static Context getContext() {
