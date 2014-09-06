@@ -50,8 +50,8 @@ public class FTOTrackViewFragment extends ListFragment {
                 settings.logState = idToNewState.get(item.getItemId());
                 ((FTOTrackListAdapter) this.getListAdapter()).reload();
                 return true;
-            case R.id.graph_button:
-                return true;
+//            case R.id.graph_button:
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
