@@ -41,6 +41,8 @@ public class ModelTypeListFactory {
         });
         types.put(JPlate.class, new TypeToken<CopyOnWriteArrayList<JPlate>>() {
         });
+        types.put(JPurchase.class, new TypeToken<CopyOnWriteArrayList<JPurchase>>() {
+        });
         types.put(JSet.class, new TypeToken<CopyOnWriteArrayList<JSet>>() {
         });
         types.put(JSetLog.class, new TypeToken<CopyOnWriteArrayList<JSetLog>>() {

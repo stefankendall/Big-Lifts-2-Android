@@ -2,9 +2,17 @@ package com.stefankendall.BigLifts.views.fto.nav;
 
 import android.app.Activity;
 import android.content.Intent;
+import com.google.common.base.Function;
+import com.google.common.base.Predicates;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.billing.util.IabService;
+import com.stefankendall.BigLifts.billing.util.Inventory;
+import com.stefankendall.BigLifts.billing.util.SkuDetails;
+import com.stefankendall.BigLifts.data.models.JPurchase;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
+import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 import com.stefankendall.BigLifts.views.fto.barloading.BarLoadingActivity;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
@@ -27,7 +35,7 @@ public class FTONavListAdapter extends NavListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.<CustomListItem>newArrayList(
+        List<CustomListItem> navItems = Lists.<CustomListItem>newArrayList(
                 new NavListItem("Lift", R.drawable._89_dumbells, new NavAction() {
                     @Override
                     public void run(Activity context) {
@@ -70,6 +78,7 @@ public class FTONavListAdapter extends NavListAdapter {
                         FTONavListAdapter.this.switchTo(SettingsActivity.class);
                     }
                 }),
+                buildPurchaseListItem(),
                 new NavListItem("Feedback", R.drawable._09_chat_2, new NavAction() {
                     @Override
                     public void run(Activity context) {
@@ -84,6 +93,47 @@ public class FTONavListAdapter extends NavListAdapter {
                     }
                 })
         );
+        return Lists.newArrayList(FluentIterable.from(navItems)
+                .filter(Predicates.notNull())
+                .toList());
+    }
+
+    private NavListItem buildPurchaseListItem() {
+        JPurchase purchase = (JPurchase) JPurchaseStore.instance().first();
+        if (purchase.hasPurchasedEverything) {
+            return null;
+        }
+
+        String title = "Unlock Everything";
+        Inventory inventory = IabService.getInstance().getInventory();
+        if (inventory == null) {
+            this.getPurchasePrice();
+        } else {
+            SkuDetails sku = inventory.getSkuDetails(IabService.EVERYTHING_SKU);
+            title += " " + sku;
+        }
+
+        return new NavListItem(title, R.drawable._269_happyface_2, new NavAction() {
+            @Override
+            public void run(Activity context) {
+                IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity);
+            }
+        });
+    }
+
+    private void getPurchasePrice() {
+        IabService.getInstance().getInventory(new Function<Inventory, Void>() {
+            @Override
+            public Void apply(Inventory inventory) {
+                FTONavListAdapter.this.activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FTONavListAdapter.this.reload();
+                    }
+                });
+                return null;
+            }
+        });
     }
 
     private void switchTo(Class nextActivity) {

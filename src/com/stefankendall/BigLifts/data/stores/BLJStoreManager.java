@@ -31,6 +31,8 @@ public class BLJStoreManager {
             instance = new BLJStoreManager();
             instance.allStores = Lists.newArrayList(
                     JVersionStore.instance(),
+                    JPurchaseStore.instance(),
+
                     JCurrentProgramStore.instance(),
 
                     JSetLogStore.instance(),
