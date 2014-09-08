@@ -44,4 +44,9 @@ public class JPurchaseStore extends BLJStore {
         JPurchase jPurchase = (JPurchase) this.first();
         jPurchase.hasPurchasedEverything = inventory.hasPurchase(IabService.EVERYTHING_SKU);
     }
+
+    public boolean hasPurchasedEverything() {
+        JPurchase jPurchase = (JPurchase) this.first();
+        return jPurchase.hasPurchasedEverything;
+    }
 }

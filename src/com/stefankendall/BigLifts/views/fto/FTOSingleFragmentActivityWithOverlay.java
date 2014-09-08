@@ -57,7 +57,4 @@ public abstract class FTOSingleFragmentActivityWithOverlay extends SingleFragmen
             inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
-    @Override
-    abstract protected Fragment createFragment();
 }
