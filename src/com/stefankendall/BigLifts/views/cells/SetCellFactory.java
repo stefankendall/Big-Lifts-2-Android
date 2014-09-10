@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.cells;
 
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JSettings;
+import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
@@ -15,6 +16,6 @@ public class SetCellFactory {
 
     private static boolean shouldUseBarLoading() {
         JSettings settings = (JSettings) JSettingsStore.instance().first();
-        return settings.barLoadingEnabled;
+        return JPurchaseStore.instance().hasPurchasedEverything() && settings.barLoadingEnabled;
     }
 }

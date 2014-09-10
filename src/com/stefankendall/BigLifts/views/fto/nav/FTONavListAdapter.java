@@ -107,7 +107,7 @@ public class FTONavListAdapter extends NavListAdapter {
         String title = "Unlock Everything";
         Inventory inventory = IabService.getInstance().getInventory();
         if (inventory == null) {
-            this.getPurchasePrice();
+            this.findPurchasePrice();
         } else {
             SkuDetails sku = inventory.getSkuDetails(IabService.EVERYTHING_SKU);
             title += " " + sku;
@@ -116,12 +116,17 @@ public class FTONavListAdapter extends NavListAdapter {
         return new NavListItem(title, R.drawable._269_happyface_2, new NavAction() {
             @Override
             public void run(Activity context) {
-                IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity);
+                IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity, new Function<Void,Void>() {
+                    public Void apply(Void aVoid){
+                        FTONavListAdapter.this.reload();
+                        return null;
+                    }
+                });
             }
         });
     }
 
-    private void getPurchasePrice() {
+    private void findPurchasePrice() {
         IabService.getInstance().getInventory(new Function<Inventory, Void>() {
             @Override
             public Void apply(Inventory inventory) {

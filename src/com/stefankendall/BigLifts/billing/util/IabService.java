@@ -1,12 +1,18 @@
 package com.stefankendall.BigLifts.billing.util;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.App;
+import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.data.models.JPurchase;
+import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
+import com.stefankendall.BigLifts.views.SimpleDialog;
 
 public class IabService {
     public static String EVERYTHING_SKU = "everything";
@@ -63,21 +69,36 @@ public class IabService {
         return inventory;
     }
 
-    public void purchaseEverything(Activity fromActivity) {
-        iabHelper.launchPurchaseFlow(fromActivity, IabService.EVERYTHING_SKU, 0, new IabHelper.OnIabPurchaseFinishedListener() {
-            @Override
-            public void onIabPurchaseFinished(IabResult result, Purchase info) {
-                if (result.isSuccess()) {
-                    if (info.getSku().equals(EVERYTHING_SKU)) {
-                        Log.i("TAG", "PURCHASED");
+    public void purchaseEverything(final Activity fromActivity, final Function<Void, Void> successCallback) {
+        try {
+            iabHelper.launchPurchaseFlow(fromActivity, IabService.EVERYTHING_SKU, 0, new IabHelper.OnIabPurchaseFinishedListener() {
+                @Override
+                public void onIabPurchaseFinished(IabResult result, Purchase info) {
+                    if (result.isSuccess()) {
+                        if (info.getSku().equals(EVERYTHING_SKU)) {
+                            successfulPurchase(fromActivity);
+                            successCallback.apply(null);
+                        } else {
+                        }
+                    } else {
+                        failureInPurchase(fromActivity);
                     }
-                    else {
-                        Log.i("TAG", "Did not purchase");
-                    }
-                } else {
-                    Log.i("TAG", "Purchase failure");
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+        }
+    }
+
+    private void failureInPurchase(Activity fromActivity) {
+        SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
+                "Something went wrong trying to purchase...", "Send me feedback and try again later, maybe?");
+    }
+
+    private void successfulPurchase(Activity fromActivity) {
+        JPurchase purchase = (JPurchase) JPurchaseStore.instance().first();
+        purchase.hasPurchasedEverything = true;
+
+        SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
+                "Thank you!", "I truly appreciate the support.");
     }
 }
