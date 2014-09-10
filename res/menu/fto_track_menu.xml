@@ -27,7 +27,7 @@
                     android:title="All Sets"/>
         </menu>
     </item>
-    <!--<item android:id="@+id/graph_button"-->
-          <!--android:title="Graph"-->
-          <!--android:showAsAction="always"/>-->
+    <item android:id="@+id/graph_button"
+          android:title="Graph"
+          android:showAsAction="always"/>
 </menu>

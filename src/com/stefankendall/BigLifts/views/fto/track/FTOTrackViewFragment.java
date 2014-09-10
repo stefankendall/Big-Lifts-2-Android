@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.track;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +10,7 @@ import com.google.common.collect.ImmutableMap;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
+import com.stefankendall.BigLifts.views.fto.track.graph.FTOGraphActivity;
 
 import java.util.Map;
 
@@ -50,8 +52,9 @@ public class FTOTrackViewFragment extends ListFragment {
                 settings.logState = idToNewState.get(item.getItemId());
                 ((FTOTrackListAdapter) this.getListAdapter()).reload();
                 return true;
-//            case R.id.graph_button:
-//                return true;
+            case R.id.graph_button:
+                startActivity(new Intent(this.getActivity(), FTOGraphActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
