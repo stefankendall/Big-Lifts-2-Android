@@ -36,18 +36,22 @@ public class PlanListItem implements CustomListItem {
 
         TextView templateLabel = (TextView) view.findViewById(R.id.template_name);
         if (templateLabel != null) {
-            TextView description = (TextView) view.findViewById(R.id.description);
-            ImageView checkmark = (ImageView) view.findViewById(R.id.checkmark);
-
-            templateLabel.setText(this.templateLabel);
-            description.setText(this.description);
-
-            setCheckMarkState(checkmark);
+            setData(view);
+            setCheckMarkState(view);
         }
         return view;
     }
 
-    protected void setCheckMarkState(ImageView checkmark) {
+    protected void setData(View v) {
+        TextView templateLabel = (TextView) v.findViewById(R.id.template_name);
+        TextView description = (TextView) v.findViewById(R.id.description);
+
+        templateLabel.setText(this.templateLabel);
+        description.setText(this.description);
+    }
+
+    protected void setCheckMarkState(View v) {
+        ImageView checkmark = (ImageView) v.findViewById(R.id.checkmark);
         JFTOVariant jftoVariant = (JFTOVariant) JFTOVariantStore.instance().first();
         if (jftoVariant.name.equals(this.variant)) {
             checkmark.setVisibility(View.VISIBLE);

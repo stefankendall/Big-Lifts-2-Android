@@ -28,9 +28,9 @@ public class FTOPlanListAdapter extends SimpleListAdapter {
                 new PlanListItem("Pyramid", "standard + pyramid down", JFTOVariant.PYRAMID),
                 new PlanListItem("First Set Last", "", JFTOVariant.FIRST_SET_LAST),
                 new PlanListItem("First Set Last - Multiple Sets", "", JFTOVariant.FIRST_SET_LAST_MULTIPLE_SETS),
-                new PlanListItem("Joker Sets", "", JFTOVariant.JOKER),
-                new PlanListItem("Advanced", "", JFTOVariant.ADVANCED),
-                new PlanListItem("5's Progression (Beginner)", "", JFTOVariant.FIVES_PROGRESSION)
+                new IapPlanListItem("Joker Sets", "", JFTOVariant.JOKER),
+                new IapPlanListItem("Advanced", "", JFTOVariant.ADVANCED),
+                new IapPlanListItem("5's Progression (Beginner)", "", JFTOVariant.FIVES_PROGRESSION)
         );
     }
 }

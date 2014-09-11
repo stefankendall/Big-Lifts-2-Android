@@ -1,0 +1,40 @@
+package com.stefankendall.BigLifts.views.fto.plan;
+
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
+import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
+
+public class IapPlanListItem extends PlanListItem {
+    public IapPlanListItem(String templateLabel, String description, String variant) {
+        super(templateLabel, description, variant);
+    }
+
+    @Override
+    public View fillView(View view, LayoutInflater inflater) {
+        if (view == null) {
+            view = inflater.inflate(R.layout.iap_plan_list_item, null);
+        }
+
+        TextView templateLabel = (TextView) view.findViewById(R.id.template_name);
+        if (templateLabel != null) {
+            setData(view);
+            setCheckMarkState(view);
+            View overlay = view.findViewById(R.id.overlay);
+            if (JPurchaseStore.instance().hasPurchasedEverything()) {
+                overlay.setVisibility(View.GONE);
+            }
+            else {
+                overlay.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        return true;
+                    }
+                });
+            }
+        }
+        return view;
+    }
+}
