@@ -110,7 +110,7 @@ public class FTONavListAdapter extends NavListAdapter {
             this.findPurchasePrice();
         } else {
             SkuDetails sku = inventory.getSkuDetails(IabService.EVERYTHING_SKU);
-            title += " " + sku;
+            title += " (" + sku.getPrice() + ")";
         }
 
         return new NavListItem(title, R.drawable._269_happyface_2, new NavAction() {
