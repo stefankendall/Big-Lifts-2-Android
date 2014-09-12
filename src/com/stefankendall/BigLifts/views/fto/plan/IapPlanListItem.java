@@ -8,8 +8,11 @@ import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 
 public class IapPlanListItem extends PlanListItem {
-    public IapPlanListItem(String templateLabel, String description, String variant) {
+    private final boolean shouldShowIapText;
+
+    public IapPlanListItem(String templateLabel, String description, String variant, boolean shouldShowIapText) {
         super(templateLabel, description, variant);
+        this.shouldShowIapText = shouldShowIapText;
     }
 
     @Override
@@ -22,11 +25,15 @@ public class IapPlanListItem extends PlanListItem {
         if (templateLabel != null) {
             setData(view);
             setCheckMarkState(view);
+
+            if (!this.shouldShowIapText) {
+                view.findViewById(R.id.overlay_text).setVisibility(View.GONE);
+            }
+
             View overlay = view.findViewById(R.id.overlay);
             if (JPurchaseStore.instance().hasPurchasedEverything()) {
                 overlay.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 overlay.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {

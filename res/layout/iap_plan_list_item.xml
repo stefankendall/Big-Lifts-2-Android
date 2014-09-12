@@ -11,4 +11,12 @@
             android:background="#ff0008ff"
             android:alpha="0.4" />
     <include layout="@layout/plan_list_item"/>
+    <TextView
+            android:id="@+id/overlay_text"
+            android:text="Unlock from the menu!"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 </FrameLayout>
