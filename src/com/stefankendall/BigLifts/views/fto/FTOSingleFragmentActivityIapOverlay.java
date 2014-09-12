@@ -2,18 +2,13 @@ package com.stefankendall.BigLifts.views.fto;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
+import android.util.AttributeSet;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.stefankendall.BigLifts.R;
-import com.stefankendall.BigLifts.SingleFragmentActivityWithOverlay;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 import com.stefankendall.BigLifts.views.fto.barloading.IapOverlayFragment;
-import com.stefankendall.BigLifts.views.fto.nav.FTONavListAdapter;
-import com.stefankendall.BigLifts.views.nav.NavListItem;
 
 public abstract class FTOSingleFragmentActivityIapOverlay extends FTOSingleFragmentActivityWithOverlay {
     @Override
@@ -23,5 +18,29 @@ public abstract class FTOSingleFragmentActivityIapOverlay extends FTOSingleFragm
         } else {
             return new IapOverlayFragment();
         }
+    }
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        JPurchaseStore.instance().whenPurchase(new Function<Void, Void>() {
+            @Override
+            public Void apply(Void aVoid) {
+                FTOSingleFragmentActivityIapOverlay.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FTOSingleFragmentActivityIapOverlay.this.findViewById(R.id.overlayContainer).setVisibility(View.GONE);
+                    }
+                });
+                return null;
+            }
+        });
+
+        return super.onCreateView(name, context, attrs);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        JPurchaseStore.instance().whenPurchase(Functions.<Void>identity());
     }
 }

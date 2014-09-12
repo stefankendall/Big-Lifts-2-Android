@@ -70,6 +70,7 @@ public class IabService {
     }
 
     public void purchaseEverything(final Activity fromActivity, final Function<Void, Void> successCallback) {
+//        successfulPurchase(fromActivity);
         try {
             iabHelper.launchPurchaseFlow(fromActivity, IabService.EVERYTHING_SKU, 0, new IabHelper.OnIabPurchaseFinishedListener() {
                 @Override
@@ -95,9 +96,7 @@ public class IabService {
     }
 
     private void successfulPurchase(Activity fromActivity) {
-        JPurchase purchase = (JPurchase) JPurchaseStore.instance().first();
-        purchase.hasPurchasedEverything = true;
-
+        JPurchaseStore.instance().purchasedEverything();
         SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
                 "Thank you!", "I truly appreciate the support.");
     }
