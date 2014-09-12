@@ -29,11 +29,15 @@ public class IapPlanListItem extends PlanListItem {
             if (!this.shouldShowIapText) {
                 view.findViewById(R.id.overlay_text).setVisibility(View.GONE);
             }
+            else {
+                view.findViewById(R.id.overlay_text).setVisibility(View.VISIBLE);
+            }
 
             View overlay = view.findViewById(R.id.overlay);
             if (JPurchaseStore.instance().hasPurchasedEverything()) {
                 overlay.setVisibility(View.GONE);
             } else {
+                overlay.setVisibility(View.VISIBLE);
                 overlay.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
