@@ -15,7 +15,7 @@ public class BarLoadingFragment extends ListFragmentWithControls implements Refr
     }
 
     public void refresh() {
-        this.setListAdapter(new BarLoadingListAdapter(this.getActivity(), this));
+        this.setListAdapter(this.getListAdapterForControls());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BarLoadingFragment extends ListFragmentWithControls implements Refr
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            this.setListAdapter(this.getListAdapterForControls());
+            this.refresh();
         }
     }
 }

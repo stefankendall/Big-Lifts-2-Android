@@ -1,10 +1,12 @@
 package com.stefankendall.BigLifts;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import com.stefankendall.BigLifts.billing.util.IabService;
 
 public abstract class SingleFragmentActivity extends BLActivity {
     public Fragment fragment;
@@ -43,6 +45,15 @@ public abstract class SingleFragmentActivity extends BLActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (IabService.getInstance().iabHelper != null && !IabService.getInstance().iabHelper.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     protected abstract Fragment createFragment();

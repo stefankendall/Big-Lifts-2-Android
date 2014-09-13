@@ -1,16 +1,12 @@
 package com.stefankendall.BigLifts.billing.util;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.R;
-import com.stefankendall.BigLifts.data.models.JPurchase;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 import com.stefankendall.BigLifts.views.SimpleDialog;
 
@@ -18,9 +14,10 @@ public class IabService {
     public static String EVERYTHING_SKU = "everything";
 
     private static IabService instance;
-    private IabHelper iabHelper;
+    public IabHelper iabHelper;
     private boolean successful;
     private Inventory inventory;
+    public static int IAP_REQUEST_CODE = 3113;
 
     public static synchronized IabService getInstance() {
         if (instance == null) {
@@ -72,7 +69,7 @@ public class IabService {
     public void purchaseEverything(final Activity fromActivity, final Function<Void, Void> successCallback) {
 //        successfulPurchase(fromActivity);
         try {
-            iabHelper.launchPurchaseFlow(fromActivity, IabService.EVERYTHING_SKU, 0, new IabHelper.OnIabPurchaseFinishedListener() {
+            iabHelper.launchPurchaseFlow(fromActivity, IabService.EVERYTHING_SKU, IAP_REQUEST_CODE, new IabHelper.OnIabPurchaseFinishedListener() {
                 @Override
                 public void onIabPurchaseFinished(IabResult result, Purchase info) {
                     if (result.isSuccess()) {
@@ -81,6 +78,11 @@ public class IabService {
                             successCallback.apply(null);
                         } else {
                         }
+                    } else if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
+                        JPurchaseStore.instance().purchasedEverything();
+                        alreadyPurchased(fromActivity);
+                        successCallback.apply(null);
+                    } else if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_USER_CANCELED) {
                     } else {
                         failureInPurchase(fromActivity);
                     }
@@ -88,6 +90,11 @@ public class IabService {
             });
         } catch (Exception e) {
         }
+    }
+
+    private void alreadyPurchased(Activity fromActivity) {
+        SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
+                "Unlocked!", "Everything unlocked again.");
     }
 
     private void failureInPurchase(Activity fromActivity) {
