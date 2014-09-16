@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.allprograms.formulas.estimators;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class BrzyckiEstimator implements MaxEstimator {
     @Override
@@ -11,6 +12,6 @@ public class BrzyckiEstimator implements MaxEstimator {
 
         BigDecimal numerator = weight.multiply(new BigDecimal("36"));
         BigDecimal denominator = new BigDecimal(37 - reps);
-        return numerator.divide(denominator);
+        return numerator.divide(denominator, 6, RoundingMode.HALF_UP);
     }
 }

@@ -22,14 +22,14 @@ public class OneRepMaxListAdapterTests extends ActivityInstrumentationTestCase2<
     }
 
     public void testOneRepMaxEstimateBlankWhenFieldsBlank() {
-        final OneRepMaxListAdapter adapter = (OneRepMaxListAdapter) this.fragment.getListAdapter();
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
+                final OneRepMaxListAdapter adapter = (OneRepMaxListAdapter) OneRepMaxListAdapterTests.this.fragment.getListAdapter();
                 adapter.oneRepValuesChanged();
+                Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "");
             }
         });
         getInstrumentation().waitForIdleSync();
-        Assert.assertEquals(adapter.oneRepMaxEstimate.getValue(), "");
     }
 
     public void testOneRepMaxEstimateBlankWhenRepsBlank() {
