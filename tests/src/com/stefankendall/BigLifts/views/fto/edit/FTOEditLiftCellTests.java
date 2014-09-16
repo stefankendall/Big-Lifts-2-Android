@@ -6,11 +6,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLTestCase;
+import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
-import com.stefankendall.BigLifts.R;
 import junit.framework.Assert;
 
 import java.math.BigDecimal;
@@ -38,12 +38,12 @@ public class FTOEditLiftCellTests extends BLTestCase {
         Assert.assertEquals(trainingMax.getText().toString(), "60");
     }
 
-    public void testHandlesEmpty(){
+    public void testHandlesEmpty() {
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         FTOEditLiftCell cell = new FTOEditLiftCell(lift);
         cell.fillView(null, LayoutInflater.from(App.getContext()));
-        cell.updateTrainingMax("");
-        cell.updateMax("");
+        cell.trainingMaxChanged("");
+        cell.maxChanged("");
         Assert.assertEquals(lift.weight, BigDecimal.ZERO);
     }
 
@@ -63,7 +63,7 @@ public class FTOEditLiftCellTests extends BLTestCase {
         FTOEditLiftCell cell = new FTOEditLiftCell(lift);
 
         View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
-        cell.updateMax("100");
+        cell.maxChanged("100");
         Assert.assertEquals(lift.weight, new BigDecimal("100"));
         EditText trainingMaxField = (EditText) view.findViewById(R.id.training_max);
         Assert.assertEquals(trainingMaxField.getText().toString(), "90");
@@ -72,9 +72,9 @@ public class FTOEditLiftCellTests extends BLTestCase {
     public void testEditTrainingMaxUpdatesMax() {
         JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
         FTOEditLiftCell cell = new FTOEditLiftCell(lift);
-        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
-        cell.updateTrainingMax("105");
-        Assert.assertEquals(lift.weight, new BigDecimal("116.7"));
+        cell.fillView(null, LayoutInflater.from(App.getContext()));
+        cell.trainingMaxChanged("105");
+        Assert.assertEquals(lift.weight, new BigDecimal("116.67"));
         Assert.assertEquals(cell.maxField.getText().toString(), "116.7");
     }
 }
