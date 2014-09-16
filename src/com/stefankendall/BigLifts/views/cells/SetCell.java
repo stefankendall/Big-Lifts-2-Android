@@ -3,8 +3,9 @@ package com.stefankendall.BigLifts.views.cells;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.R;
-import com.stefankendall.BigLifts.data.models.JModel;
+import com.stefankendall.BigLifts.allprograms.colors.BLColors;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
@@ -40,7 +41,13 @@ public class SetCell implements CustomListItem {
         TextView percentage = (TextView) view.findViewById(R.id.percentage);
         TextView units = (TextView) view.findViewById(R.id.units);
         liftName.setText(set.lift.name);
-        reps.setText(set.reps + "x");
+        if (set.amrap) {
+            reps.setText(set.reps + "+");
+            reps.setTextColor(BLColors.amrapColor());
+        } else {
+            reps.setText(set.reps + "x");
+            reps.setTextColor(App.getContext().getResources().getColor(android.R.color.black));
+        }
         percentage.setText(set.percentage + "%");
         JSettings settings = (JSettings) JSettingsStore.instance().first();
         units.setText(settings.units);

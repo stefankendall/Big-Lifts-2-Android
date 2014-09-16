@@ -26,4 +26,15 @@ public class SetCellTests extends BLTestCase {
         TextView weightText = (TextView) view.findViewById(R.id.weight);
         Assert.assertEquals(weightText.getText(), "");
     }
+
+    public void testAmrapIndicator() {
+        JLift lift = (JLift) JLiftStore.instance().create();
+        JSet set = JSetStore.instance().create(lift, BigDecimal.ZERO);
+        set.amrap = true;
+        SetCell cell = new SetCell(set);
+
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        TextView repsText = (TextView) view.findViewById(R.id.reps);
+        Assert.assertTrue(repsText.getText().toString().contains("+"));
+    }
 }
