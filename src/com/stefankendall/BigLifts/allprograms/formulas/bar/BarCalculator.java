@@ -45,7 +45,7 @@ public class BarCalculator {
                         PlateRemaining plateForWeight = Iterables.find(remainingPlates, new Predicate<PlateRemaining>() {
                             @Override
                             public boolean apply(PlateRemaining p) {
-                                return p.weight.equals(lastPlateWeight);
+                                return p.weight.compareTo(lastPlateWeight) == 0;
                             }
                         });
                         plateForWeight.count = 0;
