@@ -75,6 +75,6 @@ public class FTOEditLiftCellTests extends BLTestCase {
         cell.fillView(null, LayoutInflater.from(App.getContext()));
         cell.trainingMaxChanged("105");
         Assert.assertEquals(lift.weight, new BigDecimal("116.67"));
-        Assert.assertEquals(cell.maxField.getText().toString(), "116.7");
+        Assert.assertEquals(cell.maxField.getText().toString(), "116.67");
     }
 }
