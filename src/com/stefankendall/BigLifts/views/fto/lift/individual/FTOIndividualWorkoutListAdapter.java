@@ -26,25 +26,30 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     public List<CustomListItem> buildItems() {
         List<CustomListItem> items = Lists.newArrayList();
 
+        int row = 0;
         if (this.hasWarmup()) {
             items.add(new HeaderListItem("Warm-up"));
-            items.addAll(this.itemsForSets(this.jftoWorkout.workout.warmupSets()));
+            items.addAll(this.itemsForSets(this.jftoWorkout.workout.warmupSets(), row));
+            row += this.jftoWorkout.workout.warmupSets().size();
         }
+
+
         if (this.hasWorkSets()) {
             items.add(new HeaderListItem("Workout"));
-            items.addAll(this.itemsForSets(this.jftoWorkout.workout.workSets()));
+            items.addAll(this.itemsForSets(this.jftoWorkout.workout.workSets(), row));
+            row += this.jftoWorkout.workout.workSets().size();
         }
+
         if (this.hasAssistance()) {
             items.add(new HeaderListItem("Assistance"));
-            items.addAll(this.itemsForSets(this.jftoWorkout.workout.assistanceSets()));
+            items.addAll(this.itemsForSets(this.jftoWorkout.workout.assistanceSets(), row));
         }
 
         return items;
     }
 
-    private Collection<CustomListItem> itemsForSets(List<JSet> sets) {
+    private Collection<CustomListItem> itemsForSets(List<JSet> sets, int row) {
         List<CustomListItem> items = Lists.newArrayList();
-        int row = 0;
         for (JSet set : sets) {
             SetChange setChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.jftoWorkout, row++);
             items.add(SetCellFactory.create(set, setChange));

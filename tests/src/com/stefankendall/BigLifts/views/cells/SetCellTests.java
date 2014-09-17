@@ -49,4 +49,15 @@ public class SetCellTests extends BLTestCase {
         TextView weightText = (TextView) view.findViewById(R.id.weight);
         Assert.assertEquals(weightText.getText(), "100.5");
     }
+
+    public void testUsesEnteredReps() {
+        JLift lift = (JLift) JLiftStore.instance().create();
+        JSet set = JSetStore.instance().create(lift, BigDecimal.ZERO);
+        set.reps = 3;
+        SetCell cell = new SetCell(set, new SetChange(null, 4));
+
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        TextView repsText = (TextView) view.findViewById(R.id.reps);
+        Assert.assertEquals(repsText.getText(), "4x");
+    }
 }

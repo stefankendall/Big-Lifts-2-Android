@@ -44,11 +44,17 @@ public class SetCell implements CustomListItem {
         TextView percentage = (TextView) view.findViewById(R.id.percentage);
         TextView units = (TextView) view.findViewById(R.id.units);
         liftName.setText(set.lift.name);
-        if (set.amrap) {
-            reps.setText(set.reps + "+");
+
+        int repsDone = set.reps;
+        if (setChange.reps != null) {
+            repsDone = setChange.reps;
+        }
+
+        if (set.amrap && setChange.reps == null) {
+            reps.setText(repsDone + "+");
             reps.setTextColor(BLColors.amrapColor());
         } else {
-            reps.setText(set.reps + "x");
+            reps.setText(repsDone + "x");
             reps.setTextColor(App.getContext().getResources().getColor(android.R.color.black));
         }
         percentage.setText(set.percentage + "%");
