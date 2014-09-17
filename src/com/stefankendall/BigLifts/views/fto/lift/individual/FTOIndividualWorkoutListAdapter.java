@@ -4,6 +4,7 @@ import android.app.Activity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
+import com.stefankendall.BigLifts.views.cells.SetCell;
 import com.stefankendall.BigLifts.views.cells.SetCellFactory;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.HeaderListItem;
@@ -47,6 +48,31 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
             items.add(SetCellFactory.create(set));
         }
         return items;
+    }
+
+    public int setNumberForPosition(int position) {
+        if (position >= this.items.size()) {
+            return -1;
+        }
+
+        CustomListItem item = this.items.get(position);
+        if (!(item instanceof SetCell)) {
+            return -1;
+        }
+
+        int headersPassed = 0;
+        if (this.hasWarmup()) {
+            headersPassed++;
+        }
+        if (this.hasWorkSets() && position - headersPassed > this.jftoWorkout.workout.warmupSets().size() - 1) {
+            headersPassed++;
+        }
+        if (this.hasAssistance() && position - headersPassed > this.jftoWorkout.workout.warmupSets().size() +
+                this.jftoWorkout.workout.workSets().size() - 1) {
+            headersPassed++;
+        }
+
+        return position - headersPassed;
     }
 
     protected boolean hasWarmup() {

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
@@ -14,7 +16,9 @@ import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.JSetLogStore;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
+import com.stefankendall.BigLifts.views.fto.lift.individual.change.FTOSetChangeFormActivity;
 import com.stefankendall.BigLifts.views.fto.track.FTOTrackViewActivity;
+import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,6 +26,8 @@ import java.util.List;
 
 public class FTOIndividualWorkoutFragment extends ListFragment {
     private JFTOWorkout ftoWorkout;
+    private Integer tappedSetRow = null;
+    public static int SET_CHANGE_REQUEST_CODE = 0;
 
     public static FTOIndividualWorkoutFragment newInstance(JFTOWorkout ftoWorkout) {
         FTOIndividualWorkoutFragment fragment = new FTOIndividualWorkoutFragment();
@@ -48,6 +54,34 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        FTOIndividualWorkoutListAdapter adapter = (FTOIndividualWorkoutListAdapter) this.getListAdapter();
+        int setNumber = adapter.setNumberForPosition(position);
+        if (setNumber >= 0) {
+            this.tappedSetRow = setNumber;
+            SetChange.reset();
+            SetChange existingChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.ftoWorkout, this.tappedSetRow);
+            SetChange.instance().weight = existingChange.weight;
+            SetChange.instance().reps = existingChange.reps;
+            SetChange.instance().modifyingSet = this.ftoWorkout.workout.sets.get(setNumber);
+            Intent intent = new Intent(this.getActivity(), FTOSetChangeFormActivity.class);
+            startActivityForResult(intent, SET_CHANGE_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == SET_CHANGE_REQUEST_CODE) {
+            SetChange setChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.ftoWorkout, this.tappedSetRow);
+            setChange.weight = SetChange.instance().weight;
+            setChange.reps = SetChange.instance().reps;
+            SimpleListAdapter adapter = (SimpleListAdapter) this.getListAdapter();
+            adapter.reload();
+        }
     }
 
     public void onDoneTapped() {
