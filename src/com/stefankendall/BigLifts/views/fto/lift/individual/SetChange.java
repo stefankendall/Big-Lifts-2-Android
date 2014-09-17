@@ -11,6 +11,15 @@ public class SetChange {
 
     private static SetChange instance;
 
+
+    public SetChange() {
+    }
+
+    public SetChange(BigDecimal weight, Integer reps) {
+        this.weight = weight;
+        this.reps = reps;
+    }
+
     public static SetChange instance() {
         if (instance == null) {
             instance = new SetChange();

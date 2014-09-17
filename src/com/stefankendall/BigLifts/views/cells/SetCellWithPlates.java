@@ -10,13 +10,14 @@ import com.stefankendall.BigLifts.data.models.JBar;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
 import com.stefankendall.BigLifts.data.stores.JPlateStore;
+import com.stefankendall.BigLifts.views.fto.lift.individual.SetChange;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public class SetCellWithPlates extends SetCell {
-    public SetCellWithPlates(JSet set) {
-        super(set);
+    public SetCellWithPlates(JSet set, SetChange setChange) {
+        super(set, setChange);
     }
 
     public View fillView(View view, LayoutInflater inflater) {
@@ -35,6 +36,9 @@ public class SetCellWithPlates extends SetCell {
                 JBar bar = (JBar) JBarStore.instance().first();
                 BarCalculator calculator = new BarCalculator(JPlateStore.instance().findAll(), bar.weight);
                 BigDecimal weightToMake = this.set.roundedEffectiveWeight();
+                if (this.setChange.weight != null) {
+                    weightToMake = this.setChange.weight;
+                }
                 List<BigDecimal> plates = calculator.platesToMakeWeight(weightToMake);
                 String platesString = "";
                 if (plates.size() > 0) {

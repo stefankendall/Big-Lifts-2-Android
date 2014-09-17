@@ -10,15 +10,18 @@ import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
+import com.stefankendall.BigLifts.views.fto.lift.individual.SetChange;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 import java.math.BigDecimal;
 
 public class SetCell implements CustomListItem {
     protected final JSet set;
+    protected final SetChange setChange;
 
-    public SetCell(JSet set) {
+    public SetCell(JSet set, SetChange setChange) {
         this.set = set;
+        this.setChange = setChange;
     }
 
     @Override
@@ -58,7 +61,9 @@ public class SetCell implements CustomListItem {
     private void setWeightLabelText(View view) {
         TextView weight = (TextView) view.findViewById(R.id.weight);
 
-        if (!this.set.lift.usesBar && set.roundedEffectiveWeight().equals(BigDecimal.ZERO)) {
+        if (this.setChange.weight != null) {
+            weight.setText(BigDecimals.print(this.setChange.weight));
+        } else if (!this.set.lift.usesBar && set.roundedEffectiveWeight().equals(BigDecimal.ZERO)) {
             weight.setText("");
         } else {
             weight.setText(BigDecimals.print(this.set.roundedEffectiveWeight()));

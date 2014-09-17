@@ -10,6 +10,7 @@ import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.stores.JLiftStore;
 import com.stefankendall.BigLifts.data.stores.JSetStore;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.views.fto.lift.individual.SetChange;
 import junit.framework.Assert;
 
 import java.math.BigDecimal;
@@ -20,7 +21,7 @@ public class SetCellTests extends BLTestCase {
         lift.usesBar = false;
         lift.weight = BigDecimal.ZERO;
         JSet set = JSetStore.instance().create(lift, BigDecimal.ZERO);
-        SetCell cell = new SetCell(set);
+        SetCell cell = new SetCell(set, new SetChange());
 
         View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
         TextView weightText = (TextView) view.findViewById(R.id.weight);
@@ -31,10 +32,21 @@ public class SetCellTests extends BLTestCase {
         JLift lift = (JLift) JLiftStore.instance().create();
         JSet set = JSetStore.instance().create(lift, BigDecimal.ZERO);
         set.amrap = true;
-        SetCell cell = new SetCell(set);
+        SetCell cell = new SetCell(set, new SetChange());
 
         View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
         TextView repsText = (TextView) view.findViewById(R.id.reps);
         Assert.assertTrue(repsText.getText().toString().contains("+"));
+    }
+
+    public void testUsesEnteredWeight() {
+        JLift lift = (JLift) JLiftStore.instance().create();
+        JSet set = JSetStore.instance().create(lift, BigDecimal.ZERO);
+        set.amrap = true;
+        SetCell cell = new SetCell(set, new SetChange(new BigDecimal("100.5"), null));
+
+        View view = cell.fillView(null, LayoutInflater.from(App.getContext()));
+        TextView weightText = (TextView) view.findViewById(R.id.weight);
+        Assert.assertEquals(weightText.getText(), "100.5");
     }
 }

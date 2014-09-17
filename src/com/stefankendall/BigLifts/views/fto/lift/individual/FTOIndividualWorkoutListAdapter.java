@@ -44,8 +44,10 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
 
     private Collection<CustomListItem> itemsForSets(List<JSet> sets) {
         List<CustomListItem> items = Lists.newArrayList();
+        int row = 0;
         for (JSet set : sets) {
-            items.add(SetCellFactory.create(set));
+            SetChange setChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.jftoWorkout, row++);
+            items.add(SetCellFactory.create(set, setChange));
         }
         return items;
     }
