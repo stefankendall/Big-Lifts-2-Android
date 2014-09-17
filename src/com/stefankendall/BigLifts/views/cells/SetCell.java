@@ -45,7 +45,7 @@ public class SetCell implements CustomListItem {
         TextView units = (TextView) view.findViewById(R.id.units);
         liftName.setText(set.lift.name);
 
-        int repsDone = set.reps;
+        Integer repsDone = set.reps;
         if (setChange.reps != null) {
             repsDone = setChange.reps;
         }
