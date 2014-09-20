@@ -1,10 +1,10 @@
 package com.stefankendall.BigLifts.views.fto.edit.change;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.R;
@@ -18,6 +18,7 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
     static int DOWN = R.id.context_button_2;
     static int CHANGE_NAME = R.id.context_button_3;
     static int DELETE = R.id.context_button_4;
+    private AlertDialog dialog;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
             toMove.order = below.order;
             below.order = order;
         } else if (item.getItemId() == CHANGE_NAME) {
+            this.presentChangeNameDialog();
         } else {
             JFTOLiftStore.instance().removeAtIndex(info.position);
         }
@@ -74,6 +76,27 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
         SimpleListAdapter adapter = (SimpleListAdapter) this.getListAdapter();
         adapter.reload();
         return true;
+    }
+
+    private void presentChangeNameDialog() {
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.single_text_dialog, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder.setView(layout);
+        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        this.dialog = builder.create();
     }
 
     @Override
