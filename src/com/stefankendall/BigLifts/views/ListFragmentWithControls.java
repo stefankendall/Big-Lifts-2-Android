@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
 public abstract class ListFragmentWithControls extends ListFragment {
     @Override
@@ -25,5 +26,9 @@ public abstract class ListFragmentWithControls extends ListFragment {
 
     protected void removeListSelection() {
         getListView().setSelector(R.drawable.not_selectable);
+    }
+
+    protected void reload() {
+        this.setListAdapter(this.getListAdapterForControls());
     }
 }

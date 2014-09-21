@@ -1,12 +1,16 @@
 package com.stefankendall.BigLifts.views.fto.edit.change;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.*;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
@@ -18,7 +22,6 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
     static int DOWN = R.id.context_button_2;
     static int CHANGE_NAME = R.id.context_button_3;
     static int DELETE = R.id.context_button_4;
-    private AlertDialog dialog;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -56,19 +59,19 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        JFTOLift toMove = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position);
+        JFTOLift selected = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position);
         if (item.getItemId() == UP) {
             JFTOLift above = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position - 1);
-            int order = toMove.order;
-            toMove.order = above.order;
+            int order = selected.order;
+            selected.order = above.order;
             above.order = order;
         } else if (item.getItemId() == DOWN) {
             JFTOLift below = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position + 1);
-            int order = toMove.order;
-            toMove.order = below.order;
+            int order = selected.order;
+            selected.order = below.order;
             below.order = order;
         } else if (item.getItemId() == CHANGE_NAME) {
-            this.presentChangeNameDialog();
+            this.presentChangeNameDialog(selected);
         } else {
             JFTOLiftStore.instance().removeAtIndex(info.position);
         }
@@ -78,25 +81,27 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
         return true;
     }
 
-    private void presentChangeNameDialog() {
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.single_text_dialog, null);
-
+    private void presentChangeNameDialog(final JFTOLift selected) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setView(layout);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.single_text_dialog, null);
+        final EditText editText = (EditText) view.findViewById(R.id.text);
+        editText.setText(selected.name);
+        builder.setView(view);
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialog.dismiss();
+                selected.name = editText.getText().toString();
+                dialogInterface.dismiss();
+                FTOEditLiftsViewFragment.this.reload();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialog.dismiss();
+                dialogInterface.dismiss();
             }
         });
-        this.dialog = builder.create();
+        builder.create().show();
     }
 
     @Override
