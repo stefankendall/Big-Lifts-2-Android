@@ -16,12 +16,12 @@ public class OneRepMaxListAdapterTests extends ActivityInstrumentationTestCase2<
     protected void setUp() throws Exception {
         super.setUp();
         new TestDataLoader().reset();
-        Intent intent = new Intent(getInstrumentation().getTargetContext(), AddPlateActivity.class);
+        Intent intent = new Intent(getInstrumentation().getTargetContext(), OneRepMaxActivity.class);
         setActivityIntent(intent);
         this.fragment = (OneRepMaxFragment) getActivity().fragment;
     }
 
-    public void testOneRepMaxEstimateBlankWhenFieldsBlank() {
+    public void  testOneRepMaxEstimateBlankWhenFieldsBlank() {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 final OneRepMaxListAdapter adapter = (OneRepMaxListAdapter) OneRepMaxListAdapterTests.this.fragment.getListAdapter();
