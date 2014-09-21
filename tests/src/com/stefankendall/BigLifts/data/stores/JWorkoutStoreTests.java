@@ -35,4 +35,11 @@ public class JWorkoutStoreTests extends BLTestCase {
         Assert.assertFalse(JSetStore.instance().findAll().contains(set));
         Assert.assertEquals(workout.sets.size(), 0);
     }
+
+    public void testReturnsEmptyListForNoWarmup() {
+        JWorkout workout = (JWorkout) JWorkoutStore.instance().create();
+        Assert.assertEquals(workout.warmupSets().size(), 0);
+        Assert.assertEquals(workout.workSets().size(), 0);
+        Assert.assertEquals(workout.assistanceSets().size(), 0);
+    }
 }

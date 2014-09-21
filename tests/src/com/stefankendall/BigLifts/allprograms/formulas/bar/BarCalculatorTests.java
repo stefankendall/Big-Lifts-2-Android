@@ -43,16 +43,7 @@ public class BarCalculatorTests extends BLTestCase {
     }
 
     public void testMakesCorrectWeightWhenSmallerPlatesGetCloser() {
-        JPlateStore.instance().empty();
-        JPlateStore.instance().createPlate(new BigDecimal("25"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("20"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("15"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("10"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("5"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("2.5"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("1.25"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("1"), 6);
-        JPlateStore.instance().createPlate(new BigDecimal("0.5"), 6);
+        setupNonLinearProgressionWeights();
 
         List<BigDecimal> expected = Lists.newArrayList(
                 new BigDecimal("25"),
@@ -63,6 +54,37 @@ public class BarCalculatorTests extends BLTestCase {
         );
         this.calculator = new BarCalculator(JPlateStore.instance().findAll(), new BigDecimal("20"));
         assertCalculatesWeight(new BigDecimal("128"), expected);
+    }
+
+    private void setupNonLinearProgressionWeights() {
+        JPlateStore.instance().empty();
+        JPlateStore.instance().createPlate(new BigDecimal("25"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("20"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("15"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("10"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("5"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("2.5"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("1.25"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("1"), 6);
+        JPlateStore.instance().createPlate(new BigDecimal("0.5"), 6);
+    }
+
+    public void testManyWeightsDontCrash() {
+        setupNonLinearProgressionWeights();
+        this.calculator = new BarCalculator(JPlateStore.instance().findAll(), new BigDecimal("45"));
+        this.calculator.platesToMakeWeight(new BigDecimal("200"));
+        this.calculator.platesToMakeWeight(new BigDecimal("201"));
+        this.calculator.platesToMakeWeight(new BigDecimal("201.5"));
+        this.calculator.platesToMakeWeight(new BigDecimal("202"));
+        this.calculator.platesToMakeWeight(new BigDecimal("202.5"));
+        this.calculator.platesToMakeWeight(new BigDecimal("222.222"));
+        this.calculator.platesToMakeWeight(new BigDecimal("200.251"));
+        this.calculator.platesToMakeWeight(new BigDecimal("751.58"));
+        this.calculator.platesToMakeWeight(new BigDecimal("752"));
+        this.calculator.platesToMakeWeight(new BigDecimal("753"));
+        this.calculator.platesToMakeWeight(new BigDecimal("754"));
+        this.calculator.platesToMakeWeight(new BigDecimal("101"));
+        this.calculator.platesToMakeWeight(new BigDecimal("3"));
     }
 
     public void testCopyPlatesReturnsNewPlates() {

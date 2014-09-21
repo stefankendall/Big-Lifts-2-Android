@@ -31,6 +31,8 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
 
     public static FTOIndividualWorkoutFragment newInstance(JFTOWorkout ftoWorkout) {
         FTOIndividualWorkoutFragment fragment = new FTOIndividualWorkoutFragment();
+        assert ftoWorkout != null;
+        assert ftoWorkout.workout != null;
         fragment.ftoWorkout = ftoWorkout;
         return fragment;
     }

@@ -1,10 +1,16 @@
 package com.stefankendall.BigLifts.allprograms.formulas.bar;
 
+import android.util.Log;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.CrashlyticsListener;
 import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JPlate;
+import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.data.stores.JPlateStore;
 
 import java.math.BigDecimal;
@@ -20,6 +26,8 @@ public class BarCalculator {
     }
 
     public List<BigDecimal> platesToMakeWeight(BigDecimal weight) {
+        this.logWeightForIssues(weight);
+
         BigDecimal targetWeight = weight.subtract(this.barWeight);
         List<PlateRemaining> remainingPlates = this.copyPlates(this.plates);
         List<BigDecimal> platesToMakeWeight = Lists.newArrayList();
@@ -39,7 +47,7 @@ public class BarCalculator {
                     break;
                 } else {
                     potentialSolution = Lists.newArrayList(platesToMakeWeight);
-                    if (potentialSolution.size() > 0) {
+                    if (potentialSolution.size() > 0 && remainingPlates.size() > 0) {
                         final BigDecimal lastPlateWeight = potentialSolution.get(potentialSolution.size() - 1);
                         targetWeight = targetWeight.add(lastPlateWeight.multiply(new BigDecimal(2)));
                         PlateRemaining plateForWeight = Iterables.find(remainingPlates, new Predicate<PlateRemaining>() {
@@ -61,6 +69,18 @@ public class BarCalculator {
         }
 
         return this.closestSolutionBetween(platesToMakeWeight, potentialSolution, targetWeight);
+    }
+
+    private void logWeightForIssues(BigDecimal weight) {
+        Crashlytics.log(BigDecimals.print(weight));
+        List<String> plates = Lists.transform(JPlateStore.instance().findAll(), new Function<JPlate, String>() {
+            @Override
+            public String apply(JPlate jPlate) {
+                return BigDecimals.print(jPlate.weight);
+            }
+        });
+        Crashlytics.log(BigDecimals.print(weight));
+        Crashlytics.log(Joiner.on(",").join(plates));
     }
 
     protected List<BigDecimal> closestSolutionBetween(List<BigDecimal> solution1, List<BigDecimal> solution2, BigDecimal targetWeight) {
