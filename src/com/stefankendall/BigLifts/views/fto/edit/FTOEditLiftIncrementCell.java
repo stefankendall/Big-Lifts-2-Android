@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
+import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
 import java.math.BigDecimal;
@@ -30,7 +31,7 @@ public class FTOEditLiftIncrementCell implements CustomListItem {
         this.increment = (EditText) view.findViewById(R.id.input);
         if (this.increment != null) {
             liftName.setText(jftoLift.name);
-            this.increment.setText(jftoLift.increment.toPlainString());
+            this.increment.setText(BigDecimals.print(jftoLift.increment));
             this.addListeners();
         }
         return view;

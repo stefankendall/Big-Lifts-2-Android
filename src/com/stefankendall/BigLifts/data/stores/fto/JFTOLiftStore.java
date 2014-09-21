@@ -71,4 +71,12 @@ public class JFTOLiftStore extends JLiftStore {
         JFTOBoringButBigLiftStore.instance().adjustToMainLifts();
         JFTOWorkoutStore.instance().switchTemplate();
     }
+
+    public void swapOrder(JFTOLift first, JFTOLift second) {
+        int order = first.order;
+        first.order = second.order;
+        second.order = order;
+
+        JFTOWorkoutStore.instance().switchTemplate();
+    }
 }

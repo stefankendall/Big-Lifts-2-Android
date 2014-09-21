@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
@@ -62,16 +64,12 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
         JFTOLift selected = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position);
         if (item.getItemId() == UP) {
             JFTOLift above = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position - 1);
-            int order = selected.order;
-            selected.order = above.order;
-            above.order = order;
+            JFTOLiftStore.instance().swapOrder(selected, above);
         } else if (item.getItemId() == DOWN) {
             JFTOLift below = (JFTOLift) JFTOLiftStore.instance().atIndex(info.position + 1);
-            int order = selected.order;
-            selected.order = below.order;
-            below.order = order;
+            JFTOLiftStore.instance().swapOrder(selected, below);
         } else if (item.getItemId() == CHANGE_NAME) {
-            this.presentChangeNameDialog(selected);
+            this.presentChangeNameDialog(selected, Functions.<Void>identity());
         } else {
             JFTOLiftStore.instance().removeAtIndex(info.position);
         }
@@ -81,7 +79,7 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
         return true;
     }
 
-    private void presentChangeNameDialog(final JFTOLift selected) {
+    private void presentChangeNameDialog(final JFTOLift selected, final Function<Void, Void> cancelCallback) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.single_text_dialog, null);
         final EditText editText = (EditText) view.findViewById(R.id.text);
@@ -98,10 +96,26 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                cancelCallback.apply(null);
                 dialogInterface.dismiss();
             }
         });
         builder.create().show();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        if (position == l.getAdapter().getCount() - 1) {
+            final JFTOLift lift = (JFTOLift) JFTOLiftStore.instance().create();
+            lift.name = "New Lift";
+            this.presentChangeNameDialog(lift, new Function<Void, Void>() {
+                @Override
+                public Void apply(Void aVoid) {
+                    JFTOLiftStore.instance().remove(lift);
+                    return null;
+                }
+            });
+        }
     }
 
     @Override
