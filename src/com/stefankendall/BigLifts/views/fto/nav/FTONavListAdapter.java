@@ -10,7 +10,6 @@ import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.billing.util.IabService;
 import com.stefankendall.BigLifts.billing.util.Inventory;
 import com.stefankendall.BigLifts.billing.util.SkuDetails;
-import com.stefankendall.BigLifts.data.models.JPurchase;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 import com.stefankendall.BigLifts.views.fto.barloading.BarLoadingActivity;
@@ -99,8 +98,7 @@ public class FTONavListAdapter extends NavListAdapter {
     }
 
     private NavListItem buildPurchaseListItem() {
-        JPurchase purchase = (JPurchase) JPurchaseStore.instance().first();
-        if (purchase.hasPurchasedEverything) {
+        if (JPurchaseStore.instance().hasPurchasedEverything()) {
             return null;
         }
 
@@ -116,8 +114,8 @@ public class FTONavListAdapter extends NavListAdapter {
         return new NavListItem(title, R.drawable._269_happyface_2, new NavAction() {
             @Override
             public void run(Activity context) {
-                IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity, new Function<Void,Void>() {
-                    public Void apply(Void aVoid){
+                IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity, new Function<Void, Void>() {
+                    public Void apply(Void aVoid) {
                         FTONavListAdapter.this.reload();
                         return null;
                     }
