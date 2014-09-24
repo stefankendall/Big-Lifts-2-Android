@@ -3,6 +3,7 @@ package com.stefankendall.BigLifts.allprograms.formulas.bar;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.BLTestCase;
+import com.stefankendall.BigLifts.data.models.JPlate;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.stores.JBarStore;
 import com.stefankendall.BigLifts.data.stores.JPlateStore;
@@ -40,6 +41,11 @@ public class BarCalculatorTests extends BLTestCase {
                 new BigDecimal("2.5")
         );
         assertCalculatesWeight(new BigDecimal("180"), expected180);
+    }
+
+    public void testDoesntCrashWithNoPlates() {
+        this.calculator = new BarCalculator(Lists.<JPlate>newArrayList(), new BigDecimal("45"));
+        this.calculator.platesToMakeWeight(new BigDecimal("145"));
     }
 
     public void testMakesCorrectWeightWhenSmallerPlatesGetCloser() {

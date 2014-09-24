@@ -50,14 +50,18 @@ public class BarCalculator {
                     if (potentialSolution.size() > 0 && remainingPlates.size() > 0) {
                         final BigDecimal lastPlateWeight = potentialSolution.get(potentialSolution.size() - 1);
                         targetWeight = targetWeight.add(lastPlateWeight.multiply(new BigDecimal(2)));
-                        PlateRemaining plateForWeight = Iterables.find(remainingPlates, new Predicate<PlateRemaining>() {
+                        Optional<PlateRemaining> plateForWeight = Iterables.tryFind(remainingPlates, new Predicate<PlateRemaining>() {
                             @Override
                             public boolean apply(PlateRemaining p) {
                                 return p.weight.compareTo(lastPlateWeight) == 0;
                             }
                         });
-                        plateForWeight.count = 0;
-                        platesToMakeWeight.remove(lastPlateWeight);
+                        if (plateForWeight.isPresent()) {
+                            plateForWeight.get().count = 0;
+                            platesToMakeWeight.remove(lastPlateWeight);
+                        } else {
+                            return potentialSolution;
+                        }
                     }
                 }
 
