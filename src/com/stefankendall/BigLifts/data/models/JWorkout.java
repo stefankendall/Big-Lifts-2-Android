@@ -6,6 +6,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.stores.BLJStoreManager;
 
+import java.util.BitSet;
 import java.util.List;
 
 public class JWorkout extends JModel {
@@ -42,6 +43,16 @@ public class JWorkout extends JModel {
         }));
     }
 
+
+    public List<JSet> amrapSets() {
+        return ImmutableList.copyOf(Iterables.filter(this.sets, new Predicate<JSet>() {
+            @Override
+            public boolean apply(JSet set) {
+                return set.amrap;
+            }
+        }));
+    }
+
     public void addSet(JSet set) {
         this.sets.add(set);
     }
@@ -69,14 +80,14 @@ public class JWorkout extends JModel {
     }
 
     public JLift firstLift() {
-        if(this.sets.size() > 0){
+        if (this.sets.size() > 0) {
             return this.sets.get(0).lift;
         }
         return null;
     }
 
-    public void addSets(List<JSet> sets, int index){
-        if(index != 0){
+    public void addSets(List<JSet> sets, int index) {
+        if (index != 0) {
             throw new RuntimeException("Not supported");
         }
         this.sets.addAll(0, sets);

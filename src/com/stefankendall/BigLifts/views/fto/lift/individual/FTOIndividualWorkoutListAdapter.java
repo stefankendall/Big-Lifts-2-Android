@@ -26,6 +26,10 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     public List<CustomListItem> buildItems() {
         List<CustomListItem> items = Lists.newArrayList();
 
+        if (this.shouldShowRepsToBeat()) {
+            items.add(new FTOLiftWorkoutToolbar(this.jftoWorkout));
+        }
+
         int row = 0;
         if (this.hasWarmup()) {
             items.add(new HeaderListItem("Warm-up"));
@@ -48,6 +52,10 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
         return items;
     }
 
+    private boolean shouldShowRepsToBeat() {
+        return this.jftoWorkout.workout.amrapSets().size() > 0;
+    }
+
     private Collection<CustomListItem> itemsForSets(List<JSet> sets, int row) {
         List<CustomListItem> items = Lists.newArrayList();
         for (JSet set : sets) {
@@ -68,18 +76,21 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
         }
 
         int headersPassed = 0;
+        int ONE_FOR_TOOLBAR = this.shouldShowRepsToBeat() ? 1 : 0;
+
         if (this.hasWarmup()) {
             headersPassed++;
         }
-        if (this.hasWorkSets() && position - headersPassed > this.jftoWorkout.workout.warmupSets().size() - 1) {
+        if (this.hasWorkSets() && position - headersPassed - ONE_FOR_TOOLBAR > this.jftoWorkout.workout.warmupSets().size() - 1) {
             headersPassed++;
         }
-        if (this.hasAssistance() && position - headersPassed > this.jftoWorkout.workout.warmupSets().size() +
+        if (this.hasAssistance() && position - headersPassed - ONE_FOR_TOOLBAR > this.jftoWorkout.workout.warmupSets().size() +
                 this.jftoWorkout.workout.workSets().size() - 1) {
             headersPassed++;
         }
 
-        return position - headersPassed;
+
+        return position - headersPassed - ONE_FOR_TOOLBAR;
     }
 
     protected boolean hasWarmup() {
