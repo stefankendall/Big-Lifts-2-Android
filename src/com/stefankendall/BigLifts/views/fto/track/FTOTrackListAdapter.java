@@ -8,8 +8,10 @@ import com.stefankendall.BigLifts.data.models.JSetLog;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
+import com.stefankendall.BigLifts.views.lists.HeaderListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,12 +28,14 @@ public class FTOTrackListAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.newArrayList(Lists.transform(getLog(), new Function<JWorkoutLog, CustomListItem>() {
+        List<CustomListItem> items = Lists.newArrayList(Lists.transform(getLog(), new Function<JWorkoutLog, CustomListItem>() {
             @Override
             public CustomListItem apply(JWorkoutLog log) {
                 return new TrackListItem(log);
             }
         }));
+        items.add(0, new HeaderListItem("Tap and hold to edit"));
+        return items;
     }
 
     public List<JWorkoutLog> getLog() {
