@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.helpers;
 
+import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JSetLog;
 
 import java.util.List;
@@ -18,4 +19,19 @@ public class SetHelper {
         }
         return heaviestAmrap;
     }
+
+    public static JSet heaviestAmrapSet(List<JSet> sets) {
+        JSet heaviestAmrap = null;
+        for (JSet set : sets) {
+            if (set.amrap) {
+                if (heaviestAmrap == null) {
+                    heaviestAmrap = set;
+                } else if (set.effectiveWeight().compareTo(heaviestAmrap.effectiveWeight()) > 0) {
+                    heaviestAmrap = set;
+                }
+            }
+        }
+        return heaviestAmrap;
+    }
 }
+

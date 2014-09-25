@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.data.helpers.SetHelper;
+import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
@@ -20,6 +22,9 @@ public class FTOLiftWorkoutToolbar implements CustomListItem {
             view = inflater.inflate(R.layout.fto_toolbar_cell, null);
         }
 
+        JSet heaviestAmrap = SetHelper.heaviestAmrapSet(this.jftoWorkout.workout.sets);
+
+        int repsToBeat = FTORepsToBeatCalculator.repsToBeat(heaviestAmrap.lift, heaviestAmrap.roundedEffectiveWeight());
         TextView repsTextView = (TextView) view.findViewById(R.id.reps);
         if (repsTextView != null) {
             repsTextView.setText("33");
