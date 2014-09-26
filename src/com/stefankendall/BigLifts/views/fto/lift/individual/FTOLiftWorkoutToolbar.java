@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.helpers.SetHelper;
 import com.stefankendall.BigLifts.data.models.JSet;
+import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
@@ -24,7 +25,7 @@ public class FTOLiftWorkoutToolbar implements CustomListItem {
 
         JSet heaviestAmrap = SetHelper.heaviestAmrapSet(this.jftoWorkout.workout.sets);
 
-        int repsToBeat = FTORepsToBeatCalculator.repsToBeat(heaviestAmrap.lift, heaviestAmrap.roundedEffectiveWeight());
+        int repsToBeat = FTORepsToBeatCalculator.repsToBeat((JFTOLift) heaviestAmrap.lift, heaviestAmrap.roundedEffectiveWeight());
         TextView repsTextView = (TextView) view.findViewById(R.id.reps);
         if (repsTextView != null) {
             repsTextView.setText("33");
