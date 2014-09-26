@@ -28,7 +28,7 @@ public class FTOLiftWorkoutToolbar implements CustomListItem {
         int repsToBeat = FTORepsToBeatCalculator.repsToBeat((JFTOLift) heaviestAmrap.lift, heaviestAmrap.roundedEffectiveWeight());
         TextView repsTextView = (TextView) view.findViewById(R.id.reps);
         if (repsTextView != null) {
-            repsTextView.setText("33");
+            repsTextView.setText(repsToBeat + "");
         }
 
         return view;
