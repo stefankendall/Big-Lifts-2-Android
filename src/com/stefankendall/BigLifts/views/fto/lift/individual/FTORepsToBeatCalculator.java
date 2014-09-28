@@ -65,9 +65,11 @@ public class FTORepsToBeatCalculator {
         BigDecimal logMax = BigDecimal.ZERO;
         for (JWorkoutLog jworkoutLog : ftoLogsForLift) {
             JSetLog setLog = SetHelper.heaviestAmrapSetLog(jworkoutLog.workSets());
-            BigDecimal logEstimate = OneRepEstimator.estimate(setLog.weight, setLog.reps);
-            if (logEstimate.compareTo(logMax) > 0) {
-                logMax = logEstimate;
+            if (setLog != null) {
+                BigDecimal logEstimate = OneRepEstimator.estimate(setLog.weight, setLog.reps);
+                if (logEstimate.compareTo(logMax) > 0) {
+                    logMax = logEstimate;
+                }
             }
         }
         return logMax;

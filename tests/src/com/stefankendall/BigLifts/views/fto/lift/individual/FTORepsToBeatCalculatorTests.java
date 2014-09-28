@@ -133,4 +133,18 @@ public class FTORepsToBeatCalculatorTests extends BLTestCase {
         BigDecimal max = FTORepsToBeatCalculator.findLogMax((JFTOLift) JFTOLiftStore.instance().find("name", "Deadlift"));
         Assert.assertEquals(max.compareTo(new BigDecimal(150)), 0);
     }
+
+    public void testDoesntCrashWhenLogDoesntHaveAmrap() {
+        JWorkoutLog workoutLog = (JWorkoutLog) JWorkoutLogStore.instance().create();
+        workoutLog.name = "5/3/1";
+        JSetLog workSetLog = (JSetLog) JSetLogStore.instance().create();
+        workSetLog.reps = 1;
+        workSetLog.name = "Deadlift";
+        workSetLog.weight = new BigDecimal(150);
+        workSetLog.amrap = false;
+        workoutLog.addSet(workSetLog);
+
+        BigDecimal max = FTORepsToBeatCalculator.findLogMax((JFTOLift) JFTOLiftStore.instance().find("name", "Deadlift"));
+        Assert.assertEquals(max.compareTo(BigDecimal.ZERO), 0);
+    }
 }
