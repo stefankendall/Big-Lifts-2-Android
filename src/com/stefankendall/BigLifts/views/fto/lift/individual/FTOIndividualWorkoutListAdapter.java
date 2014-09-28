@@ -18,6 +18,14 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
 
     public FTOIndividualWorkoutListAdapter(Activity context, JFTOWorkout jftoWorkout) {
         this.jftoWorkout = jftoWorkout;
+
+        if (this.jftoWorkout == null) {
+            throw new IllegalStateException("JFTOWorkout is null.");
+        }
+        if(this.jftoWorkout.workout == null){
+            throw new IllegalStateException("Workout is null.");
+        }
+
         this.items = buildItems();
         this.activity = context;
     }
@@ -53,7 +61,8 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     }
 
     private boolean shouldShowRepsToBeat() {
-        return this.jftoWorkout.workout.amrapSets().size() > 0;
+        List<JSet> amrapSets = this.jftoWorkout.workout.amrapSets();
+        return amrapSets.size() > 0;
     }
 
     private Collection<CustomListItem> itemsForSets(List<JSet> sets, int row) {
