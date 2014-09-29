@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.data.stores;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.crashlytics.android.Crashlytics;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
@@ -251,6 +252,7 @@ abstract public class BLJStore {
     }
 
     public void load() {
+        Crashlytics.log("Loading store: " + this.getClass().getName());
         this.data = (List<JModel>) this.loadDataFromStore();
         this.uuidCache = Maps.newHashMap();
 
@@ -265,6 +267,8 @@ abstract public class BLJStore {
     public List<? extends JModel> loadDataFromStore() {
         SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
         String values = sharedPreferences.getString(this.keyNameForStore(), "[]");
+        Crashlytics.log(values);
+
         return this.deserialize(values);
     }
 
