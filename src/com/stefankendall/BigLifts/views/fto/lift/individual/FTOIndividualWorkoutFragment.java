@@ -40,6 +40,10 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(this.ftoWorkout == null){
+            return;
+        }
+
         setRetainInstance(true);
         this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
         this.setHasOptionsMenu(true);

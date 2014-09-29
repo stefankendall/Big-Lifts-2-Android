@@ -14,13 +14,13 @@ public class FTOIndividualWorkoutActivity extends FTOSingleFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JFTOWorkout ftoWorkout = getFtoWorkoutFromIntent();
-        assert ftoWorkout != null;
         setTitle(ftoWorkout.workout.sets.get(0).lift.name);
     }
 
     @Override
     protected Fragment createFragment() {
         JFTOWorkout ftoWorkout = getFtoWorkoutFromIntent();
+        assert ftoWorkout != null;
         return FTOIndividualWorkoutFragment.newInstance(ftoWorkout);
     }
 
