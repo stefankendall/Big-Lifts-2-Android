@@ -50,16 +50,32 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.done_menu, menu);
-        menu.findItem(R.id.done).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                FTOIndividualWorkoutFragment.this.onDoneTapped();
-                return false;
-            }
-        });
+        inflater.inflate(R.menu.single_button, menu);
+        MenuItem button = menu.findItem(R.id.button);
+        if( this.ftoWorkout.done ){
+            button.setTitle("Not Done");
+            button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    ftoWorkout.done = false;
+                    getActivity().invalidateOptionsMenu();
+                    return false;
+                }
+            });
+        }
+        else {
+            button.setTitle("Done");
+
+            button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    FTOIndividualWorkoutFragment.this.onDoneTapped();
+                    return false;
+                }
+            });
+        }
     }
 
     @Override

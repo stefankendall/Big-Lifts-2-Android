@@ -33,6 +33,8 @@ public class FTOWorkoutListFragment extends ListFragment {
         if (resultCode == BLActivity.RESULT_CLOSE_ALL) {
             getActivity().setResult(BLActivity.RESULT_CLOSE_ALL);
             this.getActivity().finish();
+        } else {
+            this.setListAdapter(new FTOWorkoutListAdapter(this.getActivity()));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
