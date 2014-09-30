@@ -67,7 +67,7 @@ public class FTOLogGraphTransformer {
         cal.setTime(log.date);
 
         dateMap.put("year", cal.get(Calendar.YEAR));
-        dateMap.put("month", cal.get(Calendar.MONTH));
+        dateMap.put("month", cal.get(Calendar.MONTH) + 1);
         dateMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
         chartEntry.put("weight", OneRepEstimator.estimate(setLog.weight, setLog.reps));
         chartEntry.put("date", dateMap);
