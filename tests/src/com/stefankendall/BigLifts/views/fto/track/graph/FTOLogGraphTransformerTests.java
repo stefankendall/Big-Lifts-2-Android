@@ -100,4 +100,39 @@ public class FTOLogGraphTransformerTests extends BLTestCase {
         Gson gson = new Gson();
         Assert.assertEquals(gson.toJson(chartData), gson.toJson(expected, List.class));
     }
+
+
+    public void testDoesNotIncludeDeload() throws ParseException {
+        JSetLog set1 = (JSetLog) JSetLogStore.instance().create();
+        set1.name = "Deadlift";
+        set1.weight = new BigDecimal(200);
+        set1.reps = 3;
+
+        JWorkoutLog workoutLog = (JWorkoutLog) JWorkoutLogStore.instance().create();
+        workoutLog.deload = true;
+        workoutLog.name = "5/3/1";
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        workoutLog.date = df.parse("2013-01-12");
+
+        workoutLog.addSet(set1);
+        List<Map> chartData = new FTOLogGraphTransformer().buildDataFromLog();
+        Assert.assertTrue(chartData.isEmpty());
+    }
+
+    public void testDoesNotLeaveBlankEntriesInTheLog() throws ParseException {
+        JSetLog set1 = (JSetLog) JSetLogStore.instance().create();
+        set1.name = null;
+        set1.weight = new BigDecimal(200);
+        set1.reps = 1;
+
+        JWorkoutLog workoutLog = (JWorkoutLog) JWorkoutLogStore.instance().create();
+        workoutLog.name = "5/3/1";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        workoutLog.date = df.parse("2013-01-12");
+
+        workoutLog.addSet(set1);
+        List<Map> chartData = new FTOLogGraphTransformer().buildDataFromLog();
+        Assert.assertTrue(chartData.isEmpty());
+    }
 }
