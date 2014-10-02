@@ -170,7 +170,8 @@ abstract public class BLJStore {
     }
 
     public synchronized List<? extends JModel> findAllWhere(final String name, final Object value) {
-        Iterable<JModel> filteredData = Iterables.filter(this.data, nameValuePredicate(name, value));
+        List<JModel> all = (List<JModel>) this.findAll();
+        Iterable<JModel> filteredData = Iterables.filter(all, nameValuePredicate(name, value));
         return ImmutableList.copyOf(filteredData);
     }
 

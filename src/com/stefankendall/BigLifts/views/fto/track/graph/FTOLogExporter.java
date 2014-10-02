@@ -13,7 +13,7 @@ import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
 import java.math.BigDecimal;
 
 public class FTOLogExporter {
-    public String csv() {
+    public static String csv() {
         String csv = "name,date,weight,reps,estimated max\n";
         java.text.DateFormat format = DateFormat.getDateFormat(App.getContext());
         for (JModel model : JWorkoutLogStore.instance().findAllWhere("name", "5/3/1")) {
