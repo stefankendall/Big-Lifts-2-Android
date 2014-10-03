@@ -43,7 +43,7 @@
         <activity android:name=".views.fto.track.FTOTrackViewActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.track.graph.FTOGraphActivity"
-                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
+                  android:windowSoftInputMode="adjustPan"></activity>
         <meta-data android:name="com.crashlytics.ApiKey" android:value="f1f936528fec614b3f5e265a22c4bef0a92d8dc4"/>
     </application>
 </manifest>
