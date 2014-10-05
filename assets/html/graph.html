@@ -28,17 +28,12 @@
     };
 
     window.setupTestData = function () {
-        console.log("Setting test data");
         window.setupGraph(window.testData);
     };
 
-    var isChrome = /chrome/.test(navigator.userAgent.toLowerCase());
-    if (isChrome) {
-        $(function () {
-            window.setGraphSize({width: 400, height: 400});
-            window.setupTestData();
-        });
-    }
+    $(function () {
+        window.setGraphSize();
+    });
 </script>
 <div id="container" style="margin: 0 auto"></div>
 </body>

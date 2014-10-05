@@ -2,19 +2,16 @@ package com.stefankendall.BigLifts.views.fto.track.graph;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import com.google.common.collect.ImmutableMap;
+import android.webkit.WebViewClient;
 import com.google.gson.Gson;
-import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.R;
-
-import java.util.Map;
+import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 
 public class FTOGraphFragment extends Fragment {
     private static boolean isSetup = false;
@@ -36,18 +33,16 @@ public class FTOGraphFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
 
         this.webView.loadUrl("file:///android_asset/html/graph.html");
-        this.webView.addJavascriptInterface(this, "Android");
-
-        v.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (!FTOGraphFragment.isSetup) {
+        this.webView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                if (!JPurchaseStore.instance().hasPurchasedEverything()) {
                     FTOGraphFragment.this.webView.evaluateJavascript("window.setupTestData()", null);
+                } else {
+                    Gson gson = new Gson();
+                    FTOGraphFragment.this.webView.evaluateJavascript("window.loadData(" +
+                            gson.toJson(new FTOLogGraphTransformer().buildDataFromLog()) +
+                            ")", null);
                 }
-                FTOGraphFragment.isSetup = true;
-
-                String setGraphSizeScript = "window.setGraphSize()";
-                FTOGraphFragment.this.webView.evaluateJavascript(setGraphSizeScript, null);
             }
         });
 
