@@ -19,7 +19,7 @@ public class FTOTrackListAdapterTests extends BLTestCase {
         workoutLog.name = "5/3/1";
 
         FTOTrackListAdapter adapter = new FTOTrackListAdapter(new FTOTrackViewActivity());
-        Assert.assertEquals(adapter.buildItems().size(), 1);
+        Assert.assertEquals(adapter.buildItems().size(), 2);
     }
 
     public void testSortsLogByDate() {
