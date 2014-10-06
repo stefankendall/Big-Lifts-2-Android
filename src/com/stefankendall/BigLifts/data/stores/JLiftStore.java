@@ -3,6 +3,7 @@ package com.stefankendall.BigLifts.data.stores;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JLift;
 import com.stefankendall.BigLifts.data.models.JModel;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOSetStore;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -54,6 +55,7 @@ public class JLiftStore extends BLJStore {
 
     public void liftsChanged() {
         JWorkoutStore.instance().adjustToLifts();
+        JSetStore.instance().adjustToLifts();
     }
 
     @Override

@@ -50,4 +50,17 @@ public class JSetStore extends BLJStore {
         newSet.assistance = set.assistance;
         return newSet;
     }
+
+    public void adjustToLifts() {
+        List<JSet> deadSets = Lists.newArrayList();
+        for (JModel model : this.data) {
+            JSet set = (JSet) model;
+            if (set.lift != null && set.lift.isDead()) {
+                deadSets.add(set);
+            }
+        }
+        for (JSet deadSet : deadSets) {
+            this.remove(deadSet);
+        }
+    }
 }
