@@ -44,7 +44,7 @@ public class NavListAdapter extends SimpleListAdapter {
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 
         emailIntent.setType("plain/text");
-        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"pokemon@stefankendall.com"});
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"biglifts@stefankendall.com"});
         PackageInfo info = null;
         try {
             info = App.getContext().getPackageManager().getPackageInfo(App.getContext().getPackageName(), 0);
