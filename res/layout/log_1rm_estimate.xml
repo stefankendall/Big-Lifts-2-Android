@@ -5,25 +5,23 @@
               android:layout_height="wrap_content"
               android:orientation="horizontal"
               style="@style/list_item"
-              android:paddingLeft="0dp"
-        >
-    <TextView
-            android:id="@+id/lift_name"
-            android:textStyle="bold"
+              android:paddingLeft="0dp">
+    <View
+            android:layout_weight="5"
             android:layout_width="0dp"
-            android:layout_weight="4"
             android:layout_height="wrap_content"
-            android:text="Bench"/>
+            android:text=""/>
     <TextView
-            android:id="@+id/reps"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="5x"/>
+            android:text="est"
+            android:textColor="@android:color/darker_gray"
+            />
     <TextView
             android:id="@+id/weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="135lbs"/>
-
+            android:textColor="@android:color/darker_gray"
+            android:text="135 lbs"/>
 </LinearLayout>

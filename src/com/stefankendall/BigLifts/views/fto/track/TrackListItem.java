@@ -6,16 +6,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.common.collect.Iterables;
 import com.stefankendall.BigLifts.R;
+import com.stefankendall.BigLifts.allprograms.formulas.OneRepEstimator;
+import com.stefankendall.BigLifts.data.helpers.SetHelper;
 import com.stefankendall.BigLifts.data.models.JSetLog;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
-import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.numbers.BigDecimals;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
-import java.text.DateFormat;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -51,6 +51,19 @@ public class TrackListItem implements CustomListItem {
 
                 weight.setText(BigDecimals.print(setLog.weight) + " " + settings.units);
                 reps.setText(setLog.reps + "x");
+                logs.addView(entry);
+            }
+
+            if (!workoutLog.deload) {
+                View entry = inflater.inflate(R.layout.log_1rm_estimate, null);
+                JSetLog logToShow = SetHelper.heaviestAmrapSetLog(this.workoutLog.sets);
+                if (logToShow == null) {
+                    List<JSetLog> workSets = this.workoutLog.workSets();
+                    logToShow = workSets.get(workSets.size() - 1);
+                }
+                BigDecimal estimate = OneRepEstimator.estimate(logToShow.weight, logToShow.reps);
+                TextView weight = (TextView) entry.findViewById(R.id.weight);
+                weight.setText(BigDecimals.print(estimate) + " " + settings.units);
                 logs.addView(entry);
             }
         }
