@@ -40,6 +40,10 @@ public class IabService {
     }
 
     private void queryForInventory() {
+        if (iabHelper.mAsyncInProgress) {//prevent crashing. Only known case is user tries to buy before the price comes back.
+            return;
+        }
+
         iabHelper.queryInventoryAsync(true, Lists.newArrayList("everything"), new IabHelper.QueryInventoryFinishedListener() {
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
