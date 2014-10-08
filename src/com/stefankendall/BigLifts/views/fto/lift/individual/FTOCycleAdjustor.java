@@ -14,7 +14,7 @@ import java.util.List;
 public class FTOCycleAdjustor {
     public void checkForCycleChange() {
         if (this.shouldIncrementLifts()) {
-            new FTOLiftIncrementer().incrementLifts();
+            FTOLiftIncrementer.incrementLifts();
         }
 
         if (this.cycleNeedsToIncrement()) {
@@ -22,7 +22,7 @@ public class FTOCycleAdjustor {
         }
     }
 
-    private void nextCycle() {
+    public void nextCycle() {
         for (JModel model : JFTOWorkoutStore.instance().findAll()) {
             JFTOWorkout jftoWorkout = (JFTOWorkout) model;
             jftoWorkout.done = false;

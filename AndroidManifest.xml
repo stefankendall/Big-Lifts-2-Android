@@ -35,6 +35,8 @@
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.individual.FTOIndividualWorkoutActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
+        <activity android:name=".views.fto.lift.nextcycle.FTONextCycleActivity"
+                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.barloading.BarLoadingActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.barloading.AddPlateActivity"
