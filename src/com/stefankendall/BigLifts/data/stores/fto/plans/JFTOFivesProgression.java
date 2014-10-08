@@ -25,17 +25,17 @@ public class JFTOFivesProgression implements JFTOPlan {
                         JSetData.builder().withReps(5).withPercentage(new BigDecimal("40")).withLift(lift).withWarmup(true),
                         JSetData.builder().withReps(5).withPercentage(new BigDecimal("50")).withLift(lift).withWarmup(true),
                         JSetData.builder().withReps(3).withPercentage(new BigDecimal("60")).withLift(lift).withWarmup(true),
-                        JSetData.builder().withReps(3).withPercentage(new BigDecimal("70")).withLift(lift),
-                        JSetData.builder().withReps(3).withPercentage(new BigDecimal("80")).withLift(lift),
-                        JSetData.builder().withReps(3).withPercentage(new BigDecimal("90")).withLift(lift)
+                        JSetData.builder().withReps(5).withPercentage(new BigDecimal("70")).withLift(lift),
+                        JSetData.builder().withReps(5).withPercentage(new BigDecimal("80")).withLift(lift),
+                        JSetData.builder().withReps(5).withPercentage(new BigDecimal("90")).withLift(lift)
                 ))
                 .put(3, Lists.newArrayList(
                         JSetData.builder().withReps(5).withPercentage(new BigDecimal("40")).withLift(lift).withWarmup(true),
                         JSetData.builder().withReps(5).withPercentage(new BigDecimal("50")).withLift(lift).withWarmup(true),
                         JSetData.builder().withReps(3).withPercentage(new BigDecimal("60")).withLift(lift).withWarmup(true),
                         JSetData.builder().withReps(5).withPercentage(new BigDecimal("75")).withLift(lift),
-                        JSetData.builder().withReps(3).withPercentage(new BigDecimal("85")).withLift(lift),
-                        JSetData.builder().withReps(1).withPercentage(new BigDecimal("95")).withLift(lift)
+                        JSetData.builder().withReps(5).withPercentage(new BigDecimal("85")).withLift(lift),
+                        JSetData.builder().withReps(5).withPercentage(new BigDecimal("95")).withLift(lift)
                 ))
                 .put(4, JFTODeload.deloadLifts(lift))
                 .build();
