@@ -18,19 +18,23 @@ public abstract class SwitchCell implements CustomListItem {
         TextView labelView = (TextView) view.findViewById(R.id.label);
         if (labelView != null) {
             labelView.setText(this.label());
-            Switch toggle = (Switch) view.findViewById(R.id.toggle_switch);
-            toggle.setTextOn(this.switchOnText());
-            toggle.setTextOff(this.switchOffText());
-            toggle.setChecked(this.defaultState());
-            toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    SwitchCell.this.valueChanged(b);
-                }
-            });
+            setToggleValues(view);
         }
 
         return view;
+    }
+
+    protected void setToggleValues(View view) {
+        Switch toggle = (Switch) view.findViewById(R.id.toggle_switch);
+        toggle.setTextOn(this.switchOnText());
+        toggle.setTextOff(this.switchOffText());
+        toggle.setChecked(this.defaultState());
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SwitchCell.this.valueChanged(b);
+            }
+        });
     }
 
     protected String switchOnText() {

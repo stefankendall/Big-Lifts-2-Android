@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             layout="@layout/switch_cell"/>
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              style="@style/list_item"
+              android:textColor="@android:color/darker_gray"
+              android:text="The lift percentage will go up each cycle: 50%, 60%, 70%"/>
+</LinearLayout>
