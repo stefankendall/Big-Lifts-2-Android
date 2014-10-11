@@ -42,7 +42,9 @@ public class JLiftStore extends BLJStore {
     public void incrementLifts() {
         for (Object object : this.findAll()) {
             JLift lift = (JLift) object;
-            lift.weight = lift.weight.add(lift.increment);
+            if (lift.weight != null && lift.increment != null) {
+                lift.weight = lift.weight.add(lift.increment);
+            }
         }
     }
 
