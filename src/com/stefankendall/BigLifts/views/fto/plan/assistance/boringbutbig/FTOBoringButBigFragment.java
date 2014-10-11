@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.boringbutbig;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.views.ListFragmentWithControls;
+import com.stefankendall.BigLifts.views.fto.plan.assistance.boringbutbig.edit.FTOBoringButBigEditActivity;
 
 public class FTOBoringButBigFragment extends ListFragmentWithControls {
     @Override
@@ -30,7 +32,8 @@ public class FTOBoringButBigFragment extends ListFragmentWithControls {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Intent intent = new Intent(getActivity(), FTOBoringButBigEditActivity.class);
+        startActivityForResult(intent, 0);
         return true;
     }
 }

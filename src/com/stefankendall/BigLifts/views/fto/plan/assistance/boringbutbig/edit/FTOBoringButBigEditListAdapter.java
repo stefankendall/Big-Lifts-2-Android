@@ -1,8 +1,10 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.boringbutbig.edit;
 
 import android.app.Activity;
-import android.widget.ListAdapter;
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.data.models.JModel;
+import com.stefankendall.BigLifts.data.models.fto.JFTOBoringButBigLift;
+import com.stefankendall.BigLifts.data.stores.fto.JFTOBoringButBigLiftStore;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
@@ -15,6 +17,11 @@ public class FTOBoringButBigEditListAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.newArrayList();
+        List<CustomListItem> items = Lists.newArrayList();
+        for (JModel model : JFTOBoringButBigLiftStore.instance().findAll()) {
+            JFTOBoringButBigLift lift = (JFTOBoringButBigLift) model;
+            items.add(new FTOBoringButBigEditCell(lift));
+        }
+        return items;
     }
 }
