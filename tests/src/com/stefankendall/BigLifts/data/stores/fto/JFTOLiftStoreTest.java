@@ -34,4 +34,10 @@ public class JFTOLiftStoreTest extends BLTestCase {
         JFTOLiftStore.instance().incrementLifts();
         Assert.assertEquals(squat.weight, weight.add(new BigDecimal("10")));
     }
+
+    public void testDoesNotCrashIncrementingLiftsWithNullIncrement(){
+        JFTOLift squat = (JFTOLift) JFTOLiftStore.instance().find("name", "Squat");
+        squat.increment = null;
+        JFTOLiftStore.instance().incrementLifts();
+    }
 }
