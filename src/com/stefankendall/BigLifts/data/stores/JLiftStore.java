@@ -48,7 +48,6 @@ public class JLiftStore extends BLJStore {
         }
     }
 
-
     @Override
     public void remove(JModel model) {
         super.remove(model);

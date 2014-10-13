@@ -51,11 +51,14 @@ public class BLJStoreManager {
                     JFTOLiftStore.instance(),
 
                     JFTOBoringButBigLiftStore.instance(),
+                    JFTOCustomAssistanceLiftStore.instance(),
 
                     JSetStore.instance(),
                     JFTOSetStore.instance(),
                     JWorkoutStore.instance(),
-                    JFTOWorkoutStore.instance()
+                    JFTOWorkoutStore.instance(),
+
+                    JFTOCustomAssistanceWorkoutStore.instance()
             );
         }
 

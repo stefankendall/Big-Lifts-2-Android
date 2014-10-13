@@ -69,6 +69,7 @@ public class JFTOLiftStore extends JLiftStore {
     @Override
     public void liftsChanged() {
         JFTOBoringButBigLiftStore.instance().adjustToMainLifts();
+        JFTOCustomAssistanceWorkoutStore.instance().adjustToMainLifts();
         JFTOWorkoutStore.instance().switchTemplate();
     }
 
