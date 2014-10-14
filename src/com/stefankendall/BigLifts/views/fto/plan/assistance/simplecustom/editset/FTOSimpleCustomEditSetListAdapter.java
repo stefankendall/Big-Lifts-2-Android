@@ -1,6 +1,5 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom.editset;
 
-import android.app.Activity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JWorkout;
@@ -26,7 +25,8 @@ public class FTOSimpleCustomEditSetListAdapter extends SimpleListAdapter {
     @Override
     public List<CustomListItem> buildItems() {
         return Lists.<CustomListItem>newArrayList(
-                new UseTrainingMaxCell(this.fragment, this.workout, this.set)
+                new UseTrainingMaxCell(this.fragment, this.workout, this.set),
+                new FTOAssistanceLiftSelector(this.set)
         );
     }
 }
