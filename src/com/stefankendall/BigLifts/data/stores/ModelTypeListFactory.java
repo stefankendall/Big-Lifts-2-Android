@@ -21,9 +21,9 @@ public class ModelTypeListFactory {
         Map<Class, TypeToken> types = Maps.newHashMap();
         types.put(JFTOAssistance.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
         });
-        types.put(JFTOCustomAssistanceWorkout.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
+        types.put(JFTOCustomAssistanceWorkout.class, new TypeToken<CopyOnWriteArrayList<JFTOCustomAssistanceWorkout>>() {
         });
-        types.put(JFTOCustomAssistanceLift.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
+        types.put(JFTOCustomAssistanceLift.class, new TypeToken<CopyOnWriteArrayList<JFTOCustomAssistanceLift>>() {
         });
         types.put(JFTOLift.class, new TypeToken<CopyOnWriteArrayList<JFTOLift>>() {
         });
