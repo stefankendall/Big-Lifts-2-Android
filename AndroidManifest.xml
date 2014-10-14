@@ -31,6 +31,10 @@
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.plan.assistance.boringbutbig.edit.FTOBoringButBigEditActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
+        <activity android:name=".views.fto.plan.assistance.simplecustom.FTOSimpleCustomAssistanceActivity"
+                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
+        <activity android:name=".views.fto.plan.assistance.simplecustom.FTOSimpleCustomEditWorkoutActivity"
+                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.FTOWorkoutListActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.individual.change.FTOSetChangeFormActivity"

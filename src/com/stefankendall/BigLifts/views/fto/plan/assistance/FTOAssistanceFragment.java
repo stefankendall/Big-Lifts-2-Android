@@ -3,22 +3,15 @@ package com.stefankendall.BigLifts.views.fto.plan.assistance;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.stefankendall.BigLifts.data.models.fto.JFTOAssistance;
-import com.stefankendall.BigLifts.data.models.fto.JFTOVariant;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOAssistanceStore;
-import com.stefankendall.BigLifts.data.stores.fto.JFTOVariantStore;
 import com.stefankendall.BigLifts.views.fto.plan.PlanListItem;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
-
-import java.util.Map;
 
 public class FTOAssistanceFragment extends ListFragment {
 
@@ -28,8 +21,10 @@ public class FTOAssistanceFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        variantsByResultCode = ImmutableBiMap.<Integer, String>builder().put(1, JFTOAssistance.BORING_BUT_BIG).build();
-        JFTOAssistanceStore.instance().changeTo(JFTOAssistance.BORING_BUT_BIG);
+        variantsByResultCode = ImmutableBiMap.<Integer, String>builder()
+                .put(1, JFTOAssistance.BORING_BUT_BIG)
+                .put(2, JFTOAssistance.SIMPLE_CUSTOM)
+                .build();
         this.setListAdapter(new FTOAssistanceListAdapter(this.getActivity()));
     }
 

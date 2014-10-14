@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.data.stores;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import com.stefankendall.BigLifts.data.models.*;
@@ -12,12 +13,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ModelTypeListFactory {
     public static Type forClass(Class<? extends JModel> modelClass) {
         Map<Class, TypeToken> types = getTypeMap();
+        Crashlytics.log(modelClass.getName());
         return types.get(modelClass).getType();
     }
 
     private static Map<Class, TypeToken> getTypeMap() {
         Map<Class, TypeToken> types = Maps.newHashMap();
         types.put(JFTOAssistance.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
+        });
+        types.put(JFTOCustomAssistanceWorkout.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
+        });
+        types.put(JFTOCustomAssistanceLift.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
         });
         types.put(JFTOLift.class, new TypeToken<CopyOnWriteArrayList<JFTOLift>>() {
         });
