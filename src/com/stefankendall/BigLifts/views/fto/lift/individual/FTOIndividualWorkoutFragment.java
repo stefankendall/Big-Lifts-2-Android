@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
 import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
@@ -89,6 +91,8 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
             SetChange.instance().weight = existingChange.weight;
             SetChange.instance().reps = existingChange.reps;
             SetChange.instance().modifyingSet = this.ftoWorkout.workout.sets.get(setNumber);
+            Crashlytics.log("Modifying set number " + setNumber + " with workout:");
+            Crashlytics.log(new Gson().toJson(this.ftoWorkout));
             Intent intent = new Intent(this.getActivity(), FTOSetChangeFormActivity.class);
             startActivityForResult(intent, SET_CHANGE_REQUEST_CODE);
         }

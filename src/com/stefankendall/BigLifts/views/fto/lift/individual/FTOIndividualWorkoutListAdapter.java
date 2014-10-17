@@ -98,7 +98,6 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
             headersPassed++;
         }
 
-
         return position - headersPassed - ONE_FOR_TOOLBAR;
     }
 
