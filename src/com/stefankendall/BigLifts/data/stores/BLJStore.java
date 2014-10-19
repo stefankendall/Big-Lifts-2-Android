@@ -6,6 +6,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.*;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.stefankendall.BigLifts.App;
@@ -270,7 +271,9 @@ abstract public class BLJStore {
     }
 
     public List<? extends JModel> deserialize(String values) {
-        return getGson().fromJson(values, ModelTypeListFactory.forClass(this.checkedModelClass()));
+        TypeToken typeToDeserialize = ModelTypeListFactory.forClass(this.checkedModelClass());
+        Crashlytics.log("Deserializing type: " + typeToDeserialize.toString());
+        return getGson().fromJson(values, typeToDeserialize.getType());
     }
 
     protected String keyNameForStore() {

@@ -5,55 +5,53 @@ import com.google.common.reflect.TypeToken;
 import com.stefankendall.BigLifts.data.models.*;
 import com.stefankendall.BigLifts.data.models.fto.*;
 
-import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ModelTypeListFactory {
-    public static Type forClass(Class<? extends JModel> modelClass) {
-        Map<Class, TypeToken> types = getTypeMap();
-        return types.get(modelClass).getType();
+    public static TypeToken forClass(Class<? extends JModel> modelClass) {
+        return getTypeMap().get(modelClass);
     }
 
     private static Map<Class, TypeToken> getTypeMap() {
         Map<Class, TypeToken> types = Maps.newHashMap();
-        types.put(JFTOAssistance.class, new TypeToken<CopyOnWriteArrayList<JFTOAssistance>>() {
+        types.put(JFTOAssistance.class, new TypeToken<List<JFTOAssistance>>() {
         });
-        types.put(JFTOLift.class, new TypeToken<CopyOnWriteArrayList<JFTOLift>>() {
+        types.put(JFTOLift.class, new TypeToken<List<JFTOLift>>() {
         });
-        types.put(JFTOBoringButBig.class, new TypeToken<CopyOnWriteArrayList<JFTOBoringButBig>>() {
+        types.put(JFTOBoringButBig.class, new TypeToken<List<JFTOBoringButBig>>() {
         });
-        types.put(JFTOBoringButBigLift.class, new TypeToken<CopyOnWriteArrayList<JFTOBoringButBigLift>>() {
+        types.put(JFTOBoringButBigLift.class, new TypeToken<List<JFTOBoringButBigLift>>() {
         });
-        types.put(JFTOSet.class, new TypeToken<CopyOnWriteArrayList<JFTOSet>>() {
+        types.put(JFTOSet.class, new TypeToken<List<JFTOSet>>() {
         });
-        types.put(JFTOSettings.class, new TypeToken<CopyOnWriteArrayList<JFTOSettings>>() {
+        types.put(JFTOSettings.class, new TypeToken<List<JFTOSettings>>() {
         });
-        types.put(JFTOVariant.class, new TypeToken<CopyOnWriteArrayList<JFTOVariant>>() {
+        types.put(JFTOVariant.class, new TypeToken<List<JFTOVariant>>() {
         });
-        types.put(JFTOWorkout.class, new TypeToken<CopyOnWriteArrayList<JFTOWorkout>>() {
+        types.put(JFTOWorkout.class, new TypeToken<List<JFTOWorkout>>() {
         });
-        types.put(JBar.class, new TypeToken<CopyOnWriteArrayList<JBar>>() {
+        types.put(JBar.class, new TypeToken<List<JBar>>() {
         });
-        types.put(JCurrentProgram.class, new TypeToken<CopyOnWriteArrayList<JCurrentProgram>>() {
+        types.put(JCurrentProgram.class, new TypeToken<List<JCurrentProgram>>() {
         });
-        types.put(JLift.class, new TypeToken<CopyOnWriteArrayList<JLift>>() {
+        types.put(JLift.class, new TypeToken<List<JLift>>() {
         });
-        types.put(JPlate.class, new TypeToken<CopyOnWriteArrayList<JPlate>>() {
+        types.put(JPlate.class, new TypeToken<List<JPlate>>() {
         });
-        types.put(JPurchase.class, new TypeToken<CopyOnWriteArrayList<JPurchase>>() {
+        types.put(JPurchase.class, new TypeToken<List<JPurchase>>() {
         });
-        types.put(JSet.class, new TypeToken<CopyOnWriteArrayList<JSet>>() {
+        types.put(JSet.class, new TypeToken<List<JSet>>() {
         });
-        types.put(JSetLog.class, new TypeToken<CopyOnWriteArrayList<JSetLog>>() {
+        types.put(JSetLog.class, new TypeToken<List<JSetLog>>() {
         });
-        types.put(JSettings.class, new TypeToken<CopyOnWriteArrayList<JSettings>>() {
+        types.put(JSettings.class, new TypeToken<List<JSettings>>() {
         });
-        types.put(JVersion.class, new TypeToken<CopyOnWriteArrayList<JVersion>>() {
+        types.put(JVersion.class, new TypeToken<List<JVersion>>() {
         });
-        types.put(JWorkout.class, new TypeToken<CopyOnWriteArrayList<JWorkout>>() {
+        types.put(JWorkout.class, new TypeToken<List<JWorkout>>() {
         });
-        types.put(JWorkoutLog.class, new TypeToken<CopyOnWriteArrayList<JWorkoutLog>>() {
+        types.put(JWorkoutLog.class, new TypeToken<List<JWorkoutLog>>() {
         });
         return types;
     }
