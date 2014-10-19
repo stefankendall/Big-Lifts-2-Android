@@ -14,7 +14,7 @@
                  android:name=".App"
                  android:theme="@style/MyCustomTheme"
                  >
-        <activity android:name=".views.startup.StartupActivity"
+        <activity android:name=".views.startup.LoadingActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait">
             <intent-filter>
@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".views.startup.StartupActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.edit.FTOEditViewActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.edit.change.FTOEditLiftsViewActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.plan.FTOPlanActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>

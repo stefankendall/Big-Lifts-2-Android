@@ -18,7 +18,7 @@ public class App extends Application {
         super.onCreate();
         context = this;
         Crashlytics.start(this);
-        new DataLoader().load();
+        DataLoader.load();
         IabService.getInstance().start();
     }
 
