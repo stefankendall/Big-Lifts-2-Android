@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.data.models;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLTestCase;
 import com.stefankendall.BigLifts.data.stores.JSetLogStore;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
@@ -85,6 +86,8 @@ public class JWorkoutLogTests extends BLTestCase {
         workoutLog.addSet(setLog2);
 
         JWorkoutLogStore.instance().sync();
+        App.commitChanges();
+
         JWorkoutLogStore.instance().load();
 
         JWorkoutLog syncedLog = (JWorkoutLog) JWorkoutLogStore.instance().first();

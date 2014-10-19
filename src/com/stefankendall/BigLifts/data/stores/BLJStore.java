@@ -1,6 +1,5 @@
 package com.stefankendall.BigLifts.data.stores;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import com.crashlytics.android.Crashlytics;
 import com.google.common.base.Function;
@@ -19,7 +18,6 @@ import com.stefankendall.BigLifts.data.models.json.JModelSerializer;
 import java.util.*;
 
 abstract public class BLJStore {
-    private static String PREFERENCE_FILE_NAME = "biglifts";
     public List<JModel> data;
     public Map<String, Object> uuidCache;
     private static Map<String, BLJStore> stores;
@@ -242,10 +240,8 @@ abstract public class BLJStore {
     abstract protected List<Class> getAssociations();
 
     public void sync() {
-        SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = App.getSharedPreferencesEditor();
         editor.putString(this.keyNameForStore(), serializedAsJson());
-        editor.commit();
     }
 
     public String serializedAsJson() {
@@ -266,7 +262,7 @@ abstract public class BLJStore {
     }
 
     public List<? extends JModel> loadDataFromStore() {
-        SharedPreferences sharedPreferences = App.getContext().getSharedPreferences(BLJStore.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = App.getSharedPreferences();
         String values = sharedPreferences.getString(this.keyNameForStore(), "[]");
         Crashlytics.log(values);
 

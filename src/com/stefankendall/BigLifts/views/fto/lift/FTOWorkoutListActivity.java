@@ -11,6 +11,8 @@ public class FTOWorkoutListActivity extends FTOSingleFragmentActivity {
         super.onCreate(savedInstanceState);
         setupNavigation();
         setTitle("Lift & Week");
+
+        shouldSaveDataOnPause = false;
     }
 
     @Override

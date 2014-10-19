@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.data.stores.fto.*;
 
 import java.util.List;
@@ -96,5 +97,6 @@ public class BLJStoreManager {
         for (BLJStore store : this.allStores) {
             store.sync();
         }
+        App.commitChanges();
     }
 }
