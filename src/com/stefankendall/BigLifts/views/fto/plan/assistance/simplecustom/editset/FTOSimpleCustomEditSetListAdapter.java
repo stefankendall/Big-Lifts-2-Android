@@ -3,6 +3,7 @@ package com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom.editse
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JWorkout;
+import com.stefankendall.BigLifts.views.fto.lift.individual.change.RepsCell;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
@@ -24,9 +25,11 @@ public class FTOSimpleCustomEditSetListAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.<CustomListItem>newArrayList(
+        return Lists.newArrayList(
                 new UseTrainingMaxCell(this.fragment, this.workout, this.set),
-                new FTOAssistanceLiftSelector(this.set)
+                new FTOAssistanceLiftSelector(this.set),
+                new PercentOfLiftWeightCell(this.set),
+                new CustomRepsCell(this.set)
         );
     }
 }

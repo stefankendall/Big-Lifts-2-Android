@@ -28,16 +28,19 @@ public class FTOSimpleCustomEditWorkoutFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        JSet set;
         if (position == this.getListAdapter().getCount() - 1) {
-            Intent intent = new Intent(getActivity(), FTOSimpleCustomEditSetActivity.class);
-            intent.putExtra(FTOSimpleCustomEditSetActivity.EXTRA_WORKOUT_UUID, this.workout.uuid);
-
             JSet newSet = (JSet) JSetStore.instance().create();
             this.workout.addSet(newSet);
-
-            intent.putExtra(FTOSimpleCustomEditSetActivity.EXTRA_SET_UUID, newSet.uuid);
-            startActivityForResult(intent, 0);
+            set = newSet;
+        } else {
+            set = this.workout.sets.get(position);
         }
+
+        Intent intent = new Intent(getActivity(), FTOSimpleCustomEditSetActivity.class);
+        intent.putExtra(FTOSimpleCustomEditSetActivity.EXTRA_WORKOUT_UUID, this.workout.uuid);
+        intent.putExtra(FTOSimpleCustomEditSetActivity.EXTRA_SET_UUID, set.uuid);
+        startActivityForResult(intent, 0);
     }
 
     @Override

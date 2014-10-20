@@ -35,7 +35,7 @@ public class FTOAssistanceFragment extends ListFragment {
             PlanListItem planListItem = (PlanListItem) item;
             if (planListItem.segue != null) {
                 Intent i = new Intent(this.getActivity(), planListItem.segue);
-                startActivityForResult(i, variantsByResultCode.inverse().get(JFTOAssistance.BORING_BUT_BIG));
+                startActivityForResult(i, variantsByResultCode.inverse().get(planListItem.variant));
             } else {
                 JFTOAssistanceStore.instance().changeTo(planListItem.variant);
                 ((SimpleListAdapter) this.getListAdapter()).reload();
