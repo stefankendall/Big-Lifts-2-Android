@@ -25,6 +25,7 @@ public class JFTOLiftStore extends JLiftStore {
         JFTOLift lift = (JFTOLift) object;
         Integer maxOrder = (Integer) this.max("order");
         lift.order = maxOrder == null ? 0 : maxOrder.intValue() + 1;
+        lift.name = "";
     }
 
     @Override
