@@ -36,6 +36,8 @@
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.plan.assistance.simplecustom.editlifts.FTOCustomAssistanceEditLiftsActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
+        <activity android:name=".views.fto.plan.assistance.simplecustom.editlifts.FTOCustomAssistanceEditLiftActivity"
+                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.plan.assistance.boringbutbig.FTOBoringButBigActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.plan.assistance.boringbutbig.edit.FTOBoringButBigEditActivity"
