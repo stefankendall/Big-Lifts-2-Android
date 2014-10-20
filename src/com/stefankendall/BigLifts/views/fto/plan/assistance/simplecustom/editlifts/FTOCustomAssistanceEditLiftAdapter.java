@@ -19,8 +19,11 @@ public class FTOCustomAssistanceEditLiftAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.<CustomListItem>newArrayList(
-                new CustomLiftCell(customAssistanceLift)
+        return Lists.newArrayList(
+                new CustomLiftNameCell(customAssistanceLift),
+                new CustomLiftWeightCell(customAssistanceLift),
+                new CustomLiftIncrementCell(customAssistanceLift),
+                new CustomLiftUsesBarCell(customAssistanceLift)
         );
     }
 }

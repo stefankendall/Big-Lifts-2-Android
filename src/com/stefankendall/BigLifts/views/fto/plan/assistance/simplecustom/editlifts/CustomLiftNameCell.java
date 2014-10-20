@@ -9,10 +9,10 @@ import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOCustomAssistanceLift;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 
-public class CustomLiftCell implements CustomListItem {
+public class CustomLiftNameCell implements CustomListItem {
     private final JFTOCustomAssistanceLift customAssistanceLift;
 
-    public CustomLiftCell(JFTOCustomAssistanceLift customAssistanceLift) {
+    public CustomLiftNameCell(JFTOCustomAssistanceLift customAssistanceLift) {
         this.customAssistanceLift = customAssistanceLift;
     }
 
@@ -36,7 +36,7 @@ public class CustomLiftCell implements CustomListItem {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    CustomLiftCell.this.nameChanged(liftName.getText().toString());
+                    CustomLiftNameCell.this.nameChanged(liftName.getText().toString());
                 }
             });
         }
