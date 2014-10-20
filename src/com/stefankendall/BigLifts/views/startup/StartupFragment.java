@@ -11,6 +11,7 @@ import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.data.models.JCurrentProgram;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
+import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 
 public class StartupFragment extends ListFragment {
 
@@ -21,10 +22,9 @@ public class StartupFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         JCurrentProgram program = (JCurrentProgram) JCurrentProgramStore.instance().first();
-        if( program.name != null ){
-            this.start(FTOEditViewActivity.class);
-        }
-        else {
+        if (program.name != null) {
+            this.start(FTOWorkoutListActivity.class);
+        } else {
             setRetainInstance(true);
             getActivity().setTitle("Choose a program!");
             adapter = new StartupListAdapter(getActivity());

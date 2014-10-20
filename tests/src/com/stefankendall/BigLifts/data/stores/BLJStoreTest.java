@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.data.stores;
 
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLTestCase;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSet;
@@ -199,6 +200,8 @@ public class BLJStoreTest extends BLTestCase {
         lift1.weight = new BigDecimal("100");
         lift1.order = 1;
         JFTOLiftStore.instance().sync();
+        App.commitChanges();
+
         JFTOLiftStore.instance().empty();
         JFTOLiftStore.instance().load();
 

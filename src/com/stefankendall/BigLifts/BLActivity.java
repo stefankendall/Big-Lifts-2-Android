@@ -9,11 +9,15 @@ import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 
 public class BLActivity extends Activity {
     public static int RESULT_CLOSE_ALL = -1;
+    protected boolean shouldSaveDataOnPause = true;
+    public static boolean isTestRun = false;
 
     @Override
     protected void onPause() {
         super.onPause();
-        BLJStoreManager.instance().writeStores();
+        if (shouldSaveDataOnPause && !isTestRun) {
+            BLJStoreManager.instance().writeStores();
+        }
     }
 
     @Override

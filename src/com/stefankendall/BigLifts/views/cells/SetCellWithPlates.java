@@ -33,6 +33,8 @@ public class SetCellWithPlates extends SetCell {
                 platesText.setVisibility(View.GONE);
                 platesText.setText("");
             } else {
+                platesText.setVisibility(View.VISIBLE);
+
                 JBar bar = (JBar) JBarStore.instance().first();
                 BarCalculator calculator = new BarCalculator(JPlateStore.instance().findAll(), bar.weight);
                 BigDecimal weightToMake = this.set.roundedEffectiveWeight();
@@ -42,10 +44,7 @@ public class SetCellWithPlates extends SetCell {
                 List<BigDecimal> plates = calculator.platesToMakeWeight(weightToMake);
                 String platesString = "";
                 if (plates.size() > 0) {
-                    platesText.setVisibility(View.VISIBLE);
                     platesString = "[" + Joiner.on(", ").join(plates) + "]";
-                } else {
-                    platesText.setVisibility(View.GONE);
                 }
                 platesText.setText(platesString);
             }

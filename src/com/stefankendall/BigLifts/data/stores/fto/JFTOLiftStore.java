@@ -39,6 +39,14 @@ public class JFTOLiftStore extends JLiftStore {
         this.isSettingDefaults = false;
     }
 
+    @Override
+    protected void onLoad() {
+        for (JModel model : this.findAll()) {
+            JFTOLift lift = (JFTOLift) model;
+            lift.usesBar = true;
+        }
+    }
+
     private void create(String name, BigDecimal increment, int order) {
         JFTOLift lift = (JFTOLift) this.create();
         lift.name = name;
