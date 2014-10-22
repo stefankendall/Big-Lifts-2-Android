@@ -26,7 +26,7 @@ public class BarCalculator {
     }
 
     public List<BigDecimal> platesToMakeWeight(BigDecimal weight) {
-        this.logWeightForIssues(weight);
+//        this.logWeightForIssues(weight);
 
         BigDecimal targetWeight = weight.subtract(this.barWeight);
         List<PlateRemaining> remainingPlates = this.copyPlates(this.plates);

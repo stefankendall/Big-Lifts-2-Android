@@ -42,7 +42,7 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(this.ftoWorkout == null){
+        if (this.ftoWorkout == null) {
             return;
         }
 
@@ -56,7 +56,7 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.single_button, menu);
         MenuItem button = menu.findItem(R.id.button);
-        if( this.ftoWorkout.done ){
+        if (this.ftoWorkout.done) {
             button.setTitle("Not Done");
             button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
@@ -66,8 +66,7 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
                     return false;
                 }
             });
-        }
-        else {
+        } else {
             button.setTitle("Done");
 
             button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -134,6 +133,10 @@ public class FTOIndividualWorkoutFragment extends ListFragment {
         List<JSet> sets = this.ftoWorkout.workout.sets;
         for (int i = 0; i < sets.size(); i++) {
             JSet set = sets.get(i);
+            if (set == null) {//no idea how this could happen
+                continue;
+            }
+
             SetChange setChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.ftoWorkout, i);
             Integer reps = setChange.reps;
             if (reps != null && reps == 0) {
