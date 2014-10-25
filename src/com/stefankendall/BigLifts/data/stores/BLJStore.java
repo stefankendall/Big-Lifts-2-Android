@@ -59,7 +59,9 @@ abstract public class BLJStore {
         try {
             object = this.checkedModelClass().newInstance();
         } catch (InstantiationException e) {
+            throw new RuntimeException("Create failed");
         } catch (IllegalAccessException e) {
+            throw new RuntimeException("Create failed");
         }
 
         this.addUuid(object);
