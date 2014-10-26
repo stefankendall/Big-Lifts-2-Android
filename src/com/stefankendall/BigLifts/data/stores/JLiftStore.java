@@ -55,8 +55,9 @@ public class JLiftStore extends BLJStore {
     }
 
     public void liftsChanged() {
-        JWorkoutStore.instance().adjustToLifts();
         JSetStore.instance().adjustToLifts();
+        JFTOSetStore.instance().adjustToLifts();
+        JWorkoutStore.instance().adjustToLifts();
     }
 
     @Override

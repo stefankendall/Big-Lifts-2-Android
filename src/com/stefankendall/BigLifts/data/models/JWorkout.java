@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.data.stores.BLJStore;
 import com.stefankendall.BigLifts.data.stores.BLJStoreManager;
 
 import java.util.BitSet;
@@ -63,7 +64,10 @@ public class JWorkout extends JModel {
 
     public void removeSet(JSet set) {
         this.sets.remove(set);
-        BLJStoreManager.instance().storeForModel(set.getClass(), set.uuid).remove(set);
+        BLJStore store = BLJStoreManager.instance().storeForModel(set.getClass(), set.uuid);
+        if(store != null) {
+            store.remove(set);
+        }
     }
 
     public void removeSets(List<JSet> setsToRemove) {

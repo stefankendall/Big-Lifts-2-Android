@@ -34,7 +34,7 @@ public class JWorkoutStore extends BLJStore {
             JWorkout workout = (JWorkout) model;
             List<JSet> deadSets = Lists.newArrayList();
             for (JSet set : workout.sets) {
-                if (set.lift.isDead()) {
+                if (set.isDead() || set.lift.isDead()) {
                     deadSets.add(set);
                 }
             }
