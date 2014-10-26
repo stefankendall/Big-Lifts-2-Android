@@ -15,21 +15,24 @@ public class JFTOJokerPlan implements JFTOPlan {
     public Map<Integer, List<JSetData>> generate(JLift lift) {
         Map<Integer, List<JSetData>> jokerSets = Maps.newHashMap();
         jokerSets.put(1, Lists.newArrayList(
-                JSetData.builder().withReps(5).withPercentage(new BigDecimal("95")).withLift(lift),
-                JSetData.builder().withReps(5).withPercentage(new BigDecimal("105")).withLift(lift),
-                JSetData.builder().withReps(5).withPercentage(new BigDecimal("110")).withLift(lift)
+                //from 85
+                JSetData.builder().withReps(5).withPercentage(new BigDecimal("93.5")).withLift(lift),
+                JSetData.builder().withReps(5).withPercentage(new BigDecimal("98.18")).withLift(lift),
+                JSetData.builder().withReps(5).withPercentage(new BigDecimal("103.08")).withLift(lift)
         ));
 
         jokerSets.put(2, Lists.newArrayList(
-                JSetData.builder().withReps(3).withPercentage(new BigDecimal("100")).withLift(lift),
-                JSetData.builder().withReps(3).withPercentage(new BigDecimal("105")).withLift(lift),
-                JSetData.builder().withReps(3).withPercentage(new BigDecimal("115")).withLift(lift)
+                //from 90
+                JSetData.builder().withReps(3).withPercentage(new BigDecimal("99")).withLift(lift),
+                JSetData.builder().withReps(3).withPercentage(new BigDecimal("103.95")).withLift(lift),
+                JSetData.builder().withReps(3).withPercentage(new BigDecimal("109.15")).withLift(lift)
         ));
 
         jokerSets.put(3, Lists.newArrayList(
-                JSetData.builder().withReps(1).withPercentage(new BigDecimal("105")).withLift(lift),
-                JSetData.builder().withReps(1).withPercentage(new BigDecimal("115")).withLift(lift),
-                JSetData.builder().withReps(1).withPercentage(new BigDecimal("120")).withLift(lift)
+                //from 95
+                JSetData.builder().withReps(1).withPercentage(new BigDecimal("104.5")).withLift(lift),
+                JSetData.builder().withReps(1).withPercentage(new BigDecimal("109.73")).withLift(lift),
+                JSetData.builder().withReps(1).withPercentage(new BigDecimal("115.21")).withLift(lift)
         ));
 
         Map<Integer, List<JSetData>> setsByWeek = Maps.newHashMap(new JFTOStandardPlan().generate(lift));
