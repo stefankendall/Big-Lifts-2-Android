@@ -2,7 +2,6 @@ package com.stefankendall.BigLifts.views.fto.barloading;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +19,14 @@ public class AddPlateFragment extends ListFragmentWithControls implements FieldW
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 
     @Override

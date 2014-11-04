@@ -11,15 +11,24 @@ import android.widget.ListView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
+import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom.editlifts.FTOCustomAssistanceEditLiftsActivity;
 
-public class FTOSimpleCustomAssistanceFragment extends ListFragment {
+public class FTOSimpleCustomAssistanceFragment extends BLListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         this.setListAdapter(new FTOSimpleCustomAssistanceListAdapter(this.getActivity()));
         this.setHasOptionsMenu(true);
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 
     @Override

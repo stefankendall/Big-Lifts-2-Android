@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.lift.individual;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import com.stefankendall.BigLifts.TestDataLoader;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
@@ -39,6 +40,15 @@ public class FTOIndividualWorkoutFragmentTests extends ActivityInstrumentationTe
         JWorkoutLog workoutLog = (JWorkoutLog) JWorkoutLogStore.instance().find("name", "5/3/1");
         Assert.assertNotNull(workoutLog.date);
         Assert.assertTrue(this.ftoWorkout.done);
+    }
+
+    public void testRestoresWorkoutOnRestore() {
+        Bundle bundle = new Bundle();
+        this.fragment.save(bundle);
+        this.fragment.ftoWorkout = null;
+        this.fragment.restore(bundle);
+
+        Assert.assertNotNull(this.fragment.ftoWorkout);
     }
 
 //    public void testDoesNotSave0RepsInLog() {

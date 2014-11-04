@@ -125,4 +125,12 @@ public class FTOEditLiftsViewFragment extends ListFragmentWithControls {
 
     protected void removeListSelection() {
     }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
+    }
 }

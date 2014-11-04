@@ -1,30 +1,37 @@
 package com.stefankendall.BigLifts.views.fto.track;
 
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.AdapterView;
 import com.google.common.collect.ImmutableMap;
 import com.stefankendall.BigLifts.R;
-import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
 import com.stefankendall.BigLifts.data.models.fto.JFTOSettings;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOSettingsStore;
+import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.track.graph.FTOGraphActivity;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
 import java.util.List;
 import java.util.Map;
 
-public class FTOTrackViewFragment extends ListFragment {
+public class FTOTrackViewFragment extends BLListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
         this.setListAdapter(new FTOTrackListAdapter(this.getActivity()));
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 
     @Override

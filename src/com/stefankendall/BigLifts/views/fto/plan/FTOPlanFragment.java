@@ -24,6 +24,14 @@ public class FTOPlanFragment extends ListFragmentWithControls {
     }
 
     @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         JPurchaseStore.instance().whenPurchase(new Function<Void, Void>() {
             @Override

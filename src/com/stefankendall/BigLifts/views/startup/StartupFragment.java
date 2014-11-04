@@ -1,6 +1,5 @@
 package com.stefankendall.BigLifts.views.startup;
 
-import android.app.ListFragment;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,13 +9,11 @@ import android.widget.ListView;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.data.models.JCurrentProgram;
 import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
+import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 
-public class StartupFragment extends ListFragment {
-
-    private StartupListAdapter adapter;
-
+public class StartupFragment extends BLListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +24,24 @@ public class StartupFragment extends ListFragment {
         } else {
             setRetainInstance(true);
             getActivity().setTitle("Choose a program!");
-            adapter = new StartupListAdapter(getActivity());
-            this.setListAdapter(adapter);
+            this.setListAdapter(new StartupListAdapter(getActivity()));
         }
     }
 
     @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        if (position == this.adapter.getWhatsNextPosition()) {
+        StartupListAdapter adapter = (StartupListAdapter) this.getListAdapter();
+        if (position == adapter.getWhatsNextPosition()) {
             this.showWhatsNextEmail();
-        } else if (position == this.adapter.get531Position()) {
+        } else if (position == adapter.get531Position()) {
             JCurrentProgram program = (JCurrentProgram) JCurrentProgramStore.instance().first();
             program.name = JCurrentProgram.PROGRAM_531;
             this.start(FTOEditViewActivity.class);

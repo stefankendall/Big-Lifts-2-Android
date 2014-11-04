@@ -11,7 +11,6 @@ public class SetChange {
 
     private static SetChange instance;
 
-
     public SetChange() {
     }
 

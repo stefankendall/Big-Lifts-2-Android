@@ -1,13 +1,11 @@
 package com.stefankendall.BigLifts.views;
 
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.R;
-import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
-public abstract class ListFragmentWithControls extends ListFragment {
+public abstract class ListFragmentWithControls extends BLListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,5 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom;
 
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -13,10 +12,12 @@ import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JWorkout;
 import com.stefankendall.BigLifts.data.stores.JSetStore;
+import com.stefankendall.BigLifts.data.stores.JWorkoutStore;
+import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom.editset.FTOSimpleCustomEditSetActivity;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
-public class FTOSimpleCustomEditWorkoutFragment extends ListFragment {
+public class FTOSimpleCustomEditWorkoutFragment extends BLListFragment {
     private JWorkout workout;
 
     public static FTOSimpleCustomEditWorkoutFragment newInstance(JWorkout workout) {
@@ -30,6 +31,17 @@ public class FTOSimpleCustomEditWorkoutFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         this.setListAdapter(new FTOSimpleCustomEditWorkoutListAdapter(getActivity(), workout));
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+        String uuid = savedInstanceState.getString("uuid");
+        this.workout = (JWorkout) JWorkoutStore.instance().find("uuid", uuid);
+    }
+
+    @Override
+    protected void save(Bundle outState) {
+        outState.putString("uuid", this.workout.uuid);
     }
 
     @Override

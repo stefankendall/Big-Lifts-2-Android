@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.barloading;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
@@ -41,5 +42,13 @@ public class BarLoadingFragment extends ListFragmentWithControls implements Refr
         if (resultCode == Activity.RESULT_OK) {
             this.refresh();
         }
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 }

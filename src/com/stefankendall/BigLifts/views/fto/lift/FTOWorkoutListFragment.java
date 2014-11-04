@@ -11,16 +11,25 @@ import android.widget.ListView;
 import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
+import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.lift.individual.FTOIndividualWorkoutActivity;
 import com.stefankendall.BigLifts.views.fto.lift.nextcycle.FTONextCycleActivity;
 
-public class FTOWorkoutListFragment extends ListFragment {
+public class FTOWorkoutListFragment extends BLListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
         this.setListAdapter(new FTOWorkoutListAdapter(this.getActivity()));
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 
     @Override

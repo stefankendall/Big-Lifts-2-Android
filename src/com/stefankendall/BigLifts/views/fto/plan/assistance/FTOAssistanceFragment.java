@@ -9,12 +9,12 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.stefankendall.BigLifts.data.models.fto.JFTOAssistance;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOAssistanceStore;
+import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.plan.PlanListItem;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
-public class FTOAssistanceFragment extends ListFragment {
-
+public class FTOAssistanceFragment extends BLListFragment {
     private BiMap<Integer, String> variantsByResultCode;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,14 @@ public class FTOAssistanceFragment extends ListFragment {
                 .put(2, JFTOAssistance.SIMPLE_CUSTOM)
                 .build();
         this.setListAdapter(new FTOAssistanceListAdapter(this.getActivity()));
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 
     @Override

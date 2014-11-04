@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JWorkout;
+import com.stefankendall.BigLifts.data.stores.JSetStore;
+import com.stefankendall.BigLifts.data.stores.JWorkoutStore;
 import com.stefankendall.BigLifts.views.ListFragmentWithControls;
 import com.stefankendall.BigLifts.views.fto.barloading.FieldWatcher;
 
@@ -24,6 +26,22 @@ public class FTOSimpleCustomEditSetFragment extends ListFragmentWithControls imp
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+        String workoutUuid = savedInstanceState.getString("workoutUuid");
+        String setUuid = savedInstanceState.getString("setUuid");
+        this.setIndex = savedInstanceState.getInt("setIndex");
+        this.set = (JSet) JSetStore.instance().find("uuid", setUuid);
+        this.workout = (JWorkout) JWorkoutStore.instance().find("uuid", workoutUuid);
+    }
+
+    @Override
+    protected void save(Bundle outState) {
+        outState.putString("workoutUuid", workout.uuid);
+        outState.putString("setUuid", set.uuid);
+        outState.putInt("setIndex", setIndex);
     }
 
     @Override

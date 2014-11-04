@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.settings;
 
-import android.util.Log;
+import android.os.Bundle;
 import android.widget.ListAdapter;
 import com.stefankendall.BigLifts.views.ListFragmentWithControls;
 import com.stefankendall.BigLifts.views.fto.barloading.FieldWatcher;
@@ -14,5 +14,13 @@ public class SettingsFragment extends ListFragmentWithControls implements FieldW
     @Override
     public void fieldChanged() {
         this.setListAdapter(this.getListAdapterForControls());
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 }

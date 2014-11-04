@@ -12,13 +12,22 @@ import android.widget.ListView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.fto.JFTOCustomAssistanceLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOCustomAssistanceLiftStore;
+import com.stefankendall.BigLifts.views.BLListFragment;
 
-public class FTOCustomAssistanceEditLiftsFragment extends ListFragment {
+public class FTOCustomAssistanceEditLiftsFragment extends BLListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         this.setListAdapter(new FTOCustomAssistanceEditLiftsAdapter(this.getActivity()));
+    }
+
+    @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
     }
 
     @Override

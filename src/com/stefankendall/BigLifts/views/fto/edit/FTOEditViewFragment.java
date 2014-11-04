@@ -19,6 +19,14 @@ public class FTOEditViewFragment extends ListFragmentWithControls {
     }
 
     @Override
+    protected void restore(Bundle savedInstanceState) {
+    }
+
+    @Override
+    protected void save(Bundle outState) {
+    }
+
+    @Override
     protected ListAdapter getListAdapterForControls() {
         return new FTOEditViewListAdapter(getActivity());
     }

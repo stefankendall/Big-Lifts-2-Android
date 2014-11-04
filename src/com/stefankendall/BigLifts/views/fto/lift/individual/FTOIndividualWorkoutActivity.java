@@ -19,9 +19,7 @@ public class FTOIndividualWorkoutActivity extends FTOSingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        JFTOWorkout ftoWorkout = getFtoWorkoutFromIntent();
-        assert ftoWorkout != null;
-        return FTOIndividualWorkoutFragment.newInstance(ftoWorkout);
+        return FTOIndividualWorkoutFragment.newInstance(getFtoWorkoutFromIntent());
     }
 
     private JFTOWorkout getFtoWorkoutFromIntent() {
