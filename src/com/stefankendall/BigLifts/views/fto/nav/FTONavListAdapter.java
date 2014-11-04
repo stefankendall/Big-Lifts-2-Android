@@ -14,6 +14,7 @@ import com.stefankendall.BigLifts.data.stores.JCurrentProgramStore;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 import com.stefankendall.BigLifts.views.fto.barloading.BarLoadingActivity;
 import com.stefankendall.BigLifts.views.fto.edit.FTOEditViewActivity;
+import com.stefankendall.BigLifts.views.fto.exportimport.ExportImportActivity;
 import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.onerep.OneRepMaxActivity;
 import com.stefankendall.BigLifts.views.fto.plan.FTOPlanActivity;
@@ -75,6 +76,12 @@ public class FTONavListAdapter extends NavListAdapter {
                     @Override
                     public void run(Activity context) {
                         FTONavListAdapter.this.switchTo(SettingsActivity.class);
+                    }
+                }),
+                new NavListItem("Export/Import", R.drawable._03_loopback, new NavAction() {
+                    @Override
+                    public void run(Activity context) {
+                        FTONavListAdapter.this.switchTo(ExportImportActivity.class);
                     }
                 }),
                 buildPurchaseListItem(),
