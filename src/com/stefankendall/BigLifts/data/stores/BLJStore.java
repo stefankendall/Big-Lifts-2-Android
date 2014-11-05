@@ -253,7 +253,12 @@ abstract public class BLJStore {
 
     public void load() {
         Crashlytics.log("Loading store: " + this.getClass().getName());
-        this.data = (List<JModel>) this.loadDataFromStore();
+        this.setupData(this.loadDataFromStore());
+        this.onLoad();
+    }
+
+    public void setupData(List<? extends JModel> models) {
+        this.data = (List<JModel>) models;
         this.uuidCache = Maps.newHashMap();
 
         if (this.data.isEmpty()) {
@@ -261,7 +266,6 @@ abstract public class BLJStore {
         }
 
         this.buildUuidCache();
-        this.onLoad();
     }
 
     public List<? extends JModel> loadDataFromStore() {

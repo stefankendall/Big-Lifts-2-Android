@@ -6,7 +6,7 @@
               android:layout_height="match_parent">
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:padding="10dp"
-              android:text="Export all log entries to a file, or import log entries from a file."/>
+              android:text="Export or import all log entries to external storage. File will be written in Documents/ as BigLifts2/log.json."/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:padding="10dp"
