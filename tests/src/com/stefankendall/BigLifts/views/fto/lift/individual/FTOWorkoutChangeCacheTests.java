@@ -31,4 +31,12 @@ public class FTOWorkoutChangeCacheTests extends BLTestCase {
         FTOWorkoutChangeCache.instance().clear();
         Assert.assertEquals(FTOWorkoutChangeCache.instance().ftoWorkoutChanges.size(), 0);
     }
+
+    public void testCanMarkSetsCompleted(){
+        FTOWorkoutChangeCache.instance().toggleComplete(3);
+        FTOWorkoutChangeCache.instance().toggleComplete(5);
+        FTOWorkoutChangeCache.instance().toggleComplete(3);
+        Assert.assertTrue(FTOWorkoutChangeCache.instance().isComplete(5));
+        Assert.assertFalse(FTOWorkoutChangeCache.instance().isComplete(3));
+    }
 }

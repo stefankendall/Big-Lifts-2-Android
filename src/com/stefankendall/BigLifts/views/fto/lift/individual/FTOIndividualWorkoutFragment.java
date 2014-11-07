@@ -116,8 +116,6 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
             SetChange.instance().weight = existingChange.weight;
             SetChange.instance().reps = existingChange.reps;
             SetChange.instance().modifyingSet = this.ftoWorkout.workout.sets.get(setNumber);
-            Crashlytics.log("Modifying set number " + setNumber + " with workout:");
-            Crashlytics.log(new Gson().toJson(this.ftoWorkout));
             Intent intent = new Intent(this.getActivity(), FTOSetChangeFormActivity.class);
             startActivityForResult(intent, SET_CHANGE_REQUEST_CODE);
         }
