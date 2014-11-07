@@ -20,6 +20,8 @@ public class FTOEditLogListAdapter extends SimpleListAdapter {
 
     @Override
     public List<CustomListItem> buildItems() {
-        return Lists.newArrayList();
+        return Lists.<CustomListItem>newArrayList(
+                new LogDateEditCell(this.workoutLog)
+        );
     }
 }
