@@ -27,6 +27,10 @@ public class FTOWorkoutChangeCache {
         this.completedSets = Lists.newArrayList();
     }
 
+    public void clearCompletedSets(){
+        this.completedSets.clear();
+    }
+
     public FTOWorkoutChange changeForWorkout(final JFTOWorkout workout) {
         Optional<FTOWorkoutChange> change = Iterables.tryFind(this.ftoWorkoutChanges, new Predicate<FTOWorkoutChange>() {
             @Override
@@ -59,7 +63,7 @@ public class FTOWorkoutChangeCache {
 
     public void toggleComplete(int set) {
         if (this.isComplete(set)) {
-            this.completedSets.remove(set);
+            this.completedSets.remove(this.completedSets.indexOf(set));
         } else {
             this.completedSets.add(set);
         }

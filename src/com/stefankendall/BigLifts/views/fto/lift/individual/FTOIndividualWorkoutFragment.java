@@ -2,10 +2,8 @@ package com.stefankendall.BigLifts.views.fto.lift.individual;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
@@ -54,8 +52,29 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
+        FTOWorkoutChangeCache.instance().clearCompletedSets();
         this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
         this.setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                FTOIndividualWorkoutListAdapter adapter = (FTOIndividualWorkoutListAdapter) adapterView.getAdapter();
+                int setNumber = adapter.setNumberForPosition(position);
+                if (setNumber >= 0) {
+                    FTOIndividualWorkoutFragment.this.markSetComplete(setNumber);
+                }
+                return setNumber >= 0;
+            }
+        });
+    }
+
+    private void markSetComplete(int setIndex) {
+        FTOWorkoutChangeCache.instance().toggleComplete(setIndex);
+        this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
     }
 
     @Override
@@ -103,6 +122,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
             startActivityForResult(intent, SET_CHANGE_REQUEST_CODE);
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,5 +1,6 @@
 package com.stefankendall.BigLifts.views.cells;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 public class SetCell implements CustomListItem {
     protected final JSet set;
     protected final SetChange setChange;
+    private boolean complete;
 
     public SetCell(JSet set, SetChange setChange) {
         this.set = set;
@@ -62,6 +64,12 @@ public class SetCell implements CustomListItem {
         units.setText(settings.units);
 
         this.setWeightLabelText(view);
+
+        if (complete) {
+            view.setBackgroundColor(Color.rgb(179, 255, 178));
+        } else {
+            view.setBackgroundColor(App.getContext().getResources().getColor(android.R.color.transparent));
+        }
     }
 
     private void setWeightLabelText(View view) {
@@ -74,5 +82,9 @@ public class SetCell implements CustomListItem {
         } else {
             weight.setText(BigDecimals.print(this.set.roundedEffectiveWeight()));
         }
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }
