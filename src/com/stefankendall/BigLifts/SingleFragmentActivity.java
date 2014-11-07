@@ -47,14 +47,5 @@ public abstract class SingleFragmentActivity extends BLActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (IabService.getInstance().iabHelper != null && !IabService.getInstance().iabHelper.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
     protected abstract Fragment createFragment();
 }
