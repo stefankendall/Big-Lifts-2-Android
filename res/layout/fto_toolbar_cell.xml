@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/reps_to_beat_toolbar"
-              style="@style/list_item"
+              style="@style/list_item_padded"
               >
     <TextView
             android:textColor="@color/linkcolor"
@@ -15,12 +15,21 @@
             />
     <TextView
             android:id="@+id/reps"
-            style="@style/list_item"
             android:textColor="@color/linkcolor"
             android:text="12"
             android:paddingLeft="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            />
+    <TextView
+            android:textColor="#A7A7A7"
+            android:text="long press to complete"
+            android:textSize="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
             />
 
 </LinearLayout>
