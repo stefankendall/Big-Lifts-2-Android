@@ -6,10 +6,7 @@ import com.stefankendall.BigLifts.data.models.fto.JFTOAssistance;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.data.stores.BLJStore;
-import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTOAssistanceProtocol;
-import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTOBoringButBigAssistance;
-import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTONoneAssistance;
-import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.JFTOSimpleCustomAssistance;
+import com.stefankendall.BigLifts.data.stores.fto.plans.assistance.*;
 
 import java.util.List;
 import java.util.Map;
@@ -58,15 +55,8 @@ public class JFTOAssistanceStore extends BLJStore {
                 .put(JFTOAssistance.NONE, new JFTONoneAssistance())
                 .put(JFTOAssistance.BORING_BUT_BIG, new JFTOBoringButBigAssistance())
                 .put(JFTOAssistance.SIMPLE_CUSTOM, new JFTOSimpleCustomAssistance())
+                .put(JFTOAssistance.FULL_CUSTOM, new JFTOFullCustomAssistance())
                 .build();
-//        NSDictionary *assistanceGenerators = @{
-//            FTO_ASSISTANCE_NONE : [JFTONoneAssistance new],
-//            FTO_ASSISTANCE_BORING_BUT_BIG : [JFTOBoringButBigAssistance new],
-//            FTO_ASSISTANCE_TRIUMVIRATE : [JFTOTriumvirateAssistance new],
-//            FTO_ASSISTANCE_SST : [JFTOSimplestStrengthTemplateAssistance new],
-//            FTO_ASSISTANCE_CUSTOM : [JFTOCustomAssistance new],
-//            FTO_ASSISTANCE_FULL_CUSTOM : [JFTOFullCustomAssistance new]
-//        };
         return generators.get(name);
     }
 
