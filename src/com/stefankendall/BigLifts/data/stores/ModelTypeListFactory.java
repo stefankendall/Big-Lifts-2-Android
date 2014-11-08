@@ -28,6 +28,8 @@ public class ModelTypeListFactory {
         });
         types.put(JFTOCustomAssistanceWorkout.class, new TypeToken<List<JFTOCustomAssistanceWorkout>>() {
         });
+        types.put(JFTOFullCustomAssistanceWorkout.class, new TypeToken<List<JFTOFullCustomAssistanceWorkout>>() {
+        });
         types.put(JFTOCustomAssistanceLift.class, new TypeToken<List<JFTOCustomAssistanceLift>>() {
         });
         types.put(JFTOSettings.class, new TypeToken<List<JFTOSettings>>() {

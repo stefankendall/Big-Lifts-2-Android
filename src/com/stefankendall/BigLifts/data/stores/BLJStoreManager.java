@@ -59,7 +59,8 @@ public class BLJStoreManager {
                     JWorkoutStore.instance(),
                     JFTOWorkoutStore.instance(),
 
-                    JFTOCustomAssistanceWorkoutStore.instance()
+                    JFTOCustomAssistanceWorkoutStore.instance(),
+                    JFTOFullCustomAssistanceWorkoutStore.instance()
             );
         }
 

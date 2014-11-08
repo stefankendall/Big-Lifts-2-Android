@@ -59,7 +59,7 @@ public class JFTOWorkoutStore extends BLJStore {
         if (!((JFTOSettings) JFTOSettingsStore.instance().first()).warmupEnabled) {
             this.removeWarmup();
         }
-        //todo: Full custom adjust to fto
+        JFTOFullCustomAssistanceWorkoutStore.instance().adjustToFtoWorkouts();
     }
 
     private void removeWarmup() {

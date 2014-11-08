@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.data.stores.fto;
 
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.data.models.JLift;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.JWorkout;
@@ -19,7 +20,7 @@ public class JFTOCustomAssistanceWorkoutStore extends BLJStore {
 
     @Override
     protected List<Class> getAssociations() {
-        return Lists.<Class>newArrayList(JFTOLift.class, JWorkout.class);
+        return Lists.<Class>newArrayList(JFTOLift.class, JLift.class, JWorkout.class);
     }
 
     public static JFTOCustomAssistanceWorkoutStore instance() {
