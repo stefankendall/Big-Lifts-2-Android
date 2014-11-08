@@ -24,6 +24,7 @@ public class FTOAssistanceFragment extends BLListFragment {
         variantsByResultCode = ImmutableBiMap.<Integer, String>builder()
                 .put(1, JFTOAssistance.BORING_BUT_BIG)
                 .put(2, JFTOAssistance.SIMPLE_CUSTOM)
+                .put(3, JFTOAssistance.FULL_CUSTOM)
                 .build();
         this.setListAdapter(new FTOAssistanceListAdapter(this.getActivity()));
     }
