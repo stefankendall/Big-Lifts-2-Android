@@ -16,4 +16,3 @@ public class JFTOFullCustomAssistanceWorkout extends JModel {
         return Lists.newArrayList("workout");
     }
 }
- 
