@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Rest"
+          android:showAsAction="always">
+        <menu>
+            <item
+                    android:id="@+id/rest_1_min"
+                    android:title="1 min"/>
+            <item
+                    android:id="@+id/rest_2_min"
+                    android:title="2 min"/>
+            <item
+                    android:id="@+id/rest_custom_min"
+                    android:title="Custom"/>
+        </menu>
+    </item>
+    <item android:id="@+id/done"
+          android:title="Done"
+          android:showAsAction="always"
+            />
+</menu>

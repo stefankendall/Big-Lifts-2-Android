@@ -2,11 +2,12 @@ package com.stefankendall.BigLifts.views.fto.lift.individual;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import com.crashlytics.android.Crashlytics;
-import com.google.gson.Gson;
 import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
@@ -80,11 +81,11 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.single_button, menu);
-        MenuItem button = menu.findItem(R.id.button);
+        inflater.inflate(R.menu.fto_individual_workout_menu, menu);
+        MenuItem doneButton = menu.findItem(R.id.done);
         if (this.ftoWorkout.done) {
-            button.setTitle("Not Done");
-            button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            doneButton.setTitle("Not Done");
+            doneButton.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     ftoWorkout.done = false;
@@ -93,9 +94,8 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
                 }
             });
         } else {
-            button.setTitle("Done");
-
-            button.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            doneButton.setTitle("Done");
+            doneButton.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     FTOIndividualWorkoutFragment.this.onDoneTapped();
@@ -103,6 +103,19 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.rest_1_min) {
+
+        } else if (item.getItemId() == R.id.rest_2_min) {
+
+        } else if (item.getItemId() == R.id.rest_custom_min) {
+
+        }
+
+        return true;
     }
 
     @Override
