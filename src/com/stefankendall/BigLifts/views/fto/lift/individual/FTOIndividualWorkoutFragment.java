@@ -1,5 +1,8 @@
 package com.stefankendall.BigLifts.views.fto.lift.individual;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.models.JSet;
@@ -49,6 +53,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     protected void restore(Bundle savedInstanceState) {
         String uuid = savedInstanceState.getString("uuid");
         this.ftoWorkout = (JFTOWorkout) JFTOWorkoutStore.instance().find("uuid", uuid);
+        ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
     }
 
     @Override
@@ -59,6 +64,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
         FTOWorkoutChangeCache.instance().clearCompletedSets();
         this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
         this.setHasOptionsMenu(true);
+        ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
     }
 
     @Override
@@ -114,7 +120,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     public boolean onOptionsItemSelected(MenuItem item) {
         int secondsToRest = 0;
         if (item.getItemId() == R.id.rest_1_min) {
-            secondsToRest = 3;
+            secondsToRest = 4;
         } else if (item.getItemId() == R.id.rest_2_min) {
             secondsToRest = 120;
         } else if (item.getItemId() == R.id.rest_custom_min) {
@@ -122,6 +128,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
         }
 
         if (secondsToRest > 0) {
+            ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
             RestTimer.instance().setTime(secondsToRest);
             RestTimer.instance().addTickObserver(this);
             this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
@@ -203,8 +210,21 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     @Override
     public void onTick(long secondsRemaining) {
         if (secondsRemaining == 0) {
-            //todo: play alarm
-            this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
+            Notification notification =
+                    new Notification.Builder(App.getContext())
+                            .setSmallIcon(R.drawable._78_stopwatch_light)
+                            .setContentTitle(App.getContext().getString(R.string.app_name))
+                            .setContentText("Rest Done")
+                            .setDefaults(Notification.DEFAULT_SOUND)
+                            .setAutoCancel(true)
+                            .build();
+            NotificationManager notificationManager =
+                    (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, notification);
+
+            if (this.isAdded()) {
+                this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
+            }
         }
     }
 }
