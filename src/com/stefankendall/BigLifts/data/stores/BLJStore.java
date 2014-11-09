@@ -86,7 +86,9 @@ abstract public class BLJStore {
 
     public void addUuid(JModel model) {
         model.uuid = UUID.randomUUID().toString();
-        this.uuidCache.put(model.uuid, model);
+        if (this.uuidCache != null) {
+            this.uuidCache.put(model.uuid, model);
+        }
     }
 
     public void setupDefaults() {
