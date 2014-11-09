@@ -6,6 +6,8 @@ import com.stefankendall.BigLifts.data.models.JSet;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;
 import com.stefankendall.BigLifts.views.cells.SetCell;
 import com.stefankendall.BigLifts.views.cells.SetCellFactory;
+import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestCountdownCell;
+import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestTimer;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
 import com.stefankendall.BigLifts.views.lists.HeaderListItem;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
@@ -22,7 +24,7 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
         if (this.jftoWorkout == null) {
             throw new IllegalStateException("JFTOWorkout is null.");
         }
-        if(this.jftoWorkout.workout == null){
+        if (this.jftoWorkout.workout == null) {
             throw new IllegalStateException("Workout is null.");
         }
 
@@ -33,6 +35,10 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
     @Override
     public List<CustomListItem> buildItems() {
         List<CustomListItem> items = Lists.newArrayList();
+
+        if (RestTimer.instance().secondsLeft() > 0) {
+            items.add(new RestCountdownCell());
+        }
 
         if (this.shouldShowRepsToBeat()) {
             items.add(new FTOLiftWorkoutToolbar(this.jftoWorkout));
@@ -89,19 +95,20 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
 
         int headersPassed = 0;
         int ONE_FOR_TOOLBAR = this.shouldShowRepsToBeat() ? 1 : 0;
+        int ONE_FOR_TIMER = (this.items.size() > 0 && this.items.get(0) instanceof RestCountdownCell) ? 1 : 0;
 
         if (this.hasWarmup()) {
             headersPassed++;
         }
-        if (this.hasWorkSets() && position - headersPassed - ONE_FOR_TOOLBAR > this.jftoWorkout.workout.warmupSets().size() - 1) {
+        if (this.hasWorkSets() && position - headersPassed - ONE_FOR_TOOLBAR - ONE_FOR_TIMER > this.jftoWorkout.workout.warmupSets().size() - 1) {
             headersPassed++;
         }
-        if (this.hasAssistance() && position - headersPassed - ONE_FOR_TOOLBAR > this.jftoWorkout.workout.warmupSets().size() +
+        if (this.hasAssistance() && position - headersPassed - ONE_FOR_TOOLBAR - ONE_FOR_TIMER > this.jftoWorkout.workout.warmupSets().size() +
                 this.jftoWorkout.workout.workSets().size() - 1) {
             headersPassed++;
         }
 
-        return position - headersPassed - ONE_FOR_TOOLBAR;
+        return position - headersPassed - ONE_FOR_TOOLBAR - ONE_FOR_TIMER;
     }
 
     protected boolean hasWarmup() {

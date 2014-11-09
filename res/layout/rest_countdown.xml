@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              style="@style/list_item_padded"
+              android:background="@android:color/holo_blue_bright"
+        >
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Rest"/>
+
+    <TextView android:id="@+id/timeLeftTextView"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:paddingLeft="10dp"
+              android:text="1:23"/>
+
+    <TextView
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="12dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:text="long press to stop"/>
+</LinearLayout>

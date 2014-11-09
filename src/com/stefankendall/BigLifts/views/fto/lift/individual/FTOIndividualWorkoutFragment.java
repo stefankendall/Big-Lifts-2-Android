@@ -19,6 +19,9 @@ import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
 import com.stefankendall.BigLifts.views.BLListFragment;
 import com.stefankendall.BigLifts.views.fto.lift.individual.change.FTOSetChangeFormActivity;
+import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestCountdownCell;
+import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestTimer;
+import com.stefankendall.BigLifts.views.fto.lift.individual.timer.TickObserver;
 import com.stefankendall.BigLifts.views.fto.track.FTOTrackViewActivity;
 import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 
@@ -26,7 +29,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class FTOIndividualWorkoutFragment extends BLListFragment {
+public class FTOIndividualWorkoutFragment extends BLListFragment implements TickObserver {
     protected JFTOWorkout ftoWorkout;
     private Integer tappedSetRow = null;
     public static int SET_CHANGE_REQUEST_CODE = 0;
@@ -67,8 +70,10 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
                 int setNumber = adapter.setNumberForPosition(position);
                 if (setNumber >= 0) {
                     FTOIndividualWorkoutFragment.this.markSetComplete(setNumber);
+                } else if (adapter.getItem(position) instanceof RestCountdownCell) {
+                    RestTimer.instance().stop();
                 }
-                return setNumber >= 0;
+                return true;
             }
         });
     }
@@ -107,12 +112,19 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int secondsToRest = 0;
         if (item.getItemId() == R.id.rest_1_min) {
-
+            secondsToRest = 3;
         } else if (item.getItemId() == R.id.rest_2_min) {
-
+            secondsToRest = 120;
         } else if (item.getItemId() == R.id.rest_custom_min) {
+            secondsToRest = 60;
+        }
 
+        if (secondsToRest > 0) {
+            RestTimer.instance().setTime(secondsToRest);
+            RestTimer.instance().addTickObserver(this);
+            this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
         }
 
         return true;
@@ -186,5 +198,13 @@ public class FTOIndividualWorkoutFragment extends BLListFragment {
             workoutLog.addSet(setLog);
         }
         FTOWorkoutChangeCache.instance().clear();
+    }
+
+    @Override
+    public void onTick(long secondsRemaining) {
+        if (secondsRemaining == 0) {
+            //todo: play alarm
+            this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
+        }
     }
 }
