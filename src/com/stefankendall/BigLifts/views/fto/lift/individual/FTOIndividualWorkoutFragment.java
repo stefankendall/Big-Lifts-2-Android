@@ -1,7 +1,9 @@
 package com.stefankendall.BigLifts.views.fto.lift.individual;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.stefankendall.BigLifts.data.stores.JSetLogStore;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
 import com.stefankendall.BigLifts.views.BLListFragment;
+import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.lift.individual.change.FTOSetChangeFormActivity;
 import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestCountdownCell;
 import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestTimer;
@@ -37,6 +40,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     protected JFTOWorkout ftoWorkout;
     private Integer tappedSetRow = null;
     public static int SET_CHANGE_REQUEST_CODE = 0;
+    private boolean stoppingTimer = false;
 
     public static FTOIndividualWorkoutFragment newInstance(JFTOWorkout ftoWorkout) {
         FTOIndividualWorkoutFragment fragment = new FTOIndividualWorkoutFragment();
@@ -77,6 +81,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
                 if (setNumber >= 0) {
                     FTOIndividualWorkoutFragment.this.markSetComplete(setNumber);
                 } else if (adapter.getItem(position) instanceof RestCountdownCell) {
+                    FTOIndividualWorkoutFragment.this.stoppingTimer = true;
                     RestTimer.instance().stop();
                 }
                 return true;
@@ -210,14 +215,26 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     @Override
     public void onTick(long secondsRemaining) {
         if (secondsRemaining == 0) {
+            if(stoppingTimer){
+                stoppingTimer = false;
+                return;
+            }
+
+            Intent notificationIntent = new Intent(App.getContext(), FTOWorkoutListActivity.class);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            notificationIntent.putExtra(FTOIndividualWorkoutActivity.FTO_WORKOUT_UUID, this.ftoWorkout.uuid);
+            PendingIntent intent = PendingIntent.getActivity(App.getContext(), 0, notificationIntent, 0);
+
             Notification notification =
                     new Notification.Builder(App.getContext())
                             .setSmallIcon(R.drawable._78_stopwatch_light)
                             .setContentTitle(App.getContext().getString(R.string.app_name))
                             .setContentText("Rest Done")
+                            .setContentIntent(intent)
                             .setDefaults(Notification.DEFAULT_SOUND)
                             .setAutoCancel(true)
                             .build();
+
             NotificationManager notificationManager =
                     (NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0, notification);
