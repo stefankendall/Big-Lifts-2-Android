@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import com.crashlytics.android.Crashlytics;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
@@ -53,12 +54,17 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     @Override
     protected void save(Bundle outState) {
         outState.putString("uuid", this.ftoWorkout.uuid);
+        if (tappedSetRow != null) {
+            outState.putInt("tappedSetRow", tappedSetRow);
+        }
     }
 
     @Override
     protected void restore(Bundle savedInstanceState) {
         String uuid = savedInstanceState.getString("uuid");
         this.ftoWorkout = (JFTOWorkout) JFTOWorkoutStore.instance().find("uuid", uuid);
+        this.tappedSetRow = savedInstanceState.getInt("tappedSetRow", -1);
+        this.tappedSetRow = this.tappedSetRow < 0 ? null : this.tappedSetRow;
         ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
     }
 
@@ -183,9 +189,15 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == SET_CHANGE_REQUEST_CODE) {
+            Crashlytics.log("Set change for row: " + this.tappedSetRow + " workout uuid: " + this.ftoWorkout.uuid);
             SetChange setChange = FTOWorkoutChangeCache.instance().changeForWorkout(this.ftoWorkout, this.tappedSetRow);
-            setChange.weight = SetChange.instance().weight;
-            setChange.reps = SetChange.instance().reps;
+            if (SetChange.instance().weight != null) {
+                setChange.weight = SetChange.instance().weight;
+            }
+            if (SetChange.instance().reps != null) {
+                setChange.reps = SetChange.instance().reps;
+            }
+
             SimpleListAdapter adapter = (SimpleListAdapter) this.getListAdapter();
             adapter.reload();
         }
@@ -207,8 +219,8 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
 
     protected void logWorkout() {
         JWorkoutLog workoutLog = JWorkoutLogStore.instance().create("5/3/1", new Date());
-        workoutLog.deload = this.ftoWorkout.deload;
 
+        workoutLog.deload = this.ftoWorkout.deload;
         List<JSet> sets = this.ftoWorkout.workout.sets;
         for (int i = 0; i < sets.size(); i++) {
             JSet set = sets.get(i);
@@ -218,6 +230,10 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
                 continue;
             }
             BigDecimal weight = setChange.weight;
+
+            if (set == null) {
+                continue;
+            }
 
             JSetLog setLog = JSetLogStore.instance().createFromSet(set);
             if (reps != null) {
