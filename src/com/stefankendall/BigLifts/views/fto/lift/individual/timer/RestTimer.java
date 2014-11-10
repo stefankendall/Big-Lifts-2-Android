@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.lift.individual.timer;
 
 import android.os.CountDownTimer;
 import com.google.common.collect.Lists;
+import com.stefankendall.BigLifts.App;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class RestTimer {
     private CountDownTimer countdownTimer;
     private long secondsRemaining = 0;
     private List<TickObserver> observers;
+    private static final String CUSTOM_REST_TIME_IN_SECONDS_KEY = "customRestTime";
 
     public synchronized static RestTimer instance() {
         if (instance == null) {
@@ -65,5 +67,14 @@ public class RestTimer {
             this.countdownTimer.cancel();
         }
         this.observers.clear();
+    }
+
+    public void setCustomSeconds(int secondsToRest) {
+        App.getSharedPreferencesEditor().putInt("customRestTime", secondsToRest);
+        App.getSharedPreferencesEditor().commit();
+    }
+
+    public int getCustomSeconds() {
+        return App.getSharedPreferences().getInt(CUSTOM_REST_TIME_IN_SECONDS_KEY, 30);
     }
 }

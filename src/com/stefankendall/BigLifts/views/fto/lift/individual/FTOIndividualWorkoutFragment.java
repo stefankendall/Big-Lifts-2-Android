@@ -1,17 +1,20 @@
 package com.stefankendall.BigLifts.views.fto.lift.individual;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.BLActivity;
@@ -24,7 +27,6 @@ import com.stefankendall.BigLifts.data.stores.JSetLogStore;
 import com.stefankendall.BigLifts.data.stores.JWorkoutLogStore;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOWorkoutStore;
 import com.stefankendall.BigLifts.views.BLListFragment;
-import com.stefankendall.BigLifts.views.fto.lift.FTOWorkoutListActivity;
 import com.stefankendall.BigLifts.views.fto.lift.individual.change.FTOSetChangeFormActivity;
 import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestCountdownCell;
 import com.stefankendall.BigLifts.views.fto.lift.individual.timer.RestTimer;
@@ -125,21 +127,39 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     public boolean onOptionsItemSelected(MenuItem item) {
         int secondsToRest = 0;
         if (item.getItemId() == R.id.rest_1_min) {
-            secondsToRest = 4;
+            secondsToRest = 60;
         } else if (item.getItemId() == R.id.rest_2_min) {
             secondsToRest = 120;
         } else if (item.getItemId() == R.id.rest_custom_min) {
-            secondsToRest = 60;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final EditText restTimeInSeconds = new EditText(getActivity());
+            restTimeInSeconds.setInputType(InputType.TYPE_CLASS_NUMBER);
+            restTimeInSeconds.setText(RestTimer.instance().getCustomSeconds() + "");
+            builder.setTitle("Rest time in seconds?").setView(restTimeInSeconds).
+                    setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (!restTimeInSeconds.getText().toString().equals("")) {
+                                int secondsToRest = Integer.parseInt(restTimeInSeconds.getText().toString());
+                                RestTimer.instance().setCustomSeconds(secondsToRest);
+                                FTOIndividualWorkoutFragment.this.startRest(secondsToRest);
+                            }
+                        }
+                    }).create().show();
         }
 
         if (secondsToRest > 0) {
-            ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
-            RestTimer.instance().setTime(secondsToRest);
-            RestTimer.instance().addTickObserver(this);
-            this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
+            startRest(secondsToRest);
         }
 
         return true;
+    }
+
+    private void startRest(int secondsToRest) {
+        ((NotificationManager) App.getContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
+        RestTimer.instance().setTime(secondsToRest);
+        RestTimer.instance().addTickObserver(this);
+        this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
     }
 
     @Override
@@ -215,12 +235,16 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
     @Override
     public void onTick(long secondsRemaining) {
         if (secondsRemaining == 0) {
-            if(stoppingTimer){
+            if (this.isAdded()) {
+                this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
+            }
+
+            if (stoppingTimer) {
                 stoppingTimer = false;
                 return;
             }
 
-            Intent notificationIntent = new Intent(App.getContext(), FTOWorkoutListActivity.class);
+            Intent notificationIntent = new Intent(App.getContext(), FTOIndividualWorkoutActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             notificationIntent.putExtra(FTOIndividualWorkoutActivity.FTO_WORKOUT_UUID, this.ftoWorkout.uuid);
             PendingIntent intent = PendingIntent.getActivity(App.getContext(), 0, notificationIntent, 0);

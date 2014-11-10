@@ -51,7 +51,6 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
             row += this.jftoWorkout.workout.warmupSets().size();
         }
 
-
         if (this.hasWorkSets()) {
             items.add(new HeaderListItem("Workout"));
             items.addAll(this.itemsForSets(this.jftoWorkout.workout.workSets(), row));
