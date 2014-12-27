@@ -47,12 +47,11 @@
         <activity android:name=".views.fto.plan.assistance.boringbutbig.edit.FTOBoringButBigEditActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.FTOWorkoutListActivity"
-                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.individual.change.FTOSetChangeFormActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.individual.FTOIndividualWorkoutActivity"
-                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" android:launchMode="singleTask"
-                ></activity>
+                  android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.lift.nextcycle.FTONextCycleActivity"
                   android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"></activity>
         <activity android:name=".views.fto.barloading.BarLoadingActivity"
