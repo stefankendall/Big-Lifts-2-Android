@@ -99,7 +99,7 @@ public class FTOIndividualWorkoutFragment extends BLListFragment implements Tick
 
     private void markSetComplete(int setIndex) {
         FTOWorkoutChangeCache.instance().toggleComplete(setIndex);
-        this.setListAdapter(new FTOIndividualWorkoutListAdapter(this.getActivity(), this.ftoWorkout));
+        ((SimpleListAdapter) this.getListAdapter()).reload();
     }
 
     @Override
