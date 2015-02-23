@@ -19,6 +19,6 @@
     </item>
     <item android:id="@+id/done"
           android:title="Done"
-          android:showAsAction="always"
+          biglifts:showAsAction="ifRoom"
             />
 </menu>

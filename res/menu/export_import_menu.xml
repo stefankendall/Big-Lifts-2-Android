@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:biglifts="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/import_button"
           android:title="Import"
-          android:showAsAction="always"/>
+          biglifts:showAsAction="ifRoom"/>
     <item android:id="@+id/export_button"
           android:title="Export"
-          android:showAsAction="always"/>
+          biglifts:showAsAction="ifRoom"/>
 </menu>
