@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.startup;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +17,9 @@ public class LoadingActivity extends SingleFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActionBar().setDisplayShowHomeEnabled(false);
-        getActionBar().setDisplayHomeAsUpEnabled(false);
-        getActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
 
         setTitle("Loading Data...");

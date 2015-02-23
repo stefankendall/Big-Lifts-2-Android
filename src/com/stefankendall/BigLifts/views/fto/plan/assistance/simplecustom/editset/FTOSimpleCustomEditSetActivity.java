@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom.editset;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;

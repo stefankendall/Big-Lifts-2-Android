@@ -1,6 +1,5 @@
 package com.stefankendall.BigLifts.views.fto.lift;
 
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;

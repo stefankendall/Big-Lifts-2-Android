@@ -1,7 +1,7 @@
 package com.stefankendall.BigLifts.views;
 
-import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 
 public abstract class BLListFragment extends ListFragment {
     @Override

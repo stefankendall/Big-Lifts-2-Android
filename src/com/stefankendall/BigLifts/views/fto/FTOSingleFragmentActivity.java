@@ -1,8 +1,8 @@
 package com.stefankendall.BigLifts.views.fto;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,8 +15,8 @@ import com.stefankendall.BigLifts.views.nav.NavListItem;
 
 public abstract class FTOSingleFragmentActivity extends SingleFragmentActivity {
     protected void setupNavigation() {
-        getActionBar().setDisplayShowHomeEnabled(false);
-        getActionBar().setHomeAsUpIndicator(
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(
                 getResources().getDrawable(R.drawable.ic_navigation_drawer));
 
         final ListView listView = (ListView) findViewById(R.id.left_drawer);

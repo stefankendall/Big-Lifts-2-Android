@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:biglifts="http://schemas.android.com/apk/res-auto"
+        >
     <item android:title="Rest"
-          android:showAsAction="always">
+          biglifts:showAsAction="ifRoom">
         <menu>
             <item
                     android:id="@+id/rest_1_min"

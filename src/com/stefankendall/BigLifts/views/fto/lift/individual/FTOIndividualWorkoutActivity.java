@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.lift.individual;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import com.stefankendall.BigLifts.data.models.fto.JFTOWorkout;

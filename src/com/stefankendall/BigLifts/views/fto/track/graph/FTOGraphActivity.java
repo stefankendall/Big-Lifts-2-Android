@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.track.graph;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import com.stefankendall.BigLifts.views.fto.FTOSingleFragmentActivityIapOverlay;
 

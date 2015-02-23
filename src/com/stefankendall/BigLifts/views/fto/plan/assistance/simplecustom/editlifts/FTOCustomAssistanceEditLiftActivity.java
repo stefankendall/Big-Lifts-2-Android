@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom.editlifts;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import com.stefankendall.BigLifts.data.models.fto.JFTOCustomAssistanceLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOCustomAssistanceLiftStore;

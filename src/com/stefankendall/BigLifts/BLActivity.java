@@ -1,13 +1,13 @@
 package com.stefankendall.BigLifts;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.WindowManager;
 import com.stefankendall.BigLifts.data.models.JSettings;
 import com.stefankendall.BigLifts.data.stores.BLJStoreManager;
 import com.stefankendall.BigLifts.data.stores.JSettingsStore;
 
-public class BLActivity extends Activity {
+public class BLActivity extends ActionBarActivity {
     public static int RESULT_CLOSE_ALL = -1;
     protected boolean shouldSaveDataOnPause = true;
     public static boolean isTestRun = false;

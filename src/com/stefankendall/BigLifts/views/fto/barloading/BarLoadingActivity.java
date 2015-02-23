@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.barloading;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import com.stefankendall.BigLifts.data.models.JPurchase;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;

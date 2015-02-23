@@ -1,6 +1,6 @@
 package com.stefankendall.BigLifts.views.fto.exportimport;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.*;
