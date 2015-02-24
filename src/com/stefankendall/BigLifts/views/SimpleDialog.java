@@ -1,15 +1,22 @@
 package com.stefankendall.BigLifts.views;
 
-import android.app.*;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 public class SimpleDialog extends DialogFragment {
     @Override
+    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        String title = args.getString("title", "");
-        String message = args.getString("message", "");
+        String title = args.getString("title");
+        String message = args.getString("message");
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)

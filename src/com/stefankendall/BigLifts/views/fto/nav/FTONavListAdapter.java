@@ -2,6 +2,7 @@ package com.stefankendall.BigLifts.views.fto.nav;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.FluentIterable;
@@ -29,7 +30,9 @@ import com.stefankendall.BigLifts.views.startup.StartupActivity;
 import java.util.List;
 
 public class FTONavListAdapter extends NavListAdapter {
-    public FTONavListAdapter(Activity context) {
+    private boolean priceDisplayed;
+
+    public FTONavListAdapter(FragmentActivity context) {
         super(context);
     }
 
@@ -114,6 +117,7 @@ public class FTONavListAdapter extends NavListAdapter {
         if (inventory == null) {
             this.findPurchasePrice();
         } else {
+            this.priceDisplayed = true;
             SkuDetails sku = inventory.getSkuDetails(IabService.EVERYTHING_SKU);
             if (sku != null) {
                 title += " (" + sku.getPrice() + ")";
@@ -123,12 +127,14 @@ public class FTONavListAdapter extends NavListAdapter {
         return new NavListItem(title, R.drawable._269_happyface_2, new NavAction() {
             @Override
             public void run(Activity context) {
-                IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity, new Function<Void, Void>() {
-                    public Void apply(Void aVoid) {
-                        FTONavListAdapter.this.reload();
-                        return null;
-                    }
-                });
+                if (FTONavListAdapter.this.priceDisplayed) {
+                    IabService.getInstance().purchaseEverything(FTONavListAdapter.this.activity, new Function<Void, Void>() {
+                        public Void apply(Void aVoid) {
+                            FTONavListAdapter.this.reload();
+                            return null;
+                        }
+                    });
+                }
             }
         });
     }

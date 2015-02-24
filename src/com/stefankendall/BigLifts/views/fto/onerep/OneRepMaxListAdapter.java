@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.onerep;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.allprograms.formulas.OneRepEstimator;
 import com.stefankendall.BigLifts.data.models.JSettings;
@@ -28,7 +29,7 @@ public class OneRepMaxListAdapter extends SimpleListAdapter {
     private BodyweightCell bodyweightCell;
     private WilksCell wilksCell;
 
-    public OneRepMaxListAdapter(Activity context) {
+    public OneRepMaxListAdapter(FragmentActivity context) {
         super(context);
     }
 

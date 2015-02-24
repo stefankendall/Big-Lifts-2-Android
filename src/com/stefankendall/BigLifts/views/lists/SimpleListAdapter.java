@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.lists;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class SimpleListAdapter extends BaseAdapter {
-    protected Activity activity;
+    protected FragmentActivity activity;
     protected List<CustomListItem> items;
 
     public SimpleListAdapter() {
     }
 
-    public SimpleListAdapter(Activity context) {
+    public SimpleListAdapter(FragmentActivity context) {
         this.items = buildItems();
         this.activity = context;
     }

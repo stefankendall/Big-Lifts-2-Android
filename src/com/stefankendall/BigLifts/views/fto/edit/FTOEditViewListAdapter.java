@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.edit;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.fto.JFTOLift;
 import com.stefankendall.BigLifts.data.stores.fto.JFTOLiftStore;
@@ -12,7 +13,7 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class FTOEditViewListAdapter extends SimpleListAdapter {
-    public FTOEditViewListAdapter(Activity context) {
+    public FTOEditViewListAdapter(FragmentActivity context) {
         super(context);
     }
 

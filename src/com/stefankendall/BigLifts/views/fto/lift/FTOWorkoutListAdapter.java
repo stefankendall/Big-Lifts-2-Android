@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.lift;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
@@ -14,7 +15,7 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class FTOWorkoutListAdapter extends SimpleListAdapter {
-    public FTOWorkoutListAdapter(Activity context) {
+    public FTOWorkoutListAdapter(FragmentActivity context) {
         super(context);
     }
 

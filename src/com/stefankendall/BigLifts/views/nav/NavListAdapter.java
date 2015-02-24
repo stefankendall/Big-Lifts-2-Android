@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.App;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class NavListAdapter extends SimpleListAdapter {
 
-    public NavListAdapter(Activity context) {
+    public NavListAdapter(FragmentActivity context) {
         super(context);
     }
 

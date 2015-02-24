@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.track;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -22,7 +23,7 @@ public class FTOTrackListAdapter extends SimpleListAdapter {
     public FTOTrackListAdapter() {
     }
 
-    public FTOTrackListAdapter(Activity context) {
+    public FTOTrackListAdapter(FragmentActivity context) {
         super(context);
     }
 

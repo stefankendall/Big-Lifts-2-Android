@@ -1,8 +1,8 @@
 package com.stefankendall.BigLifts.billing.util;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.App;
@@ -70,8 +70,7 @@ public class IabService {
         return inventory;
     }
 
-    public void purchaseEverything(final Activity fromActivity, final Function<Void, Void> successCallback) {
-//        successfulPurchase(fromActivity);
+    public void purchaseEverything(final FragmentActivity fromActivity, final Function<Void, Void> successCallback) {
         try {
             iabHelper.launchPurchaseFlow(fromActivity, IabService.EVERYTHING_SKU, IAP_REQUEST_CODE, new IabHelper.OnIabPurchaseFinishedListener() {
                 @Override
@@ -81,34 +80,42 @@ public class IabService {
                             successfulPurchase(fromActivity);
                             successCallback.apply(null);
                         } else {
+                            failureInPurchase(fromActivity);
                         }
                     } else if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
                         JPurchaseStore.instance().purchasedEverything();
                         alreadyPurchased(fromActivity);
                         successCallback.apply(null);
                     } else if (result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_USER_CANCELED) {
+                        canceledPurchase(fromActivity);
                     } else {
                         failureInPurchase(fromActivity);
                     }
                 }
             });
         } catch (Exception e) {
+            failureInPurchase(fromActivity);
         }
     }
 
-    private void alreadyPurchased(Activity fromActivity) {
-        SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
+    private void alreadyPurchased(FragmentActivity fromActivity) {
+        SimpleDialog.showDialog(fromActivity.getSupportFragmentManager(), fromActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer),
                 "Unlocked!", "Everything unlocked again.");
     }
 
-    private void failureInPurchase(Activity fromActivity) {
-        SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
+    private void failureInPurchase(FragmentActivity fromActivity) {
+        SimpleDialog.showDialog(fromActivity.getSupportFragmentManager(), fromActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer),
                 "Something went wrong trying to purchase...", "Send me feedback and try again later, maybe?");
     }
 
-    private void successfulPurchase(Activity fromActivity) {
+    private void canceledPurchase(FragmentActivity fromActivity) {
+        SimpleDialog.showDialog(fromActivity.getSupportFragmentManager(), fromActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer),
+                "", "Purchase Cancelled");
+    }
+
+    private void successfulPurchase(FragmentActivity fromActivity) {
         JPurchaseStore.instance().purchasedEverything();
-        SimpleDialog.showDialog(fromActivity.getFragmentManager(), fromActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer),
-                "Thank you!", "I truly appreciate the support.");
+        SimpleDialog.showDialog(fromActivity.getSupportFragmentManager(), fromActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer),
+                "Thank you!", "Everything unlocked.");
     }
 }

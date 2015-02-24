@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.settings;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -15,7 +16,7 @@ import java.util.List;
 public class SettingsListAdapter extends SimpleListAdapter {
     private final FieldWatcher watcher;
 
-    public SettingsListAdapter(Activity context, FieldWatcher watcher) {
+    public SettingsListAdapter(FragmentActivity context, FieldWatcher watcher) {
         this.activity = context;
         this.watcher = watcher;
         this.items = buildItems();

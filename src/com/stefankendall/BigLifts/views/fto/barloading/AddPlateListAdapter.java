@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.barloading;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.views.cells.ParameterizedDecimalInputCell;
 import com.stefankendall.BigLifts.views.cells.ParameterizedIntegerInputCell;
@@ -15,7 +16,7 @@ public class AddPlateListAdapter extends SimpleListAdapter {
     protected ParameterizedDecimalInputCell weight;
     protected ParameterizedIntegerInputCell count;
 
-    public AddPlateListAdapter(Activity context, FieldWatcher watcher) {
+    public AddPlateListAdapter(FragmentActivity context, FieldWatcher watcher) {
         this.activity = context;
         this.watcher = watcher;
         this.items = buildItems();

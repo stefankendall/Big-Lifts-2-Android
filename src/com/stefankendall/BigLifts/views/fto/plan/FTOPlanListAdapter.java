@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.plan;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.fto.JFTOVariant;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
@@ -11,7 +12,7 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class FTOPlanListAdapter extends SimpleListAdapter {
-    public FTOPlanListAdapter(Activity activity) {
+    public FTOPlanListAdapter(FragmentActivity activity) {
         super(activity);
     }
 

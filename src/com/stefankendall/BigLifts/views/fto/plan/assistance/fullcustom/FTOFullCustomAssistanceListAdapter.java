@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.fullcustom;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JModel;
@@ -15,7 +16,7 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class FTOFullCustomAssistanceListAdapter extends SimpleListAdapter {
-    public FTOFullCustomAssistanceListAdapter(Activity activity) {
+    public FTOFullCustomAssistanceListAdapter(FragmentActivity activity) {
         super(activity);
     }
 

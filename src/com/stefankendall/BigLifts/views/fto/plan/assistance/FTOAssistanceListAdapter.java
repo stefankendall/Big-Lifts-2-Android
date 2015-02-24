@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.fto.JFTOAssistance;
 import com.stefankendall.BigLifts.views.fto.plan.assistance.boringbutbig.FTOBoringButBigActivity;
@@ -12,7 +13,7 @@ import com.stefankendall.BigLifts.views.lists.SimpleListAdapter;
 import java.util.List;
 
 public class FTOAssistanceListAdapter extends SimpleListAdapter {
-    public FTOAssistanceListAdapter(Activity context) {
+    public FTOAssistanceListAdapter(FragmentActivity context) {
         super(context);
     }
 

@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.track.edit;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.widget.ListAdapter;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JWorkoutLog;
@@ -12,7 +13,7 @@ import java.util.List;
 public class FTOEditLogListAdapter extends SimpleListAdapter {
     private final JWorkoutLog workoutLog;
 
-    public FTOEditLogListAdapter(Activity activity, JWorkoutLog workoutLog) {
+    public FTOEditLogListAdapter(FragmentActivity activity, JWorkoutLog workoutLog) {
         this.workoutLog = workoutLog;
         this.items = buildItems();
         this.activity = activity;

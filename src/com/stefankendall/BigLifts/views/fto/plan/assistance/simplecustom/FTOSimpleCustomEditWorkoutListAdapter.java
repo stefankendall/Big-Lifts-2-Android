@@ -1,6 +1,7 @@
 package com.stefankendall.BigLifts.views.fto.plan.assistance.simplecustom;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.common.collect.Lists;
 import com.stefankendall.BigLifts.data.models.JModel;
 import com.stefankendall.BigLifts.data.models.JSet;
@@ -17,7 +18,7 @@ import java.util.List;
 public class FTOSimpleCustomEditWorkoutListAdapter extends SimpleListAdapter {
     private final JWorkout workout;
 
-    public FTOSimpleCustomEditWorkoutListAdapter(Activity activity, JWorkout workout) {
+    public FTOSimpleCustomEditWorkoutListAdapter(FragmentActivity activity, JWorkout workout) {
         this.workout = workout;
         this.items = buildItems();
         this.activity = activity;
