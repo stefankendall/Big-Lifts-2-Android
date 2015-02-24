@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.stefankendall.BigLifts.BLActivity;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.views.fto.lift.individual.FTOCycleAdjustor;
 import com.stefankendall.BigLifts.views.fto.lift.individual.FTOLiftIncrementer;
 
-public class FTONextCycleActivity extends Activity {
+public class FTONextCycleActivity extends BLActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
