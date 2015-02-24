@@ -25,7 +25,7 @@ public class JSetLogStore extends BLJStore {
 
     public JSetLog createFromSet(JSet set) {
         JSetLog setLog = (JSetLog) this.create();
-        setLog.reps = set.reps;
+        setLog.reps = set.reps != null ? setLog.reps : 0;
         setLog.weight = set.roundedEffectiveWeight();
         setLog.name = set.lift.name;
         setLog.warmup = set.warmup;
