@@ -27,7 +27,7 @@ public abstract class SingleFragmentActivity extends BLActivity {
         this.fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         if (this.fragment == null) {
             this.fragment = createFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, this.fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, this.fragment).commitAllowingStateLoss();
         }
     }
 

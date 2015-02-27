@@ -36,7 +36,7 @@ public abstract class SingleFragmentActivityWithOverlay extends BLActivity {
             if (overlay != null) {
                 fragmentTransaction.add(R.id.overlayContainer, overlay);
             }
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
         }
     }
 
