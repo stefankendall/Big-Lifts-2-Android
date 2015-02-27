@@ -40,12 +40,22 @@ public class FTOGraphFragment extends Fragment {
         this.webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 if (!JPurchaseStore.instance().hasPurchasedEverything()) {
-                    FTOGraphFragment.this.webView.evaluateJavascript("window.setupTestData()", null);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            FTOGraphFragment.this.webView.loadUrl("javascript:window.setupTestData()");
+                        }
+                    });
                 } else {
-                    Gson gson = new Gson();
-                    FTOGraphFragment.this.webView.evaluateJavascript("window.loadData(" +
-                            gson.toJson(new FTOLogGraphTransformer().buildDataFromLog()) +
-                            ")", null);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Gson gson = new Gson();
+                            FTOGraphFragment.this.webView.loadUrl("javascript:window.loadData(" +
+                                    gson.toJson(new FTOLogGraphTransformer().buildDataFromLog()) +
+                                    ")", null);
+                        }
+                    });
                 }
             }
         });
