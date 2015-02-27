@@ -90,7 +90,7 @@ public class FTOLogGraphTransformerTests extends BLTestCase {
         List expected = Lists.newArrayList(
                 ImmutableMap.builder()
                         .put("data", Lists.newArrayList(
-                                ImmutableMap.builder().put("date", ImmutableMap.builder().put("month", 1).put("year", 2013).put("day", 12).build())
+                                ImmutableMap.builder().put("date", ImmutableMap.builder().put("day", 12).put("month", 1).put("year", 2013).build())
                                         .put("weight", new BigDecimal("224.0"))
                                         .build()
                         ))

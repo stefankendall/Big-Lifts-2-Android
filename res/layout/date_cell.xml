@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-        style="@style/list_item_padded">
+              style="@style/list_item_padded">
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Date"/>
-    <DatePicker android:id="@+id/date_picker"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+              android:text="Date"
+              android:layout_weight="1"/>
+    <Button android:id="@+id/date_button"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="01/02/2014"
+            android:layout_weight="0"
+            />
+
 
 </LinearLayout>

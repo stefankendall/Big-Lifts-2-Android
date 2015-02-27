@@ -15,14 +15,14 @@ public class FTOEditLogListAdapter extends SimpleListAdapter {
 
     public FTOEditLogListAdapter(FragmentActivity activity, JWorkoutLog workoutLog) {
         this.workoutLog = workoutLog;
-        this.items = buildItems();
         this.activity = activity;
+        this.items = buildItems();
     }
 
     @Override
     public List<CustomListItem> buildItems() {
         return Lists.<CustomListItem>newArrayList(
-                new LogDateEditCell(this.workoutLog)
+                new LogDateEditCell(this.workoutLog, this.activity)
         );
     }
 }
