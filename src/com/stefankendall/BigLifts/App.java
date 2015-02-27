@@ -45,4 +45,13 @@ public class App extends Application {
         }
         return preferences;
     }
+
+    public static int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getContext().getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 }

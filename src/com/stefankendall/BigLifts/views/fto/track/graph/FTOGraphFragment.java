@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.*;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
+import com.stefankendall.BigLifts.App;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.data.stores.JPurchaseStore;
 
@@ -38,12 +41,12 @@ public class FTOGraphFragment extends Fragment {
 
         this.webView.loadUrl("file:///android_asset/html/graph.html");
         this.webView.setWebViewClient(new WebViewClient() {
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(final WebView view, String url) {
                 if (!JPurchaseStore.instance().hasPurchasedEverything()) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            FTOGraphFragment.this.webView.loadUrl("javascript:window.setupTestData()");
+                            view.loadUrl("javascript:window.setupTestData()");
                         }
                     });
                 } else {
@@ -51,12 +54,25 @@ public class FTOGraphFragment extends Fragment {
                         @Override
                         public void run() {
                             Gson gson = new Gson();
-                            FTOGraphFragment.this.webView.loadUrl("javascript:window.loadData(" +
+                            view.loadUrl("javascript:window.loadData(" +
                                     gson.toJson(new FTOLogGraphTransformer().buildDataFromLog()) +
                                     ")", null);
                         }
                     });
                 }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DisplayMetrics displaymetrics = new DisplayMetrics();
+                        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                        double density = getResources().getDisplayMetrics().density;
+                        int height = (int) (displaymetrics.heightPixels / density) - App.getStatusBarHeight();
+                        int width = (int) (displaymetrics.widthPixels / density);
+                        Log.i("TAG", "Graph width: " + width + " " + height);
+                        view.loadUrl("javascript:window.setGraphSize(" + width + "," +
+                                height + ")");
+                    }
+                });
             }
         });
 

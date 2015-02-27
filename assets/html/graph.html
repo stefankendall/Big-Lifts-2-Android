@@ -16,9 +16,9 @@
         window.setupGraph(window.transformToHighChartsSeries(data));
     };
 
-    window.setGraphSize = function () {
-        var width = window.outerWidth - 10;
-        var height = window.outerHeight - 20;
+    window.setGraphSize = function (windowWidth, windowHeight) {
+        var width = windowWidth - 10;
+        var height = windowHeight - 20;
         var container = $('#container');
         container.css({'min-width': width + 'px', 'height': height + 'px'});
         var chart = container.highcharts();
@@ -30,10 +30,6 @@
     window.setupTestData = function () {
         window.setupGraph(window.testData);
     };
-
-    $(function () {
-        window.setGraphSize();
-    });
 </script>
 <div id="container" style="margin: 0 auto"></div>
 </body>
