@@ -19,7 +19,7 @@ public class FTOSetChangeFormListAdapter extends SimpleListAdapter {
         if (SetChange.instance().modifyingSet == null) {
             return Lists.newArrayList();
         }
-        
+
         return Lists.<CustomListItem>newArrayList(
                 new WeightCell(SetChange.instance().modifyingSet.roundedEffectiveWeight()),
                 new RepsCell(SetChange.instance().modifyingSet.reps)

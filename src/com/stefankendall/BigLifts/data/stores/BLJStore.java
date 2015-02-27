@@ -182,6 +182,9 @@ abstract public class BLJStore {
         return new Predicate<JModel>() {
             @Override
             public boolean apply(JModel model) {
+                if (value == null) {
+                    return false;
+                }
                 return value.equals(ObjectHelper.getProperty(model, name));
             }
         };
