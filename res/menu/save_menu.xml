@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:biglifts="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/save"
           android:title="Save"
-          android:showAsAction="always"
+          biglifts:showAsAction="always"
           android:onClick="saveTapped"/>
 </menu>
