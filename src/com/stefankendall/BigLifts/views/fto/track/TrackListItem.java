@@ -54,7 +54,7 @@ public class TrackListItem implements CustomListItem {
                 logs.addView(entry);
             }
 
-            if (!workoutLog.deload) {
+            if (!workoutLog.deload && workoutLog.workSets().size() > 0) {
                 View entry = inflater.inflate(R.layout.log_1rm_estimate, null);
                 JSetLog logToShow = SetHelper.heaviestAmrapSetLog(this.workoutLog.sets);
                 if (logToShow == null) {
