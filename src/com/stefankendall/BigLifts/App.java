@@ -7,6 +7,8 @@ import com.crashlytics.android.Crashlytics;
 import com.stefankendall.BigLifts.billing.util.IabService;
 import com.stefankendall.BigLifts.data.DataLoader;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class App extends Application {
     private static Context context;
     private static String PREFERENCE_FILE_NAME = "biglifts";
@@ -53,5 +55,19 @@ public class App extends Application {
             result = getContext().getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
+
+    public static int generateViewId() {
+        for (;;) {
+            final int result = sNextGeneratedId.get();
+            // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+            int newValue = result + 1;
+            if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+            if (sNextGeneratedId.compareAndSet(result, newValue)) {
+                return result;
+            }
+        }
     }
 }

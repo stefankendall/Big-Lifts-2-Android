@@ -2,8 +2,8 @@ package com.stefankendall.BigLifts.views.cells;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import com.stefankendall.BigLifts.R;
 import com.stefankendall.BigLifts.views.lists.CustomListItem;
@@ -25,9 +25,7 @@ public abstract class SwitchCell implements CustomListItem {
     }
 
     protected void setToggleValues(View view) {
-        Switch toggle = (Switch) view.findViewById(R.id.toggle_switch);
-        toggle.setTextOn(this.switchOnText());
-        toggle.setTextOff(this.switchOffText());
+        CheckBox toggle = (CheckBox) view.findViewById(R.id.toggle_switch);
         toggle.setChecked(this.defaultState());
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -35,14 +33,6 @@ public abstract class SwitchCell implements CustomListItem {
                 SwitchCell.this.valueChanged(b);
             }
         });
-    }
-
-    protected String switchOnText() {
-        return "ON";
-    }
-
-    protected String switchOffText() {
-        return "OFF";
     }
 
     protected abstract String label();

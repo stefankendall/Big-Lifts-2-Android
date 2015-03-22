@@ -30,12 +30,11 @@ public abstract class RadioButtonCell implements CustomListItem {
         group.removeAllViews();
 
         List<Integer> ids = Lists.newArrayList();
-        for (int i = 0; i < options.size(); i++) {
-            String option = options.get(i);
+        for (String option : options) {
             RadioButton button = new RadioButton(App.getContext());
             button.setText(option);
             button.setTextColor(Color.BLACK);
-            button.setId(View.generateViewId());
+            button.setId(App.generateViewId());
             ids.add(button.getId());
             group.addView(button);
         }
