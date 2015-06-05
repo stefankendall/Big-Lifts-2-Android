@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.stefankendall.BigLifts"
-          android:versionCode="37"
-          android:versionName="37">
+          package="com.stefankendall.BigLiftsPro"
+          android:versionCode="1"
+          android:versionName="1">
     <uses-sdk android:minSdkVersion="10"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="com.android.vending.BILLING"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:icon="@drawable/ic_launcher"
