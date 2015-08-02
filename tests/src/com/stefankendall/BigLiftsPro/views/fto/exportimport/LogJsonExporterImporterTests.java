@@ -14,8 +14,8 @@ public class LogJsonExporterImporterTests extends ActivityTestCase {
         assertDoesntCrash("crashing-log.json");
     }
 
-    public void testImportsJsonFileFromUser2() throws IOException {
-        assertDoesntCrash("crashing-log-2.json");
+    public void testImportsJsonFileFromUser3() throws IOException {
+        assertDoesntCrash("crashing-log-3.json");
     }
 
     private void assertDoesntCrash(String filename) throws IOException {
