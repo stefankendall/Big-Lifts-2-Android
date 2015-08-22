@@ -23,7 +23,7 @@ public class FTOLiftWorkoutToolbar implements CustomListItem {
             view = inflater.inflate(R.layout.fto_toolbar_cell, null);
         }
 
-        JSet heaviestAmrap = SetHelper.heaviestAmrapSet(this.jftoWorkout.workout.sets);
+        JSet heaviestAmrap = SetHelper.heaviestAmrapSet(this.jftoWorkout.workout.workSets());
 
         int repsToBeat = FTORepsToBeatCalculator.repsToBeat((JFTOLift) heaviestAmrap.lift, heaviestAmrap.roundedEffectiveWeight());
         TextView repsTextView = (TextView) view.findViewById(R.id.reps);

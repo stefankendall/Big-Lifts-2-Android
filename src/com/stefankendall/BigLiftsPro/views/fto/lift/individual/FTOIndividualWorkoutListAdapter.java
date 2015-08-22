@@ -65,7 +65,7 @@ public class FTOIndividualWorkoutListAdapter extends SimpleListAdapter {
         return items;
     }
 
-    private boolean shouldShowRepsToBeat() {
+    protected boolean shouldShowRepsToBeat() {
         List<JSet> amrapSets = this.jftoWorkout.workout.amrapSets();
         return amrapSets.size() > 0;
     }

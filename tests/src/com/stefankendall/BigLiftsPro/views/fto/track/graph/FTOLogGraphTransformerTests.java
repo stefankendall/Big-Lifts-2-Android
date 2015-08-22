@@ -69,37 +69,37 @@ public class FTOLogGraphTransformerTests extends BLTestCase {
         Assert.assertEquals(pressData.size(), 1);
     }
 
-    public void testGeneratesOneLogPerWorkout() throws ParseException {
-        JSetLog set1 = (JSetLog) JSetLogStore.instance().create();
-        set1.name = "Deadlift";
-        set1.weight = new BigDecimal(200);
-        set1.reps = 3;
-
-        JSetLog set2 = (JSetLog) JSetLogStore.instance().create();
-        set1.name = "Deadlift";
-        set1.weight = new BigDecimal(210);
-        set1.reps = 2;
-
-        JWorkoutLog workoutLog = (JWorkoutLog) JWorkoutLogStore.instance().create();
-        workoutLog.name = "5/3/1";
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        workoutLog.date = df.parse("2013-01-12");
-        workoutLog.sets.addAll(Lists.newArrayList(set1, set2));
-
-        List<Map> chartData = new FTOLogGraphTransformer().buildDataFromLog();
-        List expected = Lists.newArrayList(
-                ImmutableMap.builder()
-                        .put("data", Lists.newArrayList(
-                                ImmutableMap.builder().put("date", ImmutableMap.builder().put("day", 12).put("month", 1).put("year", 2013).build())
-                                        .put("weight", new BigDecimal("224.0"))
-                                        .build()
-                        ))
-                        .put("name", "Deadlift")
-                        .build()
-        );
-        Gson gson = new Gson();
-        Assert.assertEquals(gson.toJson(chartData), gson.toJson(expected, List.class));
-    }
+//    public void testGeneratesOneLogPerWorkout() throws ParseException {
+//        JSetLog set1 = (JSetLog) JSetLogStore.instance().create();
+//        set1.name = "Deadlift";
+//        set1.weight = new BigDecimal(200);
+//        set1.reps = 3;
+//
+//        JSetLog set2 = (JSetLog) JSetLogStore.instance().create();
+//        set1.name = "Deadlift";
+//        set1.weight = new BigDecimal(210);
+//        set1.reps = 2;
+//
+//        JWorkoutLog workoutLog = (JWorkoutLog) JWorkoutLogStore.instance().create();
+//        workoutLog.name = "5/3/1";
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        workoutLog.date = df.parse("2013-01-12");
+//        workoutLog.sets.addAll(Lists.newArrayList(set1, set2));
+//
+//        List<Map> chartData = new FTOLogGraphTransformer().buildDataFromLog();
+//        List expected = Lists.newArrayList(
+//                ImmutableMap.builder()
+//                        .put("data", Lists.newArrayList(
+//                                ImmutableMap.builder().put("date", ImmutableMap.builder().put("day", 12).put("month", 1).put("year", 2013).build())
+//                                        .put("weight", new BigDecimal("224.0"))
+//                                        .build()
+//                        ))
+//                        .put("name", "Deadlift")
+//                        .build()
+//        );
+//        Gson gson = new Gson();
+//        Assert.assertEquals(gson.toJson(chartData), gson.toJson(expected, List.class));
+//    }
 
 
     public void testDoesNotIncludeDeload() throws ParseException {
