@@ -17,6 +17,6 @@
     "adb shell am instrument -w com.stefankendall.BigLifts.tests/android.test.InstrumentationTestRunner"
     -->
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.stefankendall.BigLiftsPro"
+                     android:targetPackage="com.stefankendall.BigLifts"
                      android:label="Tests for com.stefankendall.BigLifts"/>
 </manifest>
